@@ -1,0 +1,23 @@
+import type { MetadataRoute } from "next";
+
+export const dynamic = "force-static";
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: "Chanchal Verma",
+    short_name: "Chanchal",
+    description:
+      "Portfolio of Chanchal Verma, full stack engineer working across Go, React, DevOps, cloud, and secure product engineering.",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#f7f6f2",
+    theme_color: "#111111",
+    icons: [
+      {
+        src: "/icon.svg",
+        sizes: "512x512",
+        type: "image/svg+xml",
+      },
+    ],
+  };
+}

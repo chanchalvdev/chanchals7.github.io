@@ -1,21 +1,52 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-space",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const ibmMono = IBM_Plex_Mono({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
+  variable: "--font-ibm-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Chanchal Verma | Software Engineer",
+  metadataBase: new URL("https://chanchal-verma.dev"),
+  title: {
+    default: "Chanchal Verma | Product-minded Full Stack Engineer",
+    template: "%s | Chanchal Verma",
+  },
   description:
-    "Portfolio of Chanchal Verma, a full stack engineer working across Go, React, DevOps, cloud platforms, and secure product engineering.",
+    "Portfolio of Chanchal Verma, a senior full stack engineer building secure cloud, AI, React, Go, DevOps, and cybersecurity products.",
+  keywords: [
+    "Chanchal Verma",
+    "Senior Full Stack Engineer",
+    "React",
+    "Next.js",
+    "Go",
+    "DevOps",
+    "Cloud",
+    "Cybersecurity",
+    "AI threat intelligence",
+  ],
+  authors: [{ name: "Chanchal Verma" }],
+  openGraph: {
+    title: "Chanchal Verma | Senior Full Stack Engineer",
+    description:
+      "Secure cloud and AI systems across React, Go, DevOps, and cybersecurity products.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chanchal Verma | Senior Full Stack Engineer",
+    description:
+      "Secure cloud and AI systems across React, Go, DevOps, and cybersecurity products.",
+  },
 };
 
 export default function RootLayout({
@@ -26,9 +57,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`h-full antialiased ${inter.variable} ${ibmMono.variable}`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-page">{children}</body>
     </html>
   );
 }

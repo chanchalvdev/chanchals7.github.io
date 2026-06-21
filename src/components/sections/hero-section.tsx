@@ -30,7 +30,7 @@ export function HeroSection() {
       <div className="absolute inset-x-0 top-0 -z-10 h-32 bg-linear-to-b from-white to-transparent" />
 
       {/* Hero portrait — desktop */}
-      <div className="absolute inset-y-0 right-0 -z-10 hidden w-[34%] max-w-116 lg:block">
+      <div className="absolute inset-y-0 right-0 -z-10 hidden w-[18%] max-w-60 lg:block">
         <Image
           src="/chanchal-hero.webp"
           alt="Portrait of Chanchal Verma"
@@ -100,7 +100,7 @@ export function HeroSection() {
           </div>
 
           {/* Mobile portrait */}
-          <div className="fade-up delay-4 relative mt-9 h-64 overflow-hidden rounded-2xl border border-ink/8 bg-white shadow-float sm:h-80 lg:hidden">
+          <div className="fade-up delay-4 relative mt-9 h-36 overflow-hidden rounded-2xl border border-ink/8 bg-white shadow-float sm:h-44 lg:hidden">
             <Image
               src="/chanchal-hero.webp"
               alt="Portrait of Chanchal Verma"

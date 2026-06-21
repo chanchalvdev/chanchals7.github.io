@@ -13,6 +13,7 @@ export type PortfolioProfile = {
   location: string;
   email: string;
   phone: string;
+  phoneIndia?: string;
   github: string;
   linkedin: string;
   blog: string;

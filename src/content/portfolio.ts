@@ -1,11 +1,10 @@
 import type {
-  BlogPost,
   PortfolioProfile,
   PortfolioProject,
   ProjectCategory,
 } from "@/lib/portfolio-contracts";
 
-export type { BlogPost, ProjectCategory };
+export type { ProjectCategory };
 export type Project = PortfolioProject;
 
 export const profile: PortfolioProfile = {
@@ -14,6 +13,7 @@ export const profile: PortfolioProfile = {
   location: "Abu Dhabi, UAE",
   email: "chanchal9.dev@gmail.com",
   phone: "[redacted-phone]",
+  phoneIndia: "+91 [redacted-phone]",
   github: "https://github.com/ChanchalS7",
   linkedin: "https://linkedin.com/in/chanchals7",
   blog: "https://dev.to/chanchals7",
@@ -277,97 +277,7 @@ export const projects: Project[] = [
   },
 ];
 
-export const posts: BlogPost[] = [
-  {
-    slug: "secure-ai-workflows-without-losing-product-clarity",
-    title: "Secure AI workflows without losing product clarity",
-    date: "2026-05-18",
-    readTime: "6 min",
-    tags: ["AI", "Security", "Product"],
-    excerpt:
-      "How I think about AI interfaces for operational teams where trust, context, and actionability matter more than novelty.",
-    body: [
-      {
-        heading: "The product problem",
-        paragraphs: [
-          "AI features in security products fail when they behave like isolated chat boxes. Analysts need context, provenance, access control, and a clear path from insight to action.",
-          "The interface has to make uncertainty visible while still helping users move faster.",
-        ],
-      },
-      {
-        heading: "The engineering shape",
-        paragraphs: [
-          "I prefer separating the AI interaction layer from authorization, audit, tenant context, and evidence retrieval. That keeps product iteration fast without weakening security boundaries.",
-          "Streaming is useful when it reduces wait anxiety, but it should be paired with stable citations, explicit actions, and saved investigation state.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "what-platform-engineering-taught-me-about-frontend-systems",
-    title: "What platform engineering taught me about frontend systems",
-    date: "2026-04-10",
-    readTime: "5 min",
-    tags: ["Frontend", "Cloud", "Architecture"],
-    excerpt:
-      "The best product frontends for technical users are not just pretty screens. They are decision systems with strong contracts.",
-    body: [
-      {
-        heading: "Frontend as a contract",
-        paragraphs: [
-          "When the UI represents infrastructure, ambiguous states create real operational risk. Loading, error, permission, and pending states are part of the product contract.",
-          "That is why I treat component architecture and API contracts as one system, not two separate concerns.",
-        ],
-      },
-      {
-        heading: "Design for repeated use",
-        paragraphs: [
-          "Operational users come back every day. Dense views, predictable navigation, and clear scan patterns often matter more than cinematic visuals.",
-          "The best interfaces feel calm because the system underneath them is disciplined.",
-        ],
-      },
-    ],
-  },
-  {
-    slug: "go-services-and-react-products-belong-closer-than-you-think",
-    title: "Go services and React products belong closer than you think",
-    date: "2026-03-02",
-    readTime: "4 min",
-    tags: ["Go", "React", "Backend"],
-    excerpt:
-      "A practical note on why backend service design and frontend product flow should influence each other early.",
-    body: [
-      {
-        heading: "Shared decisions",
-        paragraphs: [
-          "A backend endpoint is not just data transport. It shapes latency, error handling, user confidence, and the number of decisions the frontend must simulate.",
-          "When product and backend design happen together, the result is simpler code and a clearer user experience.",
-        ],
-      },
-      {
-        heading: "Where it pays off",
-        paragraphs: [
-          "Auth, pagination, audit events, optimistic updates, and long-running workflows all improve when the UI and API agree on real user intent.",
-          "That is where full stack thinking becomes a product advantage instead of just a hiring label.",
-        ],
-      },
-    ],
-  },
-];
-
 export const githubActivity = {
   username: "ChanchalS7",
-  summary: "Consistent product engineering across frontend systems, Go services, platform APIs, and security-focused workflows.",
-  totals: [
-    { value: "1,180", label: "sample contributions" },
-    { value: "42", label: "active weeks" },
-    { value: "7", label: "focus repos" },
-  ],
-  weeks: Array.from({ length: 28 }, (_, week) =>
-    Array.from({ length: 7 }, (_, day) => {
-      const seed = (week * 11 + day * 7 + 3) % 19;
-      if (week < 2 || week > 26) return Math.max(0, seed - 13);
-      return seed > 14 ? 4 : seed > 10 ? 3 : seed > 6 ? 2 : seed > 2 ? 1 : 0;
-    }),
-  ),
+  summary: "Connect a GitHub token to display real contribution data.",
 };

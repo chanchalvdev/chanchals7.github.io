@@ -1,3 +1,5 @@
+import { supabase } from "./supabase";
+
 export interface StoredBlogPost {
   id: string;
   title: string;
@@ -17,41 +19,104 @@ export interface StoredBlogPost {
   wordCount: number;
 }
 
-const STORAGE_KEY = "portfolio_blogs_v1";
+// ── DB row ↔ TS object ────────────────────────────────────────────────────────
 
-export function getBlogs(): StoredBlogPost[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as StoredBlogPost[]) : [];
-  } catch {
-    return [];
-  }
+type DBRow = Record<string, unknown>;
+
+function fromDB(row: DBRow): StoredBlogPost {
+  return {
+    id: row.id as string,
+    title: (row.title as string) ?? "",
+    slug: row.slug as string,
+    content: (row.content as string) ?? "",
+    excerpt: (row.excerpt as string) ?? "",
+    category: (row.category as string) ?? "",
+    tags: (row.tags as string[]) ?? [],
+    coverImage: (row.cover_image as string) || undefined,
+    status: row.status as "draft" | "published",
+    seoTitle: (row.seo_title as string) || undefined,
+    seoDescription: (row.seo_description as string) || undefined,
+    createdAt: row.created_at as string,
+    updatedAt: row.updated_at as string,
+    publishedAt: (row.published_at as string) || undefined,
+    readTime: (row.read_time as string) ?? "1 min read",
+    wordCount: (row.word_count as number) ?? 0,
+  };
 }
 
-export function getBlogBySlug(slug: string): StoredBlogPost | null {
-  return getBlogs().find((b) => b.slug === slug) ?? null;
+function toDB(post: StoredBlogPost): DBRow {
+  return {
+    id: post.id,
+    title: post.title,
+    slug: post.slug,
+    content: post.content,
+    excerpt: post.excerpt,
+    category: post.category,
+    tags: post.tags,
+    cover_image: post.coverImage ?? null,
+    status: post.status,
+    seo_title: post.seoTitle ?? null,
+    seo_description: post.seoDescription ?? null,
+    created_at: post.createdAt,
+    updated_at: post.updatedAt,
+    published_at: post.publishedAt ?? null,
+    read_time: post.readTime,
+    word_count: post.wordCount,
+  };
 }
 
-export function getBlogById(id: string): StoredBlogPost | null {
-  return getBlogs().find((b) => b.id === id) ?? null;
+// ── CRUD (async — Supabase) ───────────────────────────────────────────────────
+
+export async function getBlogs(): Promise<StoredBlogPost[]> {
+  const { data, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .order("updated_at", { ascending: false });
+  if (error || !data) return [];
+  return data.map(fromDB);
 }
 
-export function saveBlog(blog: StoredBlogPost): void {
-  const blogs = getBlogs();
-  const idx = blogs.findIndex((b) => b.id === blog.id);
-  if (idx >= 0) {
-    blogs[idx] = blog;
-  } else {
-    blogs.push(blog);
-  }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(blogs));
+export async function getPublishedBlogs(): Promise<StoredBlogPost[]> {
+  const { data, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("status", "published")
+    .order("published_at", { ascending: false });
+  if (error || !data) return [];
+  return data.map(fromDB);
 }
 
-export function deleteBlog(id: string): void {
-  const blogs = getBlogs().filter((b) => b.id !== id);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(blogs));
+export async function getBlogBySlug(slug: string): Promise<StoredBlogPost | null> {
+  const { data, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+  if (error || !data) return null;
+  return fromDB(data);
 }
+
+export async function getBlogById(id: string): Promise<StoredBlogPost | null> {
+  const { data, error } = await supabase
+    .from("blogs")
+    .select("*")
+    .eq("id", id)
+    .single();
+  if (error || !data) return null;
+  return fromDB(data);
+}
+
+export async function saveBlog(post: StoredBlogPost): Promise<boolean> {
+  const { error } = await supabase.from("blogs").upsert(toDB(post));
+  return !error;
+}
+
+export async function deleteBlog(id: string): Promise<boolean> {
+  const { error } = await supabase.from("blogs").delete().eq("id", id);
+  return !error;
+}
+
+// ── Utilities (sync, no DB) ───────────────────────────────────────────────────
 
 export function generateSlug(title: string): string {
   return title
@@ -76,16 +141,6 @@ export function calculateReadTime(html: string): string {
 export function countWords(html: string): number {
   const text = html.replace(/<[^>]+>/g, " ");
   return text.split(/\s+/).filter((w) => w.length > 0).length;
-}
-
-export function getPublishedBlogs(): StoredBlogPost[] {
-  return getBlogs()
-    .filter((b) => b.status === "published")
-    .sort((a, b) => {
-      const dateA = a.publishedAt ?? a.createdAt;
-      const dateB = b.publishedAt ?? b.createdAt;
-      return new Date(dateB).getTime() - new Date(dateA).getTime();
-    });
 }
 
 export function formatDate(iso: string): string {

@@ -30,23 +30,27 @@ export function HeroSection() {
       <div className="absolute inset-x-0 top-0 -z-10 h-32 bg-linear-to-b from-white to-transparent" />
 
       {/* Hero portrait — desktop */}
-      <div className="absolute inset-y-0 right-0 -z-10 hidden w-[18%] max-w-60 lg:block">
+      <div
+        aria-hidden="true"
+        className="absolute top-0 right-[28%] -z-10 hidden lg:block"
+        style={{ width: 180, height: 380 }}
+      >
         <Image
           src="/chanchal-hero.webp"
-          alt="Portrait of Chanchal Verma"
+          alt=""
           fill
           priority
-          sizes="(min-width: 1024px) 42vw, 100vw"
-          className="object-cover object-[50%_15%]"
+          sizes="180px"
+          className="object-cover object-[50%_10%]"
           style={{
-            WebkitMaskImage:
-              "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 22%, black 42%, black 80%, transparent 100%)",
+            mixBlendMode: "multiply",
+            opacity: 0.88,
             maskImage:
-              "linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 22%, black 42%, black 80%, transparent 100%)",
+              "radial-gradient(ellipse 148px 290px at 52% 42%, black 30%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.15) 68%, transparent 80%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 148px 290px at 52% 42%, black 30%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.15) 68%, transparent 80%)",
           }}
         />
-        {/* Portrait bottom fade */}
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-page to-transparent" />
       </div>
 
       {/* Main content */}

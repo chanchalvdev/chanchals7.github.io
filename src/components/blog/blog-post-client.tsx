@@ -113,22 +113,24 @@ function BlogPostInner() {
 
   useEffect(() => {
     if (!slug) return;
-    const found = getBlogBySlug(slug);
-    setPost(found ?? null);
-
-    if (found) {
-      setProcessedHtml(addHeadingIds(found.content));
-      document.title = `${found.title} | Chanchal Verma`;
-
-      const related = getPublishedBlogs()
-        .filter(
-          (p) =>
-            p.id !== found.id &&
-            (p.category === found.category || p.tags.some((t) => found.tags.includes(t))),
-        )
-        .slice(0, 2);
-      setRelatedPosts(related);
-    }
+    (async () => {
+      const found = await getBlogBySlug(slug);
+      setPost(found ?? null);
+      if (found) {
+        setProcessedHtml(addHeadingIds(found.content));
+        document.title = `${found.title} | Chanchal Verma`;
+        const all = await getPublishedBlogs();
+        setRelatedPosts(
+          all
+            .filter(
+              (p) =>
+                p.id !== found.id &&
+                (p.category === found.category || p.tags.some((t) => found.tags.includes(t))),
+            )
+            .slice(0, 2),
+        );
+      }
+    })();
   }, [slug]);
 
   if (post === undefined) {

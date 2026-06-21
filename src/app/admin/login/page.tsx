@@ -14,25 +14,20 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (isAdminLoggedIn()) {
-      router.replace("/admin");
-    }
+    isAdminLoggedIn().then((ok) => { if (ok) router.replace("/admin"); });
   }, [router]);
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
-
-    setTimeout(() => {
-      const ok = adminLogin(email.trim(), password);
-      if (ok) {
-        router.push("/admin");
-      } else {
-        setError("Invalid email or password.");
-        setLoading(false);
-      }
-    }, 400);
+    const ok = await adminLogin(email.trim(), password);
+    if (ok) {
+      router.push("/admin");
+    } else {
+      setError("Invalid email or password.");
+      setLoading(false);
+    }
   }
 
   return (
@@ -65,14 +60,6 @@ export default function AdminLoginPage() {
 
         {/* Card */}
         <div className="rounded-2xl border border-ink/10 bg-white p-8 shadow-float">
-          <div className="mb-6 flex items-center gap-2.5 rounded-xl border border-cobalt/15 bg-cobalt/4 px-4 py-3">
-            <ShieldCheck className="size-4 shrink-0 text-cobalt" />
-            <div>
-              <p className="text-[0.78rem] font-bold text-cobalt">Demo credentials</p>
-              <p className="text-[0.72rem] text-cobalt/70">admin@portfolio.com / admin123</p>
-            </div>
-          </div>
-
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-ink/70">

@@ -96,11 +96,24 @@ create policy "auth full access"
 
 async function runMigration() {
   console.log("\n📦  Running database migration...");
-  const client = new pg.Client({ connectionString: DB_URL, ssl: { rejectUnauthorized: false } });
-  await client.connect();
-  await client.query(MIGRATION_SQL);
-  await client.end();
-  console.log("✅  Migration complete — blogs table + RLS policies created.");
+  try {
+    const client = new pg.Client({ connectionString: DB_URL, ssl: { rejectUnauthorized: false }, connectionTimeoutMillis: 8000 });
+    await client.connect();
+    await client.query(MIGRATION_SQL);
+    await client.end();
+    console.log("✅  Migration complete — blogs table + RLS policies created.");
+  } catch (err) {
+    if (err.code === "ENOTFOUND" || err.code === "ETIMEDOUT" || err.code === "ECONNREFUSED") {
+      console.log("⚠️   Direct DB connection blocked (port 5432 is restricted on this network).");
+      console.log("     Run this SQL manually in Supabase Dashboard → SQL Editor:\n");
+      console.log("─────────────────────────────────────────────────────────────");
+      console.log(MIGRATION_SQL);
+      console.log("─────────────────────────────────────────────────────────────");
+      console.log("\n     Then come back — admin user creation will proceed now.\n");
+    } else {
+      throw err;
+    }
+  }
 }
 
 // ── Admin user creation ───────────────────────────────────────────────────────

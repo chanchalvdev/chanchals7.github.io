@@ -76,7 +76,7 @@ export default function BlogIndexPage() {
 
   useEffect(() => {
     setMounted(true);
-    setAllPosts(getPublishedBlogs());
+    getPublishedBlogs().then(setAllPosts);
   }, []);
 
   const categories = useMemo(() => {

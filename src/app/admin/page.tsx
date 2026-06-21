@@ -435,7 +435,7 @@ function EditorView({
     };
   }, [post]);
 
-  function handleSave(publish?: boolean) {
+  async function handleSave(publish?: boolean) {
     if (!post.title.trim()) {
       alert("Please add a title before saving.");
       return;
@@ -453,7 +453,7 @@ function EditorView({
       updatedAt: now,
     };
 
-    saveBlog(finalPost);
+    await saveBlog(finalPost);
     localStorage.removeItem(AUTOSAVE_KEY);
     onSave(finalPost);
   }
@@ -556,28 +556,30 @@ export default function AdminPage() {
 
   useEffect(() => {
     setMounted(true);
-    if (!isAdminLoggedIn()) {
-      router.replace("/admin/login");
-      return;
-    }
-    setBlogs(getBlogs().sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()));
+    (async () => {
+      const ok = await isAdminLoggedIn();
+      if (!ok) { router.replace("/admin/login"); return; }
+      const data = await getBlogs();
+      setBlogs(data.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()));
+    })();
   }, [router]);
 
-  function refreshBlogs() {
-    setBlogs(getBlogs().sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()));
+  async function refreshBlogs() {
+    const data = await getBlogs();
+    setBlogs(data.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()));
   }
 
-  function handleLogout() {
-    adminLogout();
+  async function handleLogout() {
+    await adminLogout();
     router.push("/admin/login");
   }
 
-  function handleDelete(id: string) {
-    deleteBlog(id);
+  async function handleDelete(id: string) {
+    await deleteBlog(id);
     refreshBlogs();
   }
 
-  function handleToggleStatus(id: string) {
+  async function handleToggleStatus(id: string) {
     const blog = blogs.find((b) => b.id === id);
     if (!blog) return;
     const now = new Date().toISOString();
@@ -587,7 +589,7 @@ export default function AdminPage() {
       publishedAt: blog.status !== "published" ? now : blog.publishedAt,
       updatedAt: now,
     };
-    saveBlog(updated);
+    await saveBlog(updated);
     refreshBlogs();
   }
 

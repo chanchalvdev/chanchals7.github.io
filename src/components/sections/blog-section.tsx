@@ -12,7 +12,7 @@ export function BlogSection() {
 
   useEffect(() => {
     setMounted(true);
-    setPosts(getPublishedBlogs().slice(0, 3));
+    getPublishedBlogs().then((all) => setPosts(all.slice(0, 3)));
   }, []);
 
   return (

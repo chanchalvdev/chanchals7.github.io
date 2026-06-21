@@ -41,7 +41,7 @@ export function ContactSection() {
 
               {/* Proof points */}
               <div className="mt-10 flex flex-wrap gap-3">
-                {["Open to full-time", "Senior IC roles", "Remote / UAE"].map((tag) => (
+                {["Open to full-time", "Senior IC roles", "Remote / UAE / India"].map((tag) => (
                   <span
                     key={tag}
                     className="rounded-full border border-white/14 px-4 py-1.5 text-sm font-semibold text-white/70"
@@ -76,14 +76,24 @@ export function ContactSection() {
                   className="rounded-xl border border-white/12 p-5 text-white/65 transition hover:border-white/25 hover:bg-white/8 hover:text-white"
                 >
                   <Phone className="size-4" aria-hidden="true" />
-                  <span className="mt-4 block text-sm font-bold">Call</span>
+                  <span className="mt-4 block text-sm font-bold">UAE</span>
                   <span className="mt-1 block text-sm text-white/42">{profile.phone}</span>
                 </a>
-                <div className="rounded-xl border border-white/12 p-5 text-white/65">
-                  <MapPin className="size-4" aria-hidden="true" />
-                  <span className="mt-4 block text-sm font-bold">Location</span>
-                  <span className="mt-1 block text-sm text-white/42">{profile.location}</span>
-                </div>
+                {profile.phoneIndia && (
+                  <a
+                    href={`tel:${profile.phoneIndia.replace(/\s/g, "")}`}
+                    className="rounded-xl border border-white/12 p-5 text-white/65 transition hover:border-white/25 hover:bg-white/8 hover:text-white"
+                  >
+                    <Phone className="size-4" aria-hidden="true" />
+                    <span className="mt-4 block text-sm font-bold">India</span>
+                    <span className="mt-1 block text-sm text-white/42">{profile.phoneIndia}</span>
+                  </a>
+                )}
+              </div>
+              <div className="rounded-xl border border-white/12 p-5 text-white/65">
+                <MapPin className="size-4" aria-hidden="true" />
+                <span className="mt-4 block text-sm font-bold">Location</span>
+                <span className="mt-1 block text-sm text-white/42">{profile.location}</span>
               </div>
             </div>
           </div>

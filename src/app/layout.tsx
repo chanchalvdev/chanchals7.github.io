@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, IBM_Plex_Mono } from "next/font/google";
+import { LoadingProvider } from "@/components/ui/loading-screen";
 import "./globals.css";
 
 const inter = Inter({
@@ -59,7 +60,9 @@ export default function RootLayout({
       lang="en"
       className={`h-full antialiased ${inter.variable} ${ibmMono.variable}`}
     >
-      <body className="min-h-full flex flex-col bg-page">{children}</body>
+      <body className="min-h-full flex flex-col bg-page">
+        <LoadingProvider>{children}</LoadingProvider>
+      </body>
     </html>
   );
 }

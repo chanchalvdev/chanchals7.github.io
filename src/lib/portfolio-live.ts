@@ -1,4 +1,3 @@
-import { githubActivity } from "@/content/portfolio";
 import { fetchGitHubContributions } from "@/lib/github";
 import type { LivePortfolioSignals } from "@/lib/portfolio-contracts";
 
@@ -10,13 +9,17 @@ function normalizeContributionLevel(count: number) {
   return 4;
 }
 
+const EMPTY_WEEKS: number[][] = Array.from({ length: 28 }, () =>
+  Array.from({ length: 7 }, () => 0),
+);
+
 export function getStaticPortfolioSignals(): LivePortfolioSignals {
   return {
-    refreshedAt: "Static snapshot",
-    contributionTotal: 1180,
-    activeWeeks: 42,
-    focusRepos: 7,
-    weeks: githubActivity.weeks,
+    refreshedAt: "No live data — add GITHUB_TOKEN to connect",
+    contributionTotal: 0,
+    activeWeeks: 0,
+    focusRepos: 0,
+    weeks: EMPTY_WEEKS,
   };
 }
 

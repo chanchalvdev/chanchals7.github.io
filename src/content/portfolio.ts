@@ -9,7 +9,7 @@ export type Project = PortfolioProject;
 
 export const profile: PortfolioProfile = {
   name: "Chanchal Verma",
-  role: "Senior Full Stack Engineer",
+  role: "AI Security Engineer • Product Engineering • Agentic AI • Golang • Node.js • React • Kubernetes • UI/UX",
   location: "Abu Dhabi, UAE",
   email: "chanchal9.dev@gmail.com",
   phone: "[redacted-phone]",

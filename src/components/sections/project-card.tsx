@@ -24,7 +24,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
   const tagTone   = categoryTag[project.category]   ?? "neutral";
 
   return (
-    <article className="group relative overflow-hidden rounded-xl border border-ink/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift lg:grid lg:grid-cols-[0.11fr_0.49fr_0.4fr]">
+    <article className="group relative overflow-hidden rounded-xl border border-ink/10 bg-white shadow-soft lg:grid lg:grid-cols-[0.11fr_0.49fr_0.4fr]">
       {/* Top category accent bar */}
       <div className={`absolute inset-x-0 top-0 h-0.5 ${accentBar} opacity-80`} />
 
@@ -40,11 +40,11 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
 
       {/* Main content */}
       <div className="border-t border-ink/8 p-5 lg:border-l lg:border-t-0 lg:p-6">
-        <Link href={`/projects/${project.slug}`} className="block">
-          <h3 className="max-w-xl text-2xl font-bold leading-tight text-ink transition group-hover:text-cobalt sm:text-3xl">
+        <div className="block pointer-events-none">
+          <h3 className="max-w-xl text-2xl font-bold leading-tight text-ink sm:text-3xl">
             {project.title}
           </h3>
-        </Link>
+        </div>
         <p className="mt-3 max-w-2xl text-base leading-7 text-ink/58">
           {project.description}
         </p>
@@ -80,26 +80,24 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
 
         {/* Actions */}
         <div className="flex flex-wrap gap-2">
-          <Link
-            href={`/projects/${project.slug}`}
-            className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-ink px-4 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-ink/88"
+          <button
+            disabled
+            className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-ink/50 px-4 text-sm font-semibold text-white cursor-not-allowed opacity-60"
           >
             Case study
             <ArrowUpRight className="size-3.5" aria-hidden="true" />
-          </Link>
+          </button>
           {project.links.github ? (
-            <a
-              href={project.links.github}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-ink/10 bg-white px-4 text-sm font-semibold text-ink transition hover:border-cobalt/25 hover:text-cobalt"
+            <button
+              disabled
+              className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-ink/10 bg-white px-4 text-sm font-semibold text-ink/50 cursor-not-allowed opacity-60"
             >
               <Code2 className="size-3.5" aria-hidden="true" />
               Source
-            </a>
+            </button>
           ) : null}
           {project.featured ? (
-            <span className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-lime-light px-3 text-sm font-semibold text-lime-700">
+            <span className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-lime-light px-3 text-sm font-semibold text-lime-700 opacity-60">
               <Sparkles className="size-3.5" aria-hidden="true" />
               Featured
             </span>

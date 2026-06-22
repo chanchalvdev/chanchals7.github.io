@@ -7,7 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Chanchal Verma",
     short_name: "Chanchal",
     description:
-      "Portfolio of Chanchal Verma, senior full stack engineer building secure cloud, AI, and cybersecurity products.",
+      "Portfolio of Chanchal Verma, AI Security Engineer specializing in AI Product Engineering, Agentic AI, Golang, Node.js, React, Kubernetes, and UI/UX.",
     start_url: "/",
     display: "standalone",
     background_color: "#f5f7f2",

@@ -21,25 +21,25 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-ink/8 bg-white px-5 py-12 text-ink sm:px-8">
+    <footer className="border-t border-ink/8 bg-linear-to-b from-white to-background px-5 py-12 text-ink sm:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 md:grid-cols-[1fr_1fr_auto] md:items-start">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
-              <span className="grid size-9 place-items-center rounded-lg bg-cobalt font-mono text-[0.8rem] font-bold text-white">
+              <span className="grid size-10 place-items-center rounded-xl bg-linear-to-br from-amber to-coral font-mono text-sm font-bold text-white shadow-md">
                 CV
               </span>
               <span className="text-sm font-bold text-ink">{profile.name}</span>
             </div>
-            <p className="mt-4 max-w-xs text-sm leading-7 text-ink/50">
+            <p className="mt-4 max-w-xs text-sm leading-7 text-ink/60">
               Building secure product surfaces for teams that need clarity under pressure.
             </p>
           </div>
 
           {/* Nav links */}
           <nav aria-label="Footer navigation">
-            <p className="mb-4 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/32">
+            <p className="mb-4 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/40">
               Navigation
             </p>
             <ul className="flex flex-col gap-2.5">
@@ -47,7 +47,7 @@ export function Footer() {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="text-sm font-semibold text-ink/50 transition hover:text-cobalt"
+                    className="text-sm font-semibold text-ink/60 transition-colors hover:text-amber"
                   >
                     {item.label}
                   </a>
@@ -58,7 +58,7 @@ export function Footer() {
 
           {/* Social + email */}
           <div>
-            <p className="mb-4 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/32">
+            <p className="mb-4 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/40">
               Connect
             </p>
             <div className="flex flex-col gap-2">
@@ -66,27 +66,27 @@ export function Footer() {
                 href={profile.github}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-9 items-center gap-2 rounded-lg border border-ink/10 bg-page px-3 text-sm font-semibold text-ink/60 transition hover:border-cobalt/25 hover:text-cobalt"
+                className="inline-flex h-10 items-center gap-2 rounded-lg border border-ink/10 bg-white px-3 text-sm font-semibold text-ink/60 transition-all hover:border-amber/30 hover:text-amber hover:bg-amber/5"
                 aria-label="GitHub"
               >
-                <GitHubIcon className="size-3.5" />
+                <GitHubIcon className="size-4" />
                 GitHub
               </a>
               <a
                 href={profile.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-9 items-center gap-2 rounded-lg border border-ink/10 bg-page px-3 text-sm font-semibold text-ink/60 transition hover:border-cobalt/25 hover:text-cobalt"
+                className="inline-flex h-10 items-center gap-2 rounded-lg border border-ink/10 bg-white px-3 text-sm font-semibold text-ink/60 transition-all hover:border-cobalt/30 hover:text-cobalt hover:bg-cobalt/5"
                 aria-label="LinkedIn"
               >
-                <LinkedInIcon className="size-3" />
+                <LinkedInIcon className="size-3.5" />
                 LinkedIn
               </a>
               <a
                 href={`mailto:${profile.email}`}
-                className="inline-flex h-9 items-center gap-2 rounded-lg bg-cobalt px-3 text-sm font-semibold text-white transition hover:-translate-y-0.5"
+                className="inline-flex h-10 items-center gap-2 rounded-lg bg-linear-to-r from-amber to-coral px-3 text-sm font-semibold text-white shadow-md transition-all hover:shadow-lg hover:scale-105"
               >
-                <Mail className="size-3.5" aria-hidden="true" />
+                <Mail className="size-4" aria-hidden="true" />
                 Email me
               </a>
             </div>
@@ -94,7 +94,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-ink/8 pt-6 text-xs font-medium text-ink/36">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-ink/8 pt-6 text-xs font-medium text-ink/40">
           <p>© {year} {profile.name}. Built with Next.js & Tailwind CSS.</p>
           <p className="font-mono uppercase tracking-[0.12em]">Abu Dhabi, UAE</p>
         </div>

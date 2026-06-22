@@ -156,12 +156,12 @@ function BlogPostInner() {
       <>
         <Navbar />
         <main className="flex min-h-[60vh] flex-col items-center justify-center px-5 py-20 text-center">
-          <p className="text-kicker text-cobalt">404</p>
+          <p className="text-kicker text-amber">404</p>
           <h1 className="mt-3 text-3xl font-bold text-ink">Post not found</h1>
           <p className="mt-3 text-ink/56">This post may have been removed or the URL is incorrect.</p>
           <Link
             href="/blog"
-            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-cobalt px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5"
+            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-linear-to-r from-amber to-coral px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:shadow-lg hover:scale-105"
           >
             <ArrowLeft className="size-4" />
             Back to writing
@@ -196,7 +196,7 @@ function BlogPostInner() {
             <div>
               <header className="border-b border-ink/10 pb-10">
                 <div className="flex flex-wrap gap-2">
-                  <span className="rounded-md border border-cobalt/16 bg-cobalt/6 px-2.5 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-[0.14em] text-cobalt">
+                  <span className="rounded-md border border-amber/20 bg-amber/10 px-2.5 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-[0.14em] text-amber">
                     {post.category}
                   </span>
                   {post.tags.map((tag) => (

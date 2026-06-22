@@ -12,11 +12,11 @@ type ButtonLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 
 const variants = {
   primary:
-    "bg-cobalt text-white shadow-cobalt/30 shadow-md hover:-translate-y-0.5 hover:bg-cobalt/90 hover:shadow-cobalt/40 focus-visible:outline-cobalt",
+    "bg-linear-to-r from-amber to-coral text-white shadow-md hover:-translate-y-0.5 hover:shadow-lg hover:scale-105 focus-visible:outline-amber",
   secondary:
-    "border border-ink/12 bg-white text-ink shadow-sm hover:-translate-y-0.5 hover:border-cobalt/25 hover:text-cobalt focus-visible:outline-cobalt",
+    "border border-ink/12 bg-white text-ink shadow-sm hover:-translate-y-0.5 hover:border-amber/30 hover:text-amber hover:bg-amber/5 focus-visible:outline-amber",
   ghost:
-    "text-ink hover:bg-ink/6 focus-visible:outline-cobalt",
+    "text-ink hover:bg-amber/6 hover:text-amber focus-visible:outline-amber",
   dark:
     "border border-white/16 bg-white text-ink hover:-translate-y-0.5 hover:bg-white/90 focus-visible:outline-white",
 };

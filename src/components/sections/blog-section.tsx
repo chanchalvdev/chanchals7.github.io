@@ -48,8 +48,8 @@ export function BlogSection() {
             </div>
           ) : posts.length === 0 ? (
             <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-ink/10 bg-white px-8 py-16 text-center shadow-soft">
-              <div className="grid size-14 place-items-center rounded-2xl bg-cobalt/6">
-                <PenLine className="size-6 text-cobalt/60" aria-hidden="true" />
+              <div className="grid size-14 place-items-center rounded-2xl bg-amber/10">
+                <PenLine className="size-6 text-amber" aria-hidden="true" />
               </div>
               <div>
                 <p className="text-lg font-semibold text-ink">No blogs published yet</p>
@@ -67,7 +67,7 @@ export function BlogSection() {
                       {post.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-md border border-cobalt/16 bg-cobalt/6 px-2.5 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-[0.14em] text-cobalt"
+                          className="rounded-md border border-amber/20 bg-amber/8 px-2.5 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-[0.14em] text-amber"
                         >
                           {tag}
                         </span>

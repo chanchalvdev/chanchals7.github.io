@@ -20,11 +20,14 @@ export function ProjectList({ projects }: { projects: Project[] }) {
         ? projects
         : projects.filter((p) => p.category === activeCategory);
 
-    return [...filtered].sort((a, b) => {
+    const sorted = [...filtered].sort((a, b) => {
       if (sortMode === "recent") return Number(b.year) - Number(a.year);
       if (sortMode === "impact") return b.sortScore - a.sortScore;
       return Number(b.featured) - Number(a.featured) || b.sortScore - a.sortScore;
     });
+
+    // Limit to 4 case studies
+    return sorted.slice(0, 4);
   }, [activeCategory, projects, sortMode]);
 
   return (
@@ -42,13 +45,14 @@ export function ProjectList({ projects }: { projects: Project[] }) {
             <label className="sr-only" htmlFor="project-sort">
               Sort projects
             </label>
-            <div className="inline-flex w-full items-center gap-2 rounded-xl border border-ink/10 bg-white px-3 shadow-soft lg:w-auto">
-              <SlidersHorizontal className="size-4 shrink-0 text-cobalt" aria-hidden="true" />
+            <div className="inline-flex w-full items-center gap-2 rounded-xl border border-ink/10 bg-white px-3 shadow-soft lg:w-auto opacity-60">
+              <SlidersHorizontal className="size-4 shrink-0 text-amber" aria-hidden="true" />
               <select
                 id="project-sort"
                 value={sortMode}
                 onChange={(e) => setSortMode(e.target.value as SortMode)}
-                className="h-11 flex-1 bg-transparent text-sm font-semibold text-ink outline-none lg:flex-none"
+                disabled
+                className="h-11 flex-1 bg-transparent text-sm font-semibold text-ink outline-none lg:flex-none cursor-not-allowed"
               >
                 <option value="selected">Selected first</option>
                 <option value="recent">Newest first</option>
@@ -66,13 +70,13 @@ export function ProjectList({ projects }: { projects: Project[] }) {
               <button
                 key={cat}
                 type="button"
+                disabled
                 className={cn(
-                  "h-9 rounded-full border px-4 text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cobalt",
+                  "h-9 rounded-full border px-4 text-sm font-semibold transition cursor-not-allowed opacity-60",
                   isActive
-                    ? "border-cobalt bg-cobalt text-white shadow-sm"
-                    : "border-ink/10 bg-white text-ink/56 hover:border-cobalt/25 hover:text-cobalt",
+                    ? "border-amber bg-amber/10 text-amber shadow-sm"
+                    : "border-ink/10 bg-white text-ink/56",
                 )}
-                onClick={() => setActiveCategory(cat)}
                 aria-pressed={isActive}
               >
                 {cat}
@@ -83,7 +87,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
 
         {/* Count bar */}
         <div className="mt-8 flex items-center gap-2 border-y border-ink/8 py-3.5 text-sm font-semibold text-ink/48">
-          <LayoutGrid className="size-4 text-cobalt/70" aria-hidden="true" />
+          <LayoutGrid className="size-4 text-amber" aria-hidden="true" />
           {visibleProjects.length} case {visibleProjects.length === 1 ? "study" : "studies"} in this view
         </div>
 

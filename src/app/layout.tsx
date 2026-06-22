@@ -19,17 +19,22 @@ const ibmMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://chanchal-verma.dev"),
   title: {
-    default: "Chanchal Verma | Product-minded Full Stack Engineer",
+    default: "Chanchal Verma | AI Security Engineer | AI Product Engineering",
     template: "%s | Chanchal Verma",
   },
   description:
-    "Portfolio of Chanchal Verma, a senior full stack engineer building secure cloud, AI, React, Go, DevOps, and cybersecurity products.",
+    "Portfolio of Chanchal Verma, AI Security Engineer specializing in AI Product Engineering, Agentic AI, Golang, Node.js, React, Kubernetes, and UI/UX design.",
   keywords: [
     "Chanchal Verma",
-    "Senior Full Stack Engineer",
+    "AI Security Engineer",
+    "AI Product Engineering",
+    "Agentic AI",
+    "Golang",
+    "Node.js",
     "React",
     "Next.js",
-    "Go",
+    "Kubernetes",
+    "UI/UX",
     "DevOps",
     "Cloud",
     "Cybersecurity",
@@ -37,16 +42,16 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Chanchal Verma" }],
   openGraph: {
-    title: "Chanchal Verma | Senior Full Stack Engineer",
+    title: "Chanchal Verma | AI Security Engineer | AI Product Engineering",
     description:
-      "Secure cloud and AI systems across React, Go, DevOps, and cybersecurity products.",
+      "AI Security Engineer specializing in Agentic AI, Golang, Node.js, React, Kubernetes, and UI/UX design.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chanchal Verma | Senior Full Stack Engineer",
+    title: "Chanchal Verma | AI Security Engineer | AI Product Engineering",
     description:
-      "Secure cloud and AI systems across React, Go, DevOps, and cybersecurity products.",
+      "AI Security Engineer specializing in Agentic AI, Golang, Node.js, React, Kubernetes, and UI/UX design.",
   },
 };
 

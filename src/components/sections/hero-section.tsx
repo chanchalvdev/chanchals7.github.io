@@ -7,48 +7,73 @@ export function HeroSection() {
   return (
     <section
       id="main"
-      className="relative min-h-[88svh] overflow-hidden px-5 pb-0 pt-8 sm:px-8 lg:pt-10"
+      className="relative min-h-svh overflow-hidden bg-linear-to-br from-background via-page to-surface-warm px-5 pb-0 pt-28 sm:px-8 lg:pt-32"
     >
-      {/* Background grid */}
-      <div className="fine-grid absolute inset-0 -z-30 opacity-60" />
+      {/* Background decorative text */}
+      <div className="absolute inset-0 -z-40 overflow-hidden opacity-[0.03] select-none pointer-events-none">
+        <div className="absolute -top-20 -left-10 -rotate-15 text-[12rem] font-black leading-none text-ink whitespace-nowrap">
+          AI SECURITY ENGINEER
+        </div>
+        <div className="absolute top-40 -right-20 rotate-8 text-[10rem] font-black leading-none text-ink whitespace-nowrap">
+          PRODUCT ENGINEERING
+        </div>
+        <div className="absolute top-80 -left-32 -rotate-12 text-[11rem] font-black leading-none text-ink whitespace-nowrap">
+          AGENTIC AI SYSTEMS
+        </div>
+        <div className="absolute bottom-40 -right-10 rotate-10 text-[9rem] font-black leading-none text-ink whitespace-nowrap">
+          KUBERNETES CLOUD
+        </div>
+        <div className="absolute bottom-10 -left-20 -rotate-8 text-[10rem] font-black leading-none text-ink whitespace-nowrap">
+          GOLANG REACT UI/UX
+        </div>
+      </div>
 
-      {/* Gradient orbs */}
-      <div
-        className="orb absolute -top-40 left-1/4 -z-20 size-175 bg-cobalt/8"
-        aria-hidden="true"
-      />
-      <div
-        className="orb absolute bottom-0 right-1/4 -z-20 size-125 bg-signal/6"
-        aria-hidden="true"
-      />
-      <div
-        className="orb absolute top-40 right-0 -z-20 size-100 bg-violet/5"
-        aria-hidden="true"
-      />
+      {/* Animated background elements */}
+      <div className="absolute inset-0 -z-30 opacity-30">
+        <div className="absolute top-20 left-10 size-48 rounded-full bg-amber/20 blur-3xl animate-float" />
+        <div className="absolute top-40 right-20 size-64 rounded-full bg-coral/15 blur-3xl animate-float-delayed" />
+        <div className="absolute bottom-20 left-1/3 size-56 rounded-full bg-violet/10 blur-3xl animate-float-slow" />
+      </div>
 
-      {/* White fade at top */}
-      <div className="absolute inset-x-0 top-0 -z-10 h-32 bg-linear-to-b from-white to-transparent" />
+      {/* Fine grid overlay */}
+      <div className="fine-grid absolute inset-0 -z-20 opacity-40" />
+
+      {/* Gradient orbs - warmer tones */}
+      <div
+        className="orb absolute -top-40 left-1/4 -z-20 size-100 bg-linear-to-br from-amber/12 to-coral/8"
+        aria-hidden="true"
+      />
+      <div
+        className="orb absolute bottom-0 right-1/4 -z-20 size-80 bg-linear-to-br from-violet/8 to-cobalt/6"
+        aria-hidden="true"
+      />
+      <div
+        className="orb absolute top-40 right-0 -z-20 size-64 bg-linear-to-br from-lime/6 to-signal/4"
+        aria-hidden="true"
+      />
 
       {/* Hero portrait — desktop */}
       <div
         aria-hidden="true"
-        className="absolute top-0 right-[28%] -z-10 hidden lg:block"
-        style={{ width: 180, height: 380 }}
+        className="absolute top-0 right-[8%] lg:right-[10%] xl:right-[15%] z-10 hidden lg:block pointer-events-none"
+        style={{ width: 350, height: 600 }}
       >
         <Image
           src="/chanchal-hero.webp"
           alt=""
           fill
           priority
-          sizes="180px"
-          className="object-cover object-[50%_10%]"
+          sizes="350px"
+          className="object-cover object-top"
           style={{
             mixBlendMode: "multiply",
-            opacity: 0.88,
+            opacity: 0.92,
+            filter: "contrast(1.08) brightness(0.98) saturate(0.9) drop-shadow(0 20px 40px rgba(0,0,0,0.15))",
+            clipPath: "inset(0 0 0 0 round 0)",
             maskImage:
-              "radial-gradient(ellipse 148px 290px at 52% 42%, black 30%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.15) 68%, transparent 80%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
             WebkitMaskImage:
-              "radial-gradient(ellipse 148px 290px at 52% 42%, black 30%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.15) 68%, transparent 80%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.98) 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
           }}
         />
       </div>
@@ -58,8 +83,8 @@ export function HeroSection() {
         <div className="max-w-160 pt-8 sm:pt-12 lg:pt-16">
           {/* Status badges */}
           <div className="fade-up mb-7 flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-2 rounded-full border border-cobalt/20 bg-cobalt-light px-3.5 py-1.5 text-sm font-semibold text-cobalt shadow-sm">
-              <span className="pulse-dot size-1.5 rounded-full bg-cobalt" />
+            <span className="inline-flex items-center gap-2 rounded-full border border-amber/20 bg-amber/10 px-3.5 py-1.5 text-sm font-semibold text-amber shadow-sm">
+              <span className="pulse-dot size-1.5 rounded-full bg-amber" />
               Available for new projects
             </span>
             <span className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-white px-3.5 py-1.5 text-sm font-semibold text-ink/70 shadow-sm">

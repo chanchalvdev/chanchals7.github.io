@@ -54,20 +54,27 @@ export async function GitHubGraph() {
             </div>
 
             {/* Stat tiles */}
-            {signals.contributionTotal > 0 && (
-              <div className="flex gap-3 sm:grid sm:grid-cols-3">
-                {[
-                  { value: signals.contributionTotal.toLocaleString(), label: "contributions" },
-                  { value: signals.activeWeeks, label: "active weeks" },
-                  { value: signals.focusRepos, label: "focus repos" },
-                ].map((stat) => (
-                  <div key={stat.label} className="rounded-lg bg-page px-4 py-3 text-center">
-                    <p className="text-xl font-bold text-ink">{stat.value}</p>
-                    <p className="mt-0.5 text-[0.65rem] font-semibold text-ink/42">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-            )}
+            <div className="flex gap-3 sm:grid sm:grid-cols-3">
+              {[
+                {
+                  value: signals.contributionTotal > 0 ? signals.contributionTotal.toLocaleString() : "—",
+                  label: "contributions",
+                },
+                {
+                  value: signals.activeWeeks > 0 ? signals.activeWeeks : "—",
+                  label: "active weeks",
+                },
+                {
+                  value: signals.focusRepos > 0 ? signals.focusRepos : "—",
+                  label: "focus repos",
+                },
+              ].map((stat) => (
+                <div key={stat.label} className="rounded-lg bg-page px-4 py-3 text-center">
+                  <p className="text-xl font-bold text-ink">{stat.value}</p>
+                  <p className="mt-0.5 text-[0.65rem] font-semibold text-ink/42">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Contribution grid */}

@@ -4,15 +4,15 @@
   --font-space: "Inter", "Avenir Next", "Segoe UI", sans-serif;
   --font-ibm-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 
-  /* Core palette - AgentiWise inspired */
-  --background: #faf9f7;
+  /* Core palette - warm cream like AgentiWise */
+  --background: #f5efe6;
   --foreground: #1a1a1a;
-  --page: #f5f3f0;
+  --page: #f0e9df;
   --surface: #ffffff;
-  --surface-soft: #f8f6f3;
-  --surface-warm: #fef8f0;
-  --muted: #e8e5e0;
-  --border: rgba(26, 26, 26, 0.08);
+  --surface-soft: #f8f3ed;
+  --surface-warm: #fef4e8;
+  --muted: #e5ddd4;
+  --border: rgba(26, 26, 26, 0.09);
 
   /* Ink scale */
   --ink: #1a1a1a;
@@ -121,9 +121,9 @@ select {
 /* ── Background textures ── */
 .fine-grid {
   background-image:
-    linear-gradient(rgba(12, 13, 17, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(12, 13, 17, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(100, 75, 45, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 75, 45, 0.07) 1px, transparent 1px);
+  background-size: 44px 44px;
 }
 
 .dot-grid {

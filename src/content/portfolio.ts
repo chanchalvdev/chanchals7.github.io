@@ -152,6 +152,38 @@ export const projectCategories = [
 
 export const projects: Project[] = [
   {
+    slug: "go-siem-agent-llm-classifier",
+    title: "Go SIEM Agent — LLM Classifier",
+    category: "Security",
+    year: "2025",
+    featured: true,
+    sortScore: 110,
+    description:
+      "An AI-native SIEM agent written in Go that classifies any raw log line into a structured threat report — with MITRE ATT&CK mapping, IOC extraction, severity triage, and actionable remediation — in under 20 seconds, using a local-first LLM stack.",
+    impact:
+      "Turns hours of manual SOC triage into a sub-20-second automated pipeline, reducing analyst time spent on alert noise by eliminating rule-writing and manual MITRE mapping.",
+    stack: ["Go", "React", "Qdrant", "Ollama", "PostgreSQL", "Docker", "Prometheus"],
+    links: {
+      github: "https://github.com/ChanchalS7/go-siem-agent-llm-classifier",
+    },
+    metrics: [
+      { value: "<20s", label: "per classification" },
+      { value: "40+", label: "MITRE techniques" },
+      { value: "~3k", label: "lines Go" },
+    ],
+    challenge:
+      "SOC teams drown in alert volume — existing rule-based SIEMs require manual signature writing, miss novel attacks, and force analysts to manually cross-reference MITRE ATT&CK, look up IPs, and write remediation notes for every event.",
+    solution:
+      "I built an AI-native backend in Go where a carefully engineered LLM system prompt acts as the entire detection engine. The prompt encodes severity scales, IOC extraction rules, and MITRE mappings, returning a strict JSON schema on every call. A concurrent worker pool classifies logs in parallel; streaming SSE delivers token-by-token feedback so 15-second calls feel instant.",
+    results: [
+      "Full threat classification pipeline: attack type, MITRE tactic + technique ID, severity P1–P5, confidence score, IOCs, and remediation — all from a single raw log line.",
+      "Semantic search via Qdrant + Ollama embeddings lets analysts find similar past events using natural language, not exact-match rules.",
+      "Single Go binary embeds the React dashboard; three Docker containers complete the full stack — zero external dependencies beyond the LLM provider.",
+    ],
+    coverImage: "/siem-title.png",
+    detailImage: "/siem-architecture.png",
+  },
+  {
     slug: "ai-threat-intelligence-workbench",
     title: "Threat Intelligence Console",
     category: "Security",

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" fill="none">
+  <rect width="1200" height="540" fill="#0d1117"/>
+
+  <!-- Grid lines -->
+  <line x1="0" y1="270" x2="1200" y2="270" stroke="#ffffff08" stroke-width="1"/>
+  <line x1="600" y1="0" x2="600" y2="540" stroke="#ffffff08" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="600" y="42" font-family="monospace" font-size="13" fill="#7d8590" text-anchor="middle" letter-spacing="3">GO SIEM AGENT — ARCHITECTURE</text>
+
+  <!-- React Dashboard box -->
+  <rect x="380" y="64" width="440" height="80" rx="10" fill="#161b22" stroke="#7c3aed" stroke-width="1.5"/>
+  <text x="600" y="98" font-family="monospace" font-size="13" fill="#c4b5fd" text-anchor="middle" font-weight="bold">React Dashboard :5173</text>
+  <text x="600" y="118" font-family="monospace" font-size="11" fill="#7d8590" text-anchor="middle">Classify · Drop Zone · Event cards · Analytics charts</text>
+
+  <!-- Arrow down: Dashboard → Go server -->
+  <line x1="600" y1="144" x2="600" y2="192" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="600,196 595,186 605,186" fill="#7c3aed"/>
+  <text x="618" y="172" font-family="monospace" font-size="10" fill="#7d8590">HTTP / SSE</text>
+
+  <!-- Go HTTP Server box -->
+  <rect x="300" y="196" width="600" height="110" rx="10" fill="#161b22" stroke="#2d81ff" stroke-width="1.5"/>
+  <text x="600" y="226" font-family="monospace" font-size="13" fill="#79c0ff" text-anchor="middle" font-weight="bold">Go HTTP Server :8080</text>
+  <text x="390" y="250" font-family="monospace" font-size="10" fill="#7d8590">POST /api/classify</text>
+  <text x="390" y="267" font-family="monospace" font-size="10" fill="#7d8590">POST /api/classify/stream</text>
+  <text x="600" y="250" font-family="monospace" font-size="10" fill="#7d8590">POST /api/ingest</text>
+  <text x="600" y="267" font-family="monospace" font-size="10" fill="#7d8590">GET  /api/search</text>
+  <text x="810" y="250" font-family="monospace" font-size="10" fill="#7d8590">GET  /api/analytics/summary</text>
+  <text x="810" y="267" font-family="monospace" font-size="10" fill="#7d8590">GET  /metrics (Prometheus)</text>
+  <text x="600" y="292" font-family="monospace" font-size="10" fill="#484f58" text-anchor="middle">Chi router · Rate limiter · CORS · Security headers</text>
+
+  <!-- Arrow left: Go → LLM -->
+  <line x1="300" y1="270" x2="210" y2="340" stroke="#2d81ff" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="206,343 208,333 216,338" fill="#2d81ff"/>
+
+  <!-- Arrow center: Go → Qdrant -->
+  <line x1="600" y1="306" x2="600" y2="356" stroke="#2d81ff" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="600,360 595,350 605,350" fill="#2d81ff"/>
+
+  <!-- Arrow right: Go → Ollama -->
+  <line x1="900" y1="270" x2="990" y2="340" stroke="#2d81ff" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="994,343 986,338 994,333" fill="#2d81ff"/>
+
+  <!-- LLM box -->
+  <rect x="60" y="356" width="280" height="100" rx="10" fill="#161b22" stroke="#f78166" stroke-width="1.5"/>
+  <text x="200" y="390" font-family="monospace" font-size="13" fill="#ff7b72" text-anchor="middle" font-weight="bold">Kimchi LLM</text>
+  <text x="200" y="412" font-family="monospace" font-size="11" fill="#7d8590" text-anchor="middle">minimax-m3 / kimi-k2</text>
+  <text x="200" y="430" font-family="monospace" font-size="10" fill="#484f58" text-anchor="middle">OpenAI-compat API</text>
+
+  <!-- Qdrant box -->
+  <rect x="460" y="356" width="280" height="100" rx="10" fill="#161b22" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="600" y="390" font-family="monospace" font-size="13" fill="#56d364" text-anchor="middle" font-weight="bold">Qdrant :6334</text>
+  <text x="600" y="412" font-family="monospace" font-size="11" fill="#7d8590" text-anchor="middle">Vector DB · gRPC</text>
+  <text x="600" y="430" font-family="monospace" font-size="10" fill="#484f58" text-anchor="middle">768-dim embeddings</text>
+
+  <!-- Ollama box -->
+  <rect x="860" y="356" width="280" height="100" rx="10" fill="#161b22" stroke="#d29922" stroke-width="1.5"/>
+  <text x="1000" y="390" font-family="monospace" font-size="13" fill="#e3b341" text-anchor="middle" font-weight="bold">Ollama :11434</text>
+  <text x="1000" y="412" font-family="monospace" font-size="11" fill="#7d8590" text-anchor="middle">nomic-embed-text</text>
+  <text x="1000" y="430" font-family="monospace" font-size="10" fill="#484f58" text-anchor="middle">local embeddings</text>
+
+  <!-- Severity badges bottom row -->
+  <rect x="200" y="492" width="40" height="22" rx="4" fill="#da3633"/>
+  <text x="220" y="508" font-family="monospace" font-size="10" fill="white" text-anchor="middle" font-weight="bold">P1</text>
+  <rect x="252" y="492" width="40" height="22" rx="4" fill="#f0883e"/>
+  <text x="272" y="508" font-family="monospace" font-size="10" fill="white" text-anchor="middle" font-weight="bold">P2</text>
+  <rect x="304" y="492" width="40" height="22" rx="4" fill="#d29922"/>
+  <text x="324" y="508" font-family="monospace" font-size="10" fill="white" text-anchor="middle" font-weight="bold">P3</text>
+  <rect x="356" y="492" width="40" height="22" rx="4" fill="#3fb950"/>
+  <text x="376" y="508" font-family="monospace" font-size="10" fill="white" text-anchor="middle" font-weight="bold">P4</text>
+  <rect x="408" y="492" width="40" height="22" rx="4" fill="#484f58"/>
+  <text x="428" y="508" font-family="monospace" font-size="10" fill="white" text-anchor="middle" font-weight="bold">P5</text>
+  <text x="460" y="508" font-family="monospace" font-size="10" fill="#484f58">← MITRE ATT&amp;CK Severity Triage</text>
+
+  <!-- Stack tags top right -->
+  <rect x="920" y="492" width="36" height="20" rx="4" fill="#21262d" stroke="#2d81ff30"/>
+  <text x="938" y="506" font-family="monospace" font-size="9" fill="#79c0ff" text-anchor="middle">Go</text>
+  <rect x="962" y="492" width="54" height="20" rx="4" fill="#21262d" stroke="#2d81ff30"/>
+  <text x="989" y="506" font-family="monospace" font-size="9" fill="#79c0ff" text-anchor="middle">React</text>
+  <rect x="1022" y="492" width="60" height="20" rx="4" fill="#21262d" stroke="#2d81ff30"/>
+  <text x="1052" y="506" font-family="monospace" font-size="9" fill="#79c0ff" text-anchor="middle">Docker</text>
+  <rect x="1088" y="492" width="78" height="20" rx="4" fill="#21262d" stroke="#2d81ff30"/>
+  <text x="1127" y="506" font-family="monospace" font-size="9" fill="#79c0ff" text-anchor="middle">Prometheus</text>
+</svg>

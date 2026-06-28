@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Code2, Gauge, Sparkles } from "lucide-react";
+import { ArrowUpRight, Code2 } from "lucide-react";
 import type { Project } from "@/content/portfolio";
 import { Tag } from "@/components/ui/tag";
 
@@ -24,18 +24,27 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
   const tagTone   = categoryTag[project.category]   ?? "neutral";
 
   return (
-    <article className="group relative overflow-hidden rounded-xl border border-ink/10 bg-white shadow-soft lg:grid lg:grid-cols-[0.11fr_0.49fr_0.4fr]">
+    <article className="group relative overflow-hidden rounded-xl border border-ink/10 bg-white shadow-soft lg:grid lg:grid-cols-[0.18fr_0.44fr_0.38fr]">
       {/* Top category accent bar */}
       <div className={`absolute inset-x-0 top-0 h-0.5 ${accentBar} opacity-80`} />
 
-      {/* Index + category column */}
-      <div className="flex items-center justify-between p-5 lg:flex-col lg:items-start lg:justify-start lg:p-6">
+      {/* Left column: index, category, metrics */}
+      <div className="flex items-center justify-between p-5 lg:flex-col lg:items-start lg:justify-start lg:p-5">
         <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.2em] text-ink/30">
           0{index + 1}
         </p>
-        <Tag tone={tagTone} className="lg:mt-8">
+        <Tag tone={tagTone} className="lg:mt-6">
           {project.category}
         </Tag>
+        {/* Metric tiles stacked in left column */}
+        <div className="hidden lg:mt-6 lg:flex lg:w-full lg:flex-col lg:gap-2">
+          {project.metrics.map((metric) => (
+            <div key={metric.label} className="rounded-md bg-page px-3 py-2">
+              <p className="text-sm font-bold text-ink">{metric.value}</p>
+              <p className="text-[0.6rem] font-semibold leading-4 text-ink/42">{metric.label}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Main content */}
@@ -53,54 +62,70 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
             <Tag key={item}>{item}</Tag>
           ))}
         </div>
-      </div>
-
-      {/* Metrics + actions */}
-      <div className="flex flex-col gap-4 border-t border-ink/8 p-5 lg:border-l lg:border-t-0 lg:p-6">
-        {/* Impact */}
-        <div className="rounded-lg border border-cobalt/12 bg-cobalt/4 p-4">
-          <p className="flex items-center gap-1.5 text-xs font-bold text-cobalt">
-            <Gauge className="size-3.5" aria-hidden="true" />
-            Product impact
-          </p>
-          <p className="mt-2 text-sm leading-6 text-ink/65">{project.impact}</p>
-        </div>
-
-        {/* Metric tiles */}
-        <div className="grid grid-cols-3 gap-2">
+        {/* Metrics visible on mobile only */}
+        <div className="mt-5 grid grid-cols-3 gap-2 lg:hidden">
           {project.metrics.map((metric) => (
-            <div key={metric.label} className="rounded-lg bg-page p-3 text-center">
-              <p className="text-base font-bold text-ink">{metric.value}</p>
-              <p className="mt-0.5 text-[0.65rem] font-semibold leading-4 text-ink/42">
-                {metric.label}
-              </p>
+            <div key={metric.label} className="rounded-md bg-page p-2 text-center">
+              <p className="text-sm font-bold text-ink">{metric.value}</p>
+              <p className="text-[0.6rem] font-semibold leading-4 text-ink/42">{metric.label}</p>
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Right column: image + actions */}
+      <div className="flex flex-col gap-4 border-t border-ink/8 p-5 lg:border-l lg:border-t-0 lg:p-5">
+        {/* Cover image */}
+        {project.coverImage && (
+          <div className="overflow-hidden rounded-lg border border-ink/8">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.coverImage}
+              alt={`${project.title} preview`}
+              className="w-full"
+            />
+          </div>
+        )}
 
         {/* Actions */}
         <div className="flex flex-wrap gap-2">
-          <button
-            disabled
-            className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-ink/50 px-4 text-sm font-semibold text-white cursor-not-allowed opacity-60"
-          >
-            Case study
-            <ArrowUpRight className="size-3.5" aria-hidden="true" />
-          </button>
-          {project.links.github ? (
+          {project.slug === "go-siem-agent-llm-classifier" ? (
+            <Link
+              href={`/projects/${project.slug}`}
+              className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-ink px-4 text-sm font-semibold text-white transition hover:bg-ink/80"
+            >
+              Case study
+              <ArrowUpRight className="size-3.5" aria-hidden="true" />
+            </Link>
+          ) : (
             <button
               disabled
-              className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-ink/10 bg-white px-4 text-sm font-semibold text-ink/50 cursor-not-allowed opacity-60"
+              className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-ink/50 px-4 text-sm font-semibold text-white cursor-not-allowed opacity-60"
             >
-              <Code2 className="size-3.5" aria-hidden="true" />
-              Source
+              Case study
+              <ArrowUpRight className="size-3.5" aria-hidden="true" />
             </button>
-          ) : null}
-          {project.featured ? (
-            <span className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-lime-light px-3 text-sm font-semibold text-lime-700 opacity-60">
-              <Sparkles className="size-3.5" aria-hidden="true" />
-              Featured
-            </span>
+          )}
+          {project.links.github ? (
+            project.slug === "go-siem-agent-llm-classifier" ? (
+              <a
+                href={project.links.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-ink/10 bg-white px-4 text-sm font-semibold text-ink transition hover:border-ink/20"
+              >
+                <Code2 className="size-3.5" aria-hidden="true" />
+                Source
+              </a>
+            ) : (
+              <button
+                disabled
+                className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-ink/10 bg-white px-4 text-sm font-semibold text-ink/50 cursor-not-allowed opacity-60"
+              >
+                <Code2 className="size-3.5" aria-hidden="true" />
+                Source
+              </button>
+            )
           ) : null}
         </div>
       </div>

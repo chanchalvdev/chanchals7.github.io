@@ -48,6 +48,8 @@ export type PortfolioProject = {
   status?: ProjectStatus;
   role?: string;
   evidence?: string[];
+  coverImage?: string;
+  detailImage?: string;
 };
 
 export type BlogPost = {

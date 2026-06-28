@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Code2, ExternalLink, Gauge, ShieldCheck } from "lucide-react";
+import { Code2, ExternalLink, Gauge, ShieldCheck } from "lucide-react";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { BackButton } from "@/components/ui/back-button";
 import { Tag } from "@/components/ui/tag";
 import { projects } from "@/content/portfolio";
 
@@ -45,13 +45,7 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
       <main>
         <article className="px-5 py-12 sm:px-8 lg:py-20">
           <div className="mx-auto max-w-6xl">
-            <Link
-              href="/#projects"
-              className="inline-flex items-center gap-2 text-sm font-bold text-ink/58 transition hover:text-cobalt"
-            >
-              <ArrowLeft className="size-4" aria-hidden="true" />
-              Back to projects
-            </Link>
+            <BackButton />
 
             <header className="mt-10 border-b border-ink/10 pb-10">
               <p className="text-kicker text-cobalt">
@@ -63,6 +57,16 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
               <p className="mt-7 max-w-3xl text-xl leading-9 text-ink/66">
                 {project.description}
               </p>
+              {project.coverImage && (
+                <div className="mt-10 overflow-hidden rounded-2xl border border-ink/10 shadow-soft">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={project.coverImage}
+                    alt={`${project.title} — title`}
+                    className="w-full"
+                  />
+                </div>
+              )}
             </header>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -82,6 +86,13 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
 
             <div className="mt-12 grid gap-6 lg:grid-cols-[0.68fr_0.32fr]">
               <div className="space-y-6">
+                <section className="rounded-lg border border-cobalt/12 bg-cobalt/4 p-6">
+                  <div className="flex items-center gap-2">
+                    <Gauge className="size-5 text-cobalt" aria-hidden="true" />
+                    <h2 className="text-2xl font-semibold text-ink">Product impact</h2>
+                  </div>
+                  <p className="mt-4 leading-8 text-ink/66">{project.impact}</p>
+                </section>
                 <section className="rounded-lg border border-ink/10 bg-white p-6">
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="size-5 text-coral" aria-hidden="true" />
@@ -107,6 +118,16 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
                     ))}
                   </ul>
                 </section>
+                {project.detailImage && (
+                  <div className="overflow-hidden rounded-xl border border-ink/10 shadow-soft">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={project.detailImage}
+                      alt={`${project.title} — architecture`}
+                      className="w-full"
+                    />
+                  </div>
+                )}
               </div>
 
               <aside className="h-fit rounded-lg border border-ink/10 bg-ink p-5 text-white">

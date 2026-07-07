@@ -49,7 +49,7 @@ export default function AdminLoginPage() {
       <div className="relative w-full max-w-sm">
         {/* Logo */}
         <div className="mb-8 flex flex-col items-center gap-4">
-          <div className="grid size-14 place-items-center rounded-2xl bg-cobalt font-mono text-lg font-bold text-white shadow-[0_12px_32px_rgba(59,95,232,0.28)]">
+          <div className="grid size-14 place-items-center rounded-2xl bg-cobalt font-mono text-lg font-bold text-page shadow-cobalt">
             CV
           </div>
           <div className="text-center">
@@ -59,7 +59,7 @@ export default function AdminLoginPage() {
         </div>
 
         {/* Card */}
-        <div className="rounded-2xl border border-ink/10 bg-white p-8 shadow-float">
+        <div className="rounded-2xl border border-ink/10 bg-surface p-8 shadow-float">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-ink/70">
@@ -75,7 +75,7 @@ export default function AdminLoginPage() {
                   placeholder="admin@portfolio.com"
                   required
                   autoComplete="email"
-                  className="h-11 w-full rounded-xl border border-ink/10 bg-page pl-10 pr-4 text-sm text-ink placeholder:text-ink/32 focus:border-cobalt/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cobalt/10 transition"
+                  className="h-11 w-full rounded-xl border border-ink/10 bg-page pl-10 pr-4 text-sm text-ink placeholder:text-ink/32 focus:border-cobalt/40 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-cobalt/10 transition"
                 />
               </div>
             </div>
@@ -94,7 +94,7 @@ export default function AdminLoginPage() {
                   placeholder="••••••••"
                   required
                   autoComplete="current-password"
-                  className="h-11 w-full rounded-xl border border-ink/10 bg-page pl-10 pr-11 text-sm text-ink placeholder:text-ink/32 focus:border-cobalt/40 focus:bg-white focus:outline-none focus:ring-2 focus:ring-cobalt/10 transition"
+                  className="h-11 w-full rounded-xl border border-ink/10 bg-page pl-10 pr-11 text-sm text-ink placeholder:text-ink/32 focus:border-cobalt/40 focus:bg-surface focus:outline-none focus:ring-2 focus:ring-cobalt/10 transition"
                 />
                 <button
                   type="button"
@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="mt-2 h-11 w-full rounded-xl bg-cobalt text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-cobalt/90 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="mt-2 h-11 w-full rounded-xl bg-cobalt text-sm font-bold text-page shadow-sm transition hover:-translate-y-0.5 hover:bg-cobalt/90 disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading ? "Signing in…" : "Sign in"}
             </button>

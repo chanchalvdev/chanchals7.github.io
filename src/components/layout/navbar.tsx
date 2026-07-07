@@ -25,12 +25,16 @@ function LinkedInIcon({ className }: { className?: string }) {
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(1, window.scrollY / max) : 0);
     };
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -39,52 +43,53 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
         scrolled
-          ? "bg-white/95 backdrop-blur-xl shadow-md py-3"
-          : "bg-transparent py-4 sm:py-6"
+          ? "border-b border-border bg-page/85 py-2.5 shadow-lg backdrop-blur-xl"
+          : "bg-transparent py-4 sm:py-5",
       )}
     >
+      {/* Scroll progress */}
+      <span
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-0.5 origin-left bg-linear-to-r from-cobalt via-signal to-violet transition-transform duration-150"
+        style={{ transform: `scaleX(${progress})` }}
+      />
+
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-60 focus:rounded-lg focus:bg-linear-to-r focus:from-amber focus:to-coral focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-60 focus:rounded-lg focus:bg-cobalt focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-page"
       >
         Skip to content
       </a>
-      <div
-        className={cn(
-          "mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 transition-all duration-300",
-          scrolled 
-            ? "max-w-7xl" 
-            : "max-w-6xl"
-        )}
-      >
+
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link
           href="/"
-          className={cn(
-            "group flex items-center gap-2 sm:gap-3 rounded-lg transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cobalt",
-          )}
+          className="group flex items-center gap-2.5 rounded-lg transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cobalt sm:gap-3"
           aria-label="Chanchal Verma home"
         >
           <span
             className={cn(
-              "grid place-items-center rounded-xl bg-linear-to-br from-amber to-coral font-mono font-bold text-white shadow-lg transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl shrink-0",
-              scrolled ? "size-10 text-sm" : "size-11 sm:size-12 text-base"
+              "glow-cobalt grid shrink-0 place-items-center rounded-xl bg-linear-to-br from-cobalt to-signal font-mono font-bold text-page transition-all duration-300 group-hover:scale-105",
+              scrolled ? "size-9 text-sm" : "size-10 text-sm sm:size-11 sm:text-base",
             )}
           >
             CV
           </span>
           <span className="hidden sm:block">
-            <span className="block text-sm font-bold text-ink leading-tight">Chanchal Verma</span>
-            <span className="block text-[10px] sm:text-xs font-medium text-ink/60 leading-tight">AI Security • Product • Full Stack</span>
+            <span className="block text-sm font-bold leading-tight text-ink">Chanchal Verma</span>
+            <span className="block text-[10px] font-medium leading-tight text-ink/55 sm:text-xs">
+              AI Security • Full Stack • UI/UX
+            </span>
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-4 lg:gap-6 text-sm font-medium text-ink/70 md:flex">
+        <nav className="hidden items-center gap-1 text-sm font-medium text-ink/65 md:flex">
           {navItems.map((item) => (
             <a
               key={item.href}
-              className="rounded-lg px-3 py-2 transition-all duration-200 hover:text-amber hover:bg-amber/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
+              className="rounded-lg px-3 py-2 transition-all duration-200 hover:bg-cobalt/8 hover:text-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
               href={item.href}
             >
               {item.label}
@@ -93,12 +98,12 @@ export function Navbar() {
         </nav>
 
         {/* Desktop actions */}
-        <div className="hidden items-center gap-2 md:flex shrink-0">
+        <div className="hidden shrink-0 items-center gap-2 md:flex">
           <a
             href={profile.github}
             target="_blank"
             rel="noreferrer"
-            className="grid size-10 place-items-center rounded-lg border border-ink/10 bg-white/50 text-ink/60 transition-all duration-200 hover:border-amber/30 hover:text-amber hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
+            className="grid size-9 place-items-center rounded-lg border border-border bg-surface/60 text-ink/60 transition-all duration-200 hover:border-cobalt/40 hover:text-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
             aria-label="GitHub profile"
           >
             <GitHubIcon className="size-4" />
@@ -107,14 +112,14 @@ export function Navbar() {
             href={profile.linkedin}
             target="_blank"
             rel="noreferrer"
-            className="grid size-10 place-items-center rounded-lg border border-ink/10 bg-white/50 text-ink/60 transition-all duration-200 hover:border-cobalt/30 hover:text-cobalt hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
+            className="grid size-9 place-items-center rounded-lg border border-border bg-surface/60 text-ink/60 transition-all duration-200 hover:border-cobalt/40 hover:text-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
             aria-label="LinkedIn profile"
           >
             <LinkedInIcon className="size-3.5" />
           </a>
           <a
             href={`mailto:${profile.email}`}
-            className="inline-flex items-center gap-2 rounded-lg bg-linear-to-r from-amber to-coral h-10 px-4 font-semibold text-white text-sm shadow-md transition-all duration-200 hover:shadow-lg hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
+            className="inline-flex h-9 items-center gap-2 rounded-lg bg-linear-to-r from-cobalt to-signal px-4 text-sm font-bold text-page shadow-cobalt transition-all duration-200 hover:scale-105 hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
           >
             <Mail className="size-4" aria-hidden="true" />
             <span className="hidden lg:inline">Let&apos;s talk</span>
@@ -125,7 +130,7 @@ export function Navbar() {
         {/* Mobile menu toggle */}
         <button
           type="button"
-          className="grid size-10 place-items-center rounded-lg border border-ink/10 bg-white/80 text-ink transition-all duration-200 hover:border-amber/30 hover:text-amber active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt md:hidden"
+          className="grid size-10 place-items-center rounded-lg border border-border bg-surface/80 text-ink transition-all duration-200 hover:border-cobalt/40 hover:text-cobalt active:scale-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt md:hidden"
           aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isOpen}
           onClick={() => setIsOpen((v) => !v)}
@@ -137,7 +142,7 @@ export function Navbar() {
       {/* Mobile drawer */}
       <div
         className={cn(
-          "grid border-t border-ink/10 bg-white/98 backdrop-blur-xl shadow-lg transition-[grid-template-rows] duration-300 md:hidden",
+          "grid border-t border-border bg-page/95 shadow-lg backdrop-blur-xl transition-[grid-template-rows] duration-300 md:hidden",
           isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
         )}
       >
@@ -146,19 +151,19 @@ export function Navbar() {
             {navItems.map((item) => (
               <a
                 key={item.href}
-                className="rounded-lg px-4 py-3 text-base font-medium text-ink/70 transition-all duration-200 hover:bg-amber/5 hover:text-amber active:bg-amber/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
+                className="rounded-lg px-4 py-3 text-base font-medium text-ink/70 transition-all duration-200 hover:bg-cobalt/8 hover:text-cobalt active:bg-cobalt/12 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
                 href={item.href}
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}
               </a>
             ))}
-            <div className="mt-4 flex flex-col gap-2 border-t border-ink/10 pt-4">
+            <div className="mt-4 flex flex-col gap-2 border-t border-border pt-4">
               <a
                 href={profile.github}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-ink/10 bg-white text-sm font-semibold text-ink/70 transition-all hover:border-amber/30 hover:text-amber"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-surface text-sm font-semibold text-ink/70 transition-all hover:border-cobalt/40 hover:text-cobalt"
               >
                 <GitHubIcon className="size-4" />
                 GitHub
@@ -167,14 +172,14 @@ export function Navbar() {
                 href={profile.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-ink/10 bg-white text-sm font-semibold text-ink/70 transition-all hover:border-cobalt/30 hover:text-cobalt"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-surface text-sm font-semibold text-ink/70 transition-all hover:border-cobalt/40 hover:text-cobalt"
               >
                 <LinkedInIcon className="size-4" />
                 LinkedIn
               </a>
               <a
                 href={`mailto:${profile.email}`}
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-linear-to-r from-amber to-coral text-sm font-semibold text-white shadow-md transition-all hover:shadow-lg active:scale-95"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-linear-to-r from-cobalt to-signal text-sm font-bold text-page shadow-cobalt transition-all hover:brightness-110 active:scale-95"
               >
                 <Mail className="size-4" aria-hidden="true" />
                 Let&apos;s talk

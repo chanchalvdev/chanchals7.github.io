@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, IBM_Plex_Mono } from "next/font/google";
+import { Inter, IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import { LoadingProvider } from "@/components/ui/loading-screen";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-space",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -63,7 +69,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased ${inter.variable} ${ibmMono.variable}`}
+      className={`h-full antialiased ${inter.variable} ${ibmMono.variable} ${spaceGrotesk.variable}`}
     >
       <body className="min-h-full flex flex-col bg-page">
         <LoadingProvider>{children}</LoadingProvider>

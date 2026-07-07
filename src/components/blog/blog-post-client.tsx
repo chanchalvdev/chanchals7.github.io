@@ -35,7 +35,7 @@ function Toc({ html }: { html: string }) {
   if (headings.length < 2) return null;
 
   return (
-    <nav aria-label="Table of contents" className="rounded-xl border border-ink/10 bg-white p-5 shadow-soft">
+    <nav aria-label="Table of contents" className="rounded-xl border border-ink/10 bg-surface p-5 shadow-soft">
       <p className="text-kicker mb-3 text-ink/40">Contents</p>
       <ul className="space-y-1.5">
         {headings.map((h) => (
@@ -75,7 +75,7 @@ function ShareButtons({ title }: { title: string }) {
         target="_blank"
         rel="noreferrer"
         aria-label="Share on Twitter"
-        className="grid size-8 place-items-center rounded-lg border border-ink/10 bg-white text-ink/50 transition hover:border-cobalt/25 hover:text-cobalt"
+        className="grid size-8 place-items-center rounded-lg border border-ink/10 bg-surface text-ink/50 transition hover:border-cobalt/25 hover:text-cobalt"
       >
         <Twitter className="size-3.5" />
       </a>
@@ -84,14 +84,14 @@ function ShareButtons({ title }: { title: string }) {
         target="_blank"
         rel="noreferrer"
         aria-label="Share on LinkedIn"
-        className="grid size-8 place-items-center rounded-lg border border-ink/10 bg-white text-ink/50 transition hover:border-cobalt/25 hover:text-cobalt"
+        className="grid size-8 place-items-center rounded-lg border border-ink/10 bg-surface text-ink/50 transition hover:border-cobalt/25 hover:text-cobalt"
       >
         <Linkedin className="size-3.5" />
       </a>
       <button
         onClick={copyLink}
         aria-label="Copy link"
-        className="grid size-8 place-items-center rounded-lg border border-ink/10 bg-white text-ink/50 transition hover:border-cobalt/25 hover:text-cobalt"
+        className="grid size-8 place-items-center rounded-lg border border-ink/10 bg-surface text-ink/50 transition hover:border-cobalt/25 hover:text-cobalt"
       >
         {copied ? (
           <span className="text-[0.6rem] font-bold text-cobalt">✓</span>
@@ -161,7 +161,7 @@ function BlogPostInner() {
           <p className="mt-3 text-ink/56">This post may have been removed or the URL is incorrect.</p>
           <Link
             href="/blog"
-            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-linear-to-r from-amber to-coral px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:shadow-lg hover:scale-105"
+            className="mt-8 inline-flex items-center gap-2 rounded-lg bg-linear-to-r from-cobalt to-signal px-5 py-2.5 text-sm font-semibold text-page shadow-md transition-all hover:shadow-lg hover:scale-105"
           >
             <ArrowLeft className="size-4" />
             Back to writing
@@ -256,7 +256,7 @@ function BlogPostInner() {
                       <Link
                         key={rel.id}
                         href={`/blog/post/?id=${rel.slug}`}
-                        className="group rounded-xl border border-ink/10 bg-white p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-cobalt/20"
+                        className="group rounded-xl border border-ink/10 bg-surface p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-cobalt/20"
                       >
                         <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.14em] text-ink/36">
                           {rel.category}
@@ -274,7 +274,7 @@ function BlogPostInner() {
 
             <aside className="hidden lg:sticky lg:top-24 lg:block">
               <Toc html={processedHtml} />
-              <div className="mt-5 rounded-xl border border-ink/10 bg-white p-5 shadow-soft">
+              <div className="mt-5 rounded-xl border border-ink/10 bg-surface p-5 shadow-soft">
                 <p className="text-kicker mb-3 text-ink/40">Author</p>
                 <p className="font-bold text-ink">Chanchal Verma</p>
                 <p className="mt-1 text-sm text-ink/50">Senior Full Stack Engineer</p>

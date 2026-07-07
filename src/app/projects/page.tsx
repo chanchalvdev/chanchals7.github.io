@@ -35,7 +35,7 @@ export default function ProjectsPage() {
                 A focused archive of shipped product work across security,
                 cloud governance, backend delivery, and frontend systems.
               </p>
-              <div className="mt-8 inline-flex items-center gap-2 rounded-lg border border-ink/10 bg-white px-4 py-3 text-sm font-semibold text-ink/58">
+              <div className="mt-8 inline-flex items-center gap-2 rounded-lg border border-ink/10 bg-surface px-4 py-3 text-sm font-semibold text-ink/58">
                 <Layers3 className="size-4 text-coral" aria-hidden="true" />
                 Filter and sort by the product context that matters.
               </div>

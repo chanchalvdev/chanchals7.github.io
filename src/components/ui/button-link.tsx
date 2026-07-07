@@ -12,13 +12,13 @@ type ButtonLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 
 const variants = {
   primary:
-    "bg-linear-to-r from-amber to-coral text-white shadow-md hover:-translate-y-0.5 hover:shadow-lg hover:scale-105 focus-visible:outline-amber",
+    "bg-linear-to-r from-cobalt to-signal text-page font-bold shadow-cobalt hover:-translate-y-0.5 hover:brightness-110 hover:scale-105 focus-visible:outline-cobalt",
   secondary:
-    "border border-ink/12 bg-white text-ink shadow-sm hover:-translate-y-0.5 hover:border-amber/30 hover:text-amber hover:bg-amber/5 focus-visible:outline-amber",
+    "border border-border bg-surface/70 text-ink backdrop-blur hover:-translate-y-0.5 hover:border-cobalt/40 hover:text-cobalt focus-visible:outline-cobalt",
   ghost:
-    "text-ink hover:bg-amber/6 hover:text-amber focus-visible:outline-amber",
+    "text-ink hover:bg-cobalt/8 hover:text-cobalt focus-visible:outline-cobalt",
   dark:
-    "border border-white/16 bg-white text-ink hover:-translate-y-0.5 hover:bg-white/90 focus-visible:outline-white",
+    "border border-border bg-ink text-page hover:-translate-y-0.5 hover:bg-ink/90 focus-visible:outline-ink",
 };
 
 export function ButtonLink({

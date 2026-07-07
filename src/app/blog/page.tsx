@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 function BlogCard({ post }: { post: StoredBlogPost }) {
   return (
-    <article className="group flex flex-col rounded-xl border border-ink/10 bg-white p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-lift">
+    <article className="group flex flex-col rounded-xl border border-ink/10 bg-surface p-6 shadow-soft transition hover:-translate-y-1 hover:shadow-lift">
       {post.coverImage && (
         <div className="mb-5 -mx-6 -mt-6 h-44 overflow-hidden rounded-t-xl">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -152,7 +152,7 @@ export default function BlogIndexPage() {
                 placeholder="Search posts…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="h-11 w-full rounded-xl border border-ink/10 bg-white pl-10 pr-4 text-sm font-medium text-ink placeholder:text-ink/36 focus:border-cobalt/40 focus:outline-none focus:ring-2 focus:ring-cobalt/10"
+                className="h-11 w-full rounded-xl border border-ink/10 bg-surface pl-10 pr-4 text-sm font-medium text-ink placeholder:text-ink/36 focus:border-cobalt/40 focus:outline-none focus:ring-2 focus:ring-cobalt/10"
               />
               {search && (
                 <button
@@ -167,7 +167,7 @@ export default function BlogIndexPage() {
             <select
               value={sortMode}
               onChange={(e) => setSortMode(e.target.value)}
-              className="h-11 rounded-xl border border-ink/10 bg-white px-4 text-sm font-semibold text-ink focus:border-cobalt/40 focus:outline-none"
+              className="h-11 rounded-xl border border-ink/10 bg-surface px-4 text-sm font-semibold text-ink focus:border-cobalt/40 focus:outline-none"
             >
               {SORT_OPTIONS.map((o) => (
                 <option key={o.value} value={o.value}>{o.label}</option>
@@ -185,8 +185,8 @@ export default function BlogIndexPage() {
                   className={cn(
                     "h-9 rounded-full border px-4 text-sm font-semibold transition",
                     activeCategory === cat
-                      ? "border-cobalt bg-cobalt text-white"
-                      : "border-ink/10 bg-white text-ink/56 hover:border-cobalt/25 hover:text-cobalt",
+                      ? "border-cobalt bg-cobalt text-page"
+                      : "border-ink/10 bg-surface text-ink/56 hover:border-cobalt/25 hover:text-cobalt",
                   )}
                 >
                   {cat}
@@ -219,7 +219,7 @@ export default function BlogIndexPage() {
           {!mounted ? (
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="rounded-xl border border-ink/10 bg-white p-6 shadow-soft">
+                <div key={i} className="rounded-xl border border-ink/10 bg-surface p-6 shadow-soft">
                   <div className="h-4 w-16 animate-pulse rounded bg-ink/6" />
                   <div className="mt-4 h-6 w-3/4 animate-pulse rounded bg-ink/6" />
                   <div className="mt-3 h-4 w-full animate-pulse rounded bg-ink/6" />
@@ -228,7 +228,7 @@ export default function BlogIndexPage() {
               ))}
             </div>
           ) : filtered.length === 0 ? (
-            <div className="mt-10 flex flex-col items-center gap-4 rounded-2xl border border-ink/10 bg-white py-20 text-center">
+            <div className="mt-10 flex flex-col items-center gap-4 rounded-2xl border border-ink/10 bg-surface py-20 text-center">
               <div className="grid size-14 place-items-center rounded-2xl bg-cobalt/6">
                 <PenLine className="size-6 text-cobalt/60" aria-hidden="true" />
               </div>

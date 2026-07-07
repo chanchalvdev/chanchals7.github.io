@@ -50,6 +50,31 @@ export type PortfolioProject = {
   evidence?: string[];
   coverImage?: string;
   detailImage?: string;
+  /** Enables the case-study page link and external source link on the card. */
+  caseStudyReady?: boolean;
+};
+
+export type ConsoleSceneLine = {
+  text: string;
+  tone: "dim" | "muted" | "command" | "result";
+  /** Optional accent-colored prefix rendered in cyan before the text. */
+  prefix?: string;
+};
+
+export type ConsoleSceneChip = {
+  text: string;
+  tone: "amber" | "coral" | "violet" | "signal" | "cobalt";
+};
+
+/** One rotating scene of the hero terminal visual. */
+export type ConsoleScene = {
+  id: string;
+  title: string;
+  lines: ConsoleSceneLine[];
+  chips: ConsoleSceneChip[];
+  confidence: number;
+  footerLeft: string;
+  footerRight: string;
 };
 
 export type BlogPost = {

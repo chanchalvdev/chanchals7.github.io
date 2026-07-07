@@ -15,7 +15,7 @@ export function MetricTile({
   return (
     <div
       className={cn(
-        "rounded-lg border border-ink/10 bg-white p-4 shadow-sm",
+        "rounded-lg border border-border bg-surface p-4 shadow-(--shadow-soft)",
         className,
       )}
     >
@@ -23,7 +23,7 @@ export function MetricTile({
         <p className="text-2xl font-semibold leading-none text-ink">{value}</p>
         {icon ? <span className="text-cobalt">{icon}</span> : null}
       </div>
-      <p className="mt-2 text-sm font-medium leading-5 text-ink/56">{label}</p>
+      <p className="mt-2 text-sm font-medium leading-5 text-ink/55">{label}</p>
     </div>
   );
 }

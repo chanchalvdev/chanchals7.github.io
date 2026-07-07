@@ -71,7 +71,7 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               {project.metrics.map((metric) => (
-                <div key={metric.label} className="rounded-lg border border-ink/10 bg-white p-5 shadow-sm">
+                <div key={metric.label} className="rounded-lg border border-ink/10 bg-surface p-5 shadow-sm">
                   <p className="text-3xl font-semibold text-ink">{metric.value}</p>
                   <p className="mt-1 text-sm font-semibold text-ink/48">{metric.label}</p>
                 </div>
@@ -93,21 +93,21 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
                   </div>
                   <p className="mt-4 leading-8 text-ink/66">{project.impact}</p>
                 </section>
-                <section className="rounded-lg border border-ink/10 bg-white p-6">
+                <section className="rounded-lg border border-ink/10 bg-surface p-6">
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="size-5 text-coral" aria-hidden="true" />
                     <h2 className="text-2xl font-semibold text-ink">Challenge</h2>
                   </div>
                   <p className="mt-4 leading-8 text-ink/66">{project.challenge}</p>
                 </section>
-                <section className="rounded-lg border border-ink/10 bg-white p-6">
+                <section className="rounded-lg border border-ink/10 bg-surface p-6">
                   <div className="flex items-center gap-2">
                     <Gauge className="size-5 text-cobalt" aria-hidden="true" />
                     <h2 className="text-2xl font-semibold text-ink">Approach</h2>
                   </div>
                   <p className="mt-4 leading-8 text-ink/66">{project.solution}</p>
                 </section>
-                <section className="rounded-lg border border-ink/10 bg-white p-6">
+                <section className="rounded-lg border border-ink/10 bg-surface p-6">
                   <h2 className="text-2xl font-semibold text-ink">Results</h2>
                   <ul className="mt-5 grid gap-3 leading-8 text-ink/66">
                     {project.results.map((result) => (
@@ -130,13 +130,13 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
                 )}
               </div>
 
-              <aside className="h-fit rounded-lg border border-ink/10 bg-ink p-5 text-white">
+              <aside className="h-fit rounded-lg border border-ink/10 bg-ink p-5 text-page">
                 <h2 className="text-xl font-semibold">Project links</h2>
                 <div className="mt-5 grid gap-3">
                   {project.links.demo ? (
                     <a
                       href={project.links.demo}
-                      className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-white px-4 text-sm font-bold text-ink"
+                      className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-surface px-4 text-sm font-bold text-ink"
                     >
                       Demo request
                       <ExternalLink className="size-4" aria-hidden="true" />
@@ -147,14 +147,14 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
                       href={project.links.github}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-white/12 px-4 text-sm font-bold text-white"
+                      className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-page/12 px-4 text-sm font-bold text-page"
                     >
                       <Code2 className="size-4" aria-hidden="true" />
                       GitHub
                     </a>
                   ) : null}
                 </div>
-                <p className="mt-5 text-sm leading-6 text-white/52">
+                <p className="mt-5 text-sm leading-6 text-page/52">
                   Some production details are summarized to respect employer and client confidentiality.
                 </p>
               </aside>

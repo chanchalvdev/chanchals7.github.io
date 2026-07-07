@@ -11,11 +11,11 @@ export function Tag({
   tone?: "neutral" | "blue" | "green" | "coral" | "dark";
 }) {
   const tones = {
-    neutral: "border-ink/10 bg-page text-ink/56",
-    blue:    "border-cobalt/18 bg-cobalt/8 text-cobalt",
+    neutral: "border-border bg-muted/50 text-ink/60",
+    blue:    "border-cobalt/20 bg-cobalt/8 text-cobalt",
     green:   "border-signal/20 bg-signal/8 text-signal",
-    coral:   "border-violet/18 bg-violet/8 text-violet",
-    dark:    "border-ink bg-ink text-white",
+    coral:   "border-violet/20 bg-violet/8 text-violet",
+    dark:    "border-ink bg-ink text-page",
   };
 
   return (

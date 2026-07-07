@@ -1,15 +1,16 @@
 import type {
+  ConsoleScene,
   PortfolioProfile,
   PortfolioProject,
   ProjectCategory,
 } from "@/lib/portfolio-contracts";
 
-export type { ProjectCategory };
+export type { ConsoleScene, ProjectCategory };
 export type Project = PortfolioProject;
 
 export const profile: PortfolioProfile = {
   name: "Chanchal Verma",
-  role: "AI Security Engineer • Product Engineering • Agentic AI • Golang • Node.js • React • Kubernetes • UI/UX",
+  role: "AI Security Engineer • AI Product Engineering • Agentic AI • Golang • Node.js • React • UI/UX • Kubernetes • Cloud • Security",
   location: "Abu Dhabi, UAE",
   email: "chanchal9.dev@gmail.com",
   phone: "[redacted-phone]",
@@ -17,49 +18,59 @@ export const profile: PortfolioProfile = {
   github: "https://github.com/ChanchalS7",
   linkedin: "https://linkedin.com/in/chanchals7",
   blog: "https://dev.to/chanchals7",
-  headline: "Designing secure systems with product calm.",
+  headline: "I build intelligent systems that scale.",
   summary:
-    "I build resilient software across React, Go, cloud infrastructure, security, and AI workflows, turning complex systems into products people can trust.",
+    "Senior Full Stack Engineer with 5+ years building cloud-native solutions — currently leading frontend for AI-powered security systems that detect and respond to cyber threats automatically, and building agentic AI systems that think and adapt on their own.",
   narrative:
-    "My best work happens where product clarity and platform depth meet: interfaces that feel calm under pressure, backend systems that stay reliable, and delivery workflows that help teams move without making the product fragile.",
+    "My best work happens at the intersection of AI and cloud systems: interfaces that stay calm under pressure, backend platforms that stay reliable, and agents that make intelligent decisions faster than we can. That's the future I'm building toward.",
 };
 
 export const navItems = [
+  { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
   { label: "Work", href: "#projects" },
-  { label: "Method", href: "#about" },
-  { label: "Systems", href: "#skills" },
+  { label: "Skills", href: "#skills" },
   { label: "Writing", href: "#writing" },
   { label: "Contact", href: "#contact" },
+];
+
+export const heroRoles = [
+  "AI Security Engineer",
+  "Full Stack AI Engineer",
+  "Agentic AI Builder",
+  "UI/UX Designer",
 ];
 
 export const heroMetrics = [
   { value: "5+", label: "years experience" },
   { value: "20+", label: "systems shipped" },
-  { value: "99.9%", label: "reliability mindset" },
+  { value: "4", label: "countries worked with" },
   { value: "200+", label: "developers mentored" },
 ];
 
 export const proofPoints = [
   "React / Next.js",
   "Go / Node.js",
+  "Agentic AI / LLMs",
   "AWS / Azure / GCP",
   "Kubernetes",
   "PostgreSQL / Redis",
   "Security / IAM",
+  "UI/UX Design",
 ];
 
 export const capabilities = [
   {
     title: "Secure by design",
-    text: "Security is not a final checklist. I build identity, permissions, auditability, and safe defaults into the architecture early.",
+    text: "Security is not a final checklist. I build identity, permissions, auditability, and safe defaults into the architecture early — proactive defense against malware, phishing, and emerging attacks.",
+  },
+  {
+    title: "AI-native engineering",
+    text: "From LLM-powered threat classification to autonomous agents, I design systems where AI is the engine, not a bolt-on — software that can heal itself and optimize automatically.",
   },
   {
     title: "Product clarity",
-    text: "Complex systems only become useful when flows, states, copy, and information hierarchy make decisions easier.",
-  },
-  {
-    title: "Operational empathy",
-    text: "I design for real teams using software under pressure: observable, reliable, recoverable, and calm.",
+    text: "Complex systems only become useful when flows, states, copy, and information hierarchy make decisions easier. I design data-rich interfaces that simplify complex security insights.",
   },
 ];
 
@@ -68,22 +79,22 @@ export const experience = [
     company: "CPX",
     role: "Senior Full Stack Engineer",
     location: "Abu Dhabi, UAE",
-    period: "Aug 2025 - Present",
+    period: "Aug 2025 — Present",
     summary:
-      "Building an AI-powered cyber threat intelligence platform for SOC, Threat Intel, and Threat Hunt teams.",
+      "Building AI-driven cybersecurity solutions — intelligent agents across frontend and backend that detect and respond to threats in real time.",
     highlights: [
-      "Designed frontend architecture with TypeScript, Vite, TanStack Query, and reusable product modules.",
-      "Built a NestJS BFF with Keycloak SSO, multi-tenant RBAC, Prisma, PostgreSQL audit trails, and proxy layers.",
-      "Delivered AI chat interfaces, streaming responses, security visualizations, and Azure DevOps deployments.",
+      "Leading frontend development for intuitive, data-rich interfaces that simplify complex security insights for SOC, Threat Intel, and Threat Hunt teams.",
+      "Building intelligent agents focused on automation, anomaly detection, and proactive defense against malware, phishing, and emerging cyberattacks.",
+      "Designed frontend architecture with TypeScript, TanStack Query, and a NestJS BFF with Keycloak SSO, multi-tenant RBAC, and PostgreSQL audit trails.",
     ],
   },
   {
     company: "StackGuardian",
     role: "Founding Software Engineer",
-    location: "Belgium, Remote",
-    period: "Jul 2024 - Jun 2025",
+    location: "Bavaria, Germany",
+    period: "Jul 2024 — Jun 2025",
     summary:
-      "Worked across product engineering, SDKs, cloud-native APIs, and platform governance workflows.",
+      "One of the first engineers building an infrastructure governance platform from absolute scratch.",
     highlights: [
       "Contributed to SG-SDK using Go and Node.js with Fern for SDK generation.",
       "Developed Kubernetes-backed infrastructure APIs for deployment automation and orchestration.",
@@ -92,37 +103,76 @@ export const experience = [
   },
   {
     company: "Thor Solutions",
-    role: "Full Stack Developer and DevOps Engineer",
-    location: "Remote",
-    period: "Jun 2023 - Jun 2024",
+    role: "Senior Full Stack Engineer",
+    location: "New Delhi, India",
+    period: "Jun 2023 — Jun 2024",
     summary:
-      "Led backend and cloud delivery for production applications using Go, AWS, Docker, and Kubernetes.",
+      "Led backend and cloud delivery for production applications across two client engagements using Go, MERN, AWS, and CI/CD automation.",
     highlights: [
-      "Built REST APIs with Golang, Gin, PostgreSQL, authentication, Stripe, Twilio, and Auth0 integrations.",
-      "Deployed services on AWS EC2, RDS, S3, and DynamoDB with CI/CD through GitHub Actions.",
-      "Mentored developers, reviewed architecture, and improved deployment speed through release automation.",
+      "Built MERN apps integrating Shopify, WooCommerce, and Etsy — writing the entire backend REST API layer from scratch.",
+      "Spearheaded a Golang project with Gin and PostgreSQL for a USA-based client; built the Go backend for a Flutter Android app.",
+      "Integrated Stripe, Twilio OTP/calling, and Auth0; deployed on AWS EC2/RDS with Jenkins and GitHub Actions CI/CD pipelines.",
     ],
   },
   {
     company: "Masai School",
     role: "Software Engineer",
-    location: "Remote",
-    period: "Oct 2021 - Jun 2023",
+    location: "Bengaluru, India",
+    period: "Oct 2021 — Jun 2023",
     summary:
-      "Built learning platforms and mentored 200+ developers in MERN stack, backend engineering, and code quality.",
+      "Built internal learning platforms in React and Node.js while mentoring 200+ students into MERN developers.",
     highlights: [
-      "Created backend modules in Node.js and experimented with Go microservices for internal tools.",
-      "Conducted code reviews, mock interviews, design reviews, and pair programming sessions.",
-      "Worked on coding evaluation automation and student feedback systems.",
+      "Mentored 200+ students on React, Node, and DSA through daily stand-ups, pair programming, and weekly evaluations.",
+      "Developed internal products for learning and job-readiness as a React.js and Node.js product developer.",
+      "Guided student project builds on the MERN stack, with structured code review and assessment.",
+    ],
+  },
+  {
+    company: "Freelance",
+    role: "Freelance Web Developer",
+    location: "Pune, India",
+    period: "Jun 2020 — Sep 2021",
+    summary:
+      "Started with static sites for local vendors and grew into real-time production work on the MERN stack and Go.",
+    highlights: [
+      "Built frontend features and REST APIs on MongoDB, working from trainee to junior level under senior developers.",
+      "Worked with Jest for testing and handled third-party API integrations.",
+      "Built APIs in Golang across Gin, Fiber, and Chi frameworks.",
     ],
   },
 ];
 
+export const education = [
+  {
+    school: "Shri G S Institute of Technology & Science",
+    degree: "B.E. — Information Technology",
+    period: "2016 — 2020",
+  },
+  {
+    school: "L.N. Paliwal Higher Secondary School",
+    degree: "Higher Secondary Certificate, PCM",
+    period: "2015 — 2016",
+  },
+];
+
+export const certifications = [
+  "C Language",
+  "Python",
+  "Go: The Complete Developer's Guide",
+];
+
+export const honors = [
+  "Marubeni Meritorious Scholarship",
+  "Meritorious Students Award",
+];
+
+export const languages = ["English", "Hindi (Native)"];
+
 export const skillGroups = [
   {
-    title: "Frontend systems",
+    title: "Frontend & UI/UX",
     description: "Interfaces, state, data loading, design systems, and product surfaces.",
-    items: ["React", "Next.js", "TypeScript", "TanStack Query", "Redux", "Tailwind CSS", "Vite"],
+    items: ["React", "Next.js", "TypeScript", "TanStack Query", "Redux", "Tailwind CSS", "Vite", "Figma"],
   },
   {
     title: "Backend platforms",
@@ -130,14 +180,98 @@ export const skillGroups = [
     items: ["Go", "Node.js", "NestJS", "Express", "Gin", "Fiber", "GraphQL", "gRPC"],
   },
   {
-    title: "Cloud and security",
+    title: "AI & agentic systems",
+    description: "LLM pipelines, autonomous agents, embeddings, and AI-native product features.",
+    items: ["Agentic AI", "LLM Integration", "Ollama", "Qdrant", "RAG", "Prompt Engineering", "Anomaly Detection"],
+  },
+  {
+    title: "Cloud & security",
     description: "Deployment, governance, identity, secure access, and operational reliability.",
     items: ["AWS", "Azure", "GCP", "Docker", "Kubernetes", "Terraform", "Keycloak", "CI/CD"],
   },
   {
-    title: "Data and operations",
+    title: "Data & operations",
     description: "Persistence, caching, queues, audits, and system observability.",
-    items: ["PostgreSQL", "MongoDB", "Redis", "DynamoDB", "Kafka", "Queues", "Prisma", "Temporal"],
+    items: ["PostgreSQL", "MongoDB", "Redis", "DynamoDB", "Kafka", "Prisma", "Prometheus", "Temporal"],
+  },
+];
+
+/**
+ * Scenes for the hero terminal visual — one per flagship project.
+ * Add a new scene here when you add a project; the hero cycles through them.
+ */
+export const consoleScenes: ConsoleScene[] = [
+  {
+    id: "siem-agent",
+    title: "siem-agent — live triage",
+    lines: [
+      { tone: "dim", text: "$ tail -f /var/log/auth.log" },
+      { tone: "muted", text: "sshd[2201]: Failed password for root from 203.0.113.7" },
+      { tone: "command", text: "→ agent classify --stream" },
+      { tone: "result", prefix: "MITRE T1110", text: " · Brute Force" },
+    ],
+    chips: [
+      { text: "P2 · HIGH", tone: "amber" },
+      { text: "IOC 203.0.113.7", tone: "coral" },
+      { text: "LLM · agentic", tone: "violet" },
+    ],
+    confidence: 94,
+    footerLeft: "Agent online",
+    footerRight: "classified in <20s",
+  },
+  {
+    id: "threat-intel",
+    title: "threat-intel — investigation",
+    lines: [
+      { tone: "dim", text: "$ intel lookup --url login-verify[.]net" },
+      { tone: "muted", text: "campaign match: credential phishing kit" },
+      { tone: "command", text: "→ agent enrich --evidence" },
+      { tone: "result", prefix: "TA0001", text: " · Initial Access · phishing" },
+    ],
+    chips: [
+      { text: "P1 · CRITICAL", tone: "coral" },
+      { text: "RBAC · tenant-aware", tone: "cobalt" },
+      { text: "AI · assisted triage", tone: "violet" },
+    ],
+    confidence: 91,
+    footerLeft: "SOC console",
+    footerRight: "fewer context switches",
+  },
+  {
+    id: "cloudguard",
+    title: "cloudguard — governance",
+    lines: [
+      { tone: "dim", text: "$ sg policy evaluate --stack prod-eu" },
+      { tone: "muted", text: "drift detected: s3 bucket acl public-read" },
+      { tone: "command", text: "→ agent remediate --plan" },
+      { tone: "result", prefix: "Policy restored", text: " · IaC patch applied" },
+    ],
+    chips: [
+      { text: "K8s · control plane", tone: "signal" },
+      { text: "Terraform · plan", tone: "amber" },
+      { text: "SDK · generated", tone: "cobalt" },
+    ],
+    confidence: 97,
+    footerLeft: "Governance active",
+    footerRight: "policy as code",
+  },
+  {
+    id: "delivery",
+    title: "delivery — release pipeline",
+    lines: [
+      { tone: "dim", text: "$ git push origin main" },
+      { tone: "muted", text: "ci: build ▸ test ▸ containerize ▸ deploy" },
+      { tone: "command", text: "→ pipeline promote --prod" },
+      { tone: "result", prefix: "Released", text: " · EC2 + RDS healthy" },
+    ],
+    chips: [
+      { text: "CI/CD · actions", tone: "signal" },
+      { text: "AWS · EC2/RDS", tone: "amber" },
+      { text: "Go · Gin", tone: "cobalt" },
+    ],
+    confidence: 99,
+    footerLeft: "Pipeline green",
+    footerRight: "release in minutes",
   },
 ];
 
@@ -158,6 +292,7 @@ export const projects: Project[] = [
     year: "2025",
     featured: true,
     sortScore: 110,
+    caseStudyReady: true,
     description:
       "An AI-native SIEM agent written in Go that classifies any raw log line into a structured threat report — with MITRE ATT&CK mapping, IOC extraction, severity triage, and actionable remediation — in under 20 seconds, using a local-first LLM stack.",
     impact:

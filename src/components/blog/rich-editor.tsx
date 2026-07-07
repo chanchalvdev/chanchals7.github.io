@@ -517,7 +517,7 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
   return (
     <div
       className={cn(
-        "flex flex-col rounded-xl border border-ink/10 bg-white shadow-soft",
+        "flex flex-col rounded-xl border border-ink/10 bg-surface shadow-soft",
         isFullscreen && "fixed inset-0 z-50 rounded-none border-0",
       )}
     >
@@ -596,7 +596,7 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
       {/* Link dialog */}
       {linkDialog.open && (
         <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/20 backdrop-blur-sm">
-          <div className="w-full max-w-sm rounded-xl border border-ink/10 bg-white p-6 shadow-float">
+          <div className="w-full max-w-sm rounded-xl border border-ink/10 bg-surface p-6 shadow-float">
             <div className="flex items-center justify-between">
               <h3 className="font-bold text-ink">Insert link</h3>
               <button
@@ -618,7 +618,7 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
             <div className="mt-4 flex gap-2">
               <button
                 onClick={applyLink}
-                className="flex-1 rounded-lg bg-cobalt py-2 text-sm font-semibold text-white hover:bg-cobalt/90"
+                className="flex-1 rounded-lg bg-cobalt py-2 text-sm font-semibold text-page hover:bg-cobalt/90"
               >
                 Apply
               </button>

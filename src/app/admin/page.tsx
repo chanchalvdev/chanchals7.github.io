@@ -91,7 +91,7 @@ function MetaPanel({
             onChange({ title, slug: data.slug || generateSlug(title) });
           }}
           placeholder="Post title"
-          className="h-10 w-full rounded-xl border border-ink/10 bg-page px-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/40 focus:bg-white focus:outline-none"
+          className="h-10 w-full rounded-xl border border-ink/10 bg-page px-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/40 focus:bg-surface focus:outline-none"
         />
       </div>
 
@@ -103,7 +103,7 @@ function MetaPanel({
           value={data.slug}
           onChange={(e) => onChange({ slug: e.target.value })}
           placeholder="url-friendly-slug"
-          className="h-10 w-full rounded-xl border border-ink/10 bg-page px-3 font-mono text-xs text-ink placeholder:text-ink/30 focus:border-cobalt/40 focus:bg-white focus:outline-none"
+          className="h-10 w-full rounded-xl border border-ink/10 bg-page px-3 font-mono text-xs text-ink placeholder:text-ink/30 focus:border-cobalt/40 focus:bg-surface focus:outline-none"
         />
       </div>
 
@@ -115,7 +115,7 @@ function MetaPanel({
           onChange={(e) => onChange({ excerpt: e.target.value })}
           placeholder="Brief description of the post…"
           rows={3}
-          className="w-full resize-none rounded-xl border border-ink/10 bg-page p-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/40 focus:bg-white focus:outline-none"
+          className="w-full resize-none rounded-xl border border-ink/10 bg-page p-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/40 focus:bg-surface focus:outline-none"
         />
       </div>
 
@@ -127,7 +127,7 @@ function MetaPanel({
           value={data.category}
           onChange={(e) => onChange({ category: e.target.value })}
           placeholder="Engineering, Product, Security…"
-          className="h-10 w-full rounded-xl border border-ink/10 bg-page px-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/40 focus:bg-white focus:outline-none"
+          className="h-10 w-full rounded-xl border border-ink/10 bg-page px-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/40 focus:bg-surface focus:outline-none"
         />
       </div>
 
@@ -146,7 +146,7 @@ function MetaPanel({
             })
           }
           placeholder="React, TypeScript, Go"
-          className="h-10 w-full rounded-xl border border-ink/10 bg-page px-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/40 focus:bg-white focus:outline-none"
+          className="h-10 w-full rounded-xl border border-ink/10 bg-page px-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/40 focus:bg-surface focus:outline-none"
         />
       </div>
 
@@ -197,7 +197,7 @@ function MetaPanel({
               value={data.seoTitle ?? ""}
               onChange={(e) => onChange({ seoTitle: e.target.value })}
               placeholder="Custom page title for search engines"
-              className="h-9 w-full rounded-lg border border-ink/10 bg-white px-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/30 focus:outline-none"
+              className="h-9 w-full rounded-lg border border-ink/10 bg-surface px-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/30 focus:outline-none"
             />
           </div>
           <div>
@@ -207,7 +207,7 @@ function MetaPanel({
               onChange={(e) => onChange({ seoDescription: e.target.value })}
               placeholder="Meta description for search engines"
               rows={2}
-              className="w-full resize-none rounded-lg border border-ink/10 bg-white p-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/30 focus:outline-none"
+              className="w-full resize-none rounded-lg border border-ink/10 bg-surface p-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/30 focus:outline-none"
             />
           </div>
         </div>
@@ -232,7 +232,7 @@ function BlogTable({
 
   if (blogs.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-4 rounded-2xl border border-ink/10 bg-white py-20 text-center">
+      <div className="flex flex-col items-center gap-4 rounded-2xl border border-ink/10 bg-surface py-20 text-center">
         <div className="grid size-14 place-items-center rounded-2xl bg-cobalt/6">
           <PenLine className="size-6 text-cobalt/60" aria-hidden="true" />
         </div>
@@ -245,7 +245,7 @@ function BlogTable({
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-ink/10 bg-white shadow-soft">
+    <div className="overflow-hidden rounded-xl border border-ink/10 bg-surface shadow-soft">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[640px] text-sm">
           <thead>
@@ -329,7 +329,7 @@ function BlogTable({
                             onDelete(blog.id);
                             setConfirmDelete(null);
                           }}
-                          className="grid size-8 place-items-center rounded-lg bg-coral text-white transition hover:bg-coral/90"
+                          className="grid size-8 place-items-center rounded-lg bg-coral text-page transition hover:bg-coral/90"
                           title="Confirm delete"
                         >
                           <Check className="size-3.5" />
@@ -461,7 +461,7 @@ function EditorView({
   return (
     <div className="min-h-screen bg-page">
       {/* Top bar */}
-      <div className="sticky top-0 z-30 border-b border-ink/8 bg-white/95 backdrop-blur-xl">
+      <div className="sticky top-0 z-30 border-b border-ink/8 bg-surface/95 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8">
           <div className="flex items-center gap-3">
             <button
@@ -497,7 +497,7 @@ function EditorView({
 
             <button
               onClick={() => handleSave(false)}
-              className="flex h-9 items-center gap-1.5 rounded-xl border border-ink/10 bg-white px-4 text-sm font-semibold text-ink/70 transition hover:border-cobalt/25 hover:text-cobalt"
+              className="flex h-9 items-center gap-1.5 rounded-xl border border-ink/10 bg-surface px-4 text-sm font-semibold text-ink/70 transition hover:border-cobalt/25 hover:text-cobalt"
             >
               <Save className="size-3.5" />
               <span className="hidden sm:inline">Save draft</span>
@@ -505,7 +505,7 @@ function EditorView({
 
             <button
               onClick={() => handleSave(true)}
-              className="flex h-9 items-center gap-1.5 rounded-xl bg-cobalt px-4 text-sm font-bold text-white transition hover:bg-cobalt/90"
+              className="flex h-9 items-center gap-1.5 rounded-xl bg-cobalt px-4 text-sm font-bold text-page transition hover:bg-cobalt/90"
             >
               <ArrowUpRight className="size-3.5" />
               <span>{post.status === "published" ? "Update" : "Publish"}</span>
@@ -535,7 +535,7 @@ function EditorView({
         {/* Sidebar: metadata */}
         <aside>
           <div className="lg:sticky lg:top-20">
-            <div className="rounded-xl border border-ink/10 bg-white p-5 shadow-soft">
+            <div className="rounded-xl border border-ink/10 bg-surface p-5 shadow-soft">
               <p className="text-kicker mb-4 text-ink/40">Post settings</p>
               <MetaPanel data={post} onChange={patch} />
             </div>
@@ -644,10 +644,10 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-page">
       {/* Header */}
-      <header className="border-b border-ink/8 bg-white">
+      <header className="border-b border-ink/8 bg-surface">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
           <div className="flex items-center gap-3">
-            <div className="grid size-9 place-items-center rounded-lg bg-cobalt font-mono text-[0.8rem] font-bold text-white">
+            <div className="grid size-9 place-items-center rounded-lg bg-cobalt font-mono text-[0.8rem] font-bold text-page">
               CV
             </div>
             <div>
@@ -683,7 +683,7 @@ export default function AdminPage() {
             { label: "Published", value: published, icon: <Check className="size-5 text-signal" /> },
             { label: "Drafts", value: drafts, icon: <Edit2 className="size-5 text-amber" /> },
           ].map((stat) => (
-            <div key={stat.label} className="flex items-center gap-4 rounded-xl border border-ink/10 bg-white p-5 shadow-soft">
+            <div key={stat.label} className="flex items-center gap-4 rounded-xl border border-ink/10 bg-surface p-5 shadow-soft">
               <div className="grid size-11 place-items-center rounded-xl bg-page">{stat.icon}</div>
               <div>
                 <p className="text-2xl font-bold text-ink">{stat.value}</p>
@@ -698,7 +698,7 @@ export default function AdminPage() {
           <h2 className="text-xl font-bold text-ink">All posts</h2>
           <button
             onClick={() => setView("new")}
-            className="flex h-10 items-center gap-2 rounded-xl bg-cobalt px-5 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-cobalt/90"
+            className="flex h-10 items-center gap-2 rounded-xl bg-cobalt px-5 text-sm font-bold text-page transition hover:-translate-y-0.5 hover:bg-cobalt/90"
           >
             <Plus className="size-4" />
             New post

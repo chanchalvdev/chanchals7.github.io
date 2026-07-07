@@ -5,10 +5,10 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { cn } from "@/lib/utils";
 
 const levels = [
-  "bg-ink/6",
-  "bg-cobalt/20",
-  "bg-cobalt/42",
-  "bg-cobalt/68",
+  "bg-ink/8",
+  "bg-cobalt/25",
+  "bg-cobalt/45",
+  "bg-cobalt/70",
   "bg-cobalt",
 ];
 
@@ -32,7 +32,7 @@ export async function GitHubGraph() {
             href={profile.github}
             target="_blank"
             rel="noreferrer"
-            className="mt-8 inline-flex h-10 items-center gap-2 rounded-lg bg-cobalt px-5 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-cobalt/90"
+            className="mt-8 inline-flex h-10 items-center gap-2 rounded-lg bg-cobalt px-5 text-sm font-bold text-page shadow-cobalt transition hover:-translate-y-0.5 hover:brightness-110"
           >
             Open GitHub
             <ArrowUpRight className="size-4" aria-hidden="true" />
@@ -40,9 +40,9 @@ export async function GitHubGraph() {
         </div>
 
         {/* Right: graph card */}
-        <div className="min-w-0 overflow-hidden rounded-xl border border-ink/10 bg-white p-5 shadow-lift sm:p-6">
+        <div className="glow-ring min-w-0 overflow-hidden rounded-xl border border-border bg-surface p-5 shadow-(--shadow-lift) sm:p-6">
           {/* Header */}
-          <div className="flex flex-col justify-between gap-5 border-b border-ink/8 pb-5 sm:flex-row sm:items-end">
+          <div className="flex flex-col justify-between gap-5 border-b border-border pb-5 sm:flex-row sm:items-end">
             <div>
               <div className="flex items-center gap-2">
                 <GitCommitVertical className="size-4 text-cobalt" aria-hidden="true" />
@@ -69,7 +69,7 @@ export async function GitHubGraph() {
                   label: "focus repos",
                 },
               ].map((stat) => (
-                <div key={stat.label} className="rounded-lg bg-page px-4 py-3 text-center">
+                <div key={stat.label} className="rounded-lg bg-muted/60 px-4 py-3 text-center">
                   <p className="text-xl font-bold text-ink">{stat.value}</p>
                   <p className="mt-0.5 text-[0.65rem] font-semibold text-ink/42">{stat.label}</p>
                 </div>
@@ -88,7 +88,7 @@ export async function GitHubGraph() {
                   <span
                     key={`${wi}-${di}`}
                     className={cn(
-                      "size-2.75 rounded-sm ring-1 ring-ink/4 transition hover:ring-cobalt/30",
+                      "size-2.75 rounded-sm ring-1 ring-ink/8 transition hover:ring-cobalt/30",
                       levels[level] ?? levels[0],
                     )}
                     title={`Week ${wi + 1}, day ${di + 1}: level ${level}`}

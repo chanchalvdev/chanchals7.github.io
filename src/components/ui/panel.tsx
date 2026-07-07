@@ -11,7 +11,7 @@ export function Panel({
   return (
     <div
       className={cn(
-        "rounded-lg border border-ink/10 bg-white shadow-[0_18px_48px_rgba(16,18,20,0.07)]",
+        "rounded-lg border border-border bg-surface shadow-(--shadow-soft)",
         className,
       )}
     >

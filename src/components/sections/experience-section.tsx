@@ -1,9 +1,7 @@
-import { Award, GraduationCap, Languages, MapPin, ScrollText } from "lucide-react";
+import { GraduationCap, Languages, MapPin } from "lucide-react";
 import {
-  certifications,
   education,
   experience,
-  honors,
   languages,
 } from "@/content/portfolio";
 import { Reveal } from "@/components/ui/reveal";
@@ -41,44 +39,15 @@ export function ExperienceSection() {
               ))}
             </div>
 
-            {/* Certifications + honors + languages */}
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="rounded-xl border border-border bg-surface p-5">
-                <p className="flex items-center gap-2 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/40">
-                  <ScrollText className="size-3.5 text-signal" aria-hidden="true" />
-                  Certifications
-                </p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {certifications.map((cert) => (
-                    <span
-                      key={cert}
-                      className="rounded-md border border-signal/20 bg-signal/8 px-2.5 py-1 font-mono text-[0.68rem] font-semibold text-signal"
-                    >
-                      {cert}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="rounded-xl border border-border bg-surface p-5">
-                <p className="flex items-center gap-2 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/40">
-                  <Award className="size-3.5 text-amber" aria-hidden="true" />
-                  Honors
-                </p>
-                <ul className="mt-3 grid gap-1.5">
-                  {honors.map((honor) => (
-                    <li key={honor} className="text-sm font-medium text-ink/65">
-                      {honor}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-4 flex items-center gap-2 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/40">
-                  <Languages className="size-3.5 text-violet" aria-hidden="true" />
-                  Languages
-                </p>
-                <p className="mt-2 text-sm font-medium text-ink/65">
-                  {languages.join(" · ")}
-                </p>
-              </div>
+            {/* Languages */}
+            <div className="rounded-xl border border-border bg-surface p-5">
+              <p className="flex items-center gap-2 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/40">
+                <Languages className="size-3.5 text-violet" aria-hidden="true" />
+                Languages
+              </p>
+              <p className="mt-2 text-sm font-medium text-ink/65">
+                {languages.join(" · ")}
+              </p>
             </div>
           </Reveal>
         </div>

@@ -148,11 +148,6 @@ export const education = [
     degree: "B.E. — Information Technology",
     period: "2016 — 2020",
   },
-  {
-    school: "L.N. Paliwal Higher Secondary School",
-    degree: "Higher Secondary Certificate, PCM",
-    period: "2015 — 2016",
-  },
 ];
 
 export const certifications = [
@@ -166,7 +161,7 @@ export const honors = [
   "Meritorious Students Award",
 ];
 
-export const languages = ["English", "Hindi (Native)"];
+export const languages = ["English (Professional)", "Hindi (Native)", "Arabic (Beginner)"];
 
 export const skillGroups = [
   {
@@ -319,35 +314,37 @@ export const projects: Project[] = [
     detailImage: "/siem-architecture.png",
   },
   {
-    slug: "ai-threat-intelligence-workbench",
-    title: "Threat Intelligence Console",
+    slug: "threat-rag",
+    title: "ThreatRAG — Agentic Threat Intelligence RAG",
     category: "Security",
     year: "2026",
     featured: true,
     sortScore: 100,
+    caseStudyReady: true,
     description:
-      "A calm investigation workspace for threat intel teams combining AI assistance, evidence context, tenant-aware access, and high-signal risk views.",
+      "A spec-first, security-hardened RAG platform that answers analyst questions with cited sources from MITRE ATT&CK, OWASP, and NVD — then runs autonomous multi-agent investigations on any IOC end-to-end.",
     impact:
-      "Turned scattered security signals into guided workflows with fewer context switches and clearer analyst priority.",
-    stack: ["React", "TypeScript", "TanStack Query", "NestJS", "Keycloak", "PostgreSQL"],
+      "Collapses hours of manual searching across MITRE ATT&CK, NVD, and OWASP into sub-two-second cited answers, and turns end-to-end IOC investigation into an autonomous Researcher→Critic→Reporter pipeline.",
+    stack: ["Python", "FastAPI", "LangChain", "LangGraph", "React", "Qdrant", "Ollama", "PostgreSQL"],
     links: {
-      demo: "#contact",
-      github: "https://github.com/ChanchalS7",
+      github: "https://github.com/ChanchalS7/threat-RAG",
     },
     metrics: [
-      { value: "SOC", label: "operators" },
-      { value: "RBAC", label: "access model" },
-      { value: "AI", label: "assisted triage" },
+      { value: "<2s", label: "cited answer (TTFT)" },
+      { value: "39/39", label: "tests passing" },
+      { value: "3", label: "agent pipeline" },
     ],
     challenge:
-      "Security teams need dense operational context without turning the UI into a wall of alerts and disconnected widgets.",
+      "The knowledge to understand a threat is fragmented across MITRE ATT&CK (STIX), the NVD CVE API, and OWASP PDFs — and generic LLM chat answers security questions without the provenance a SOC needs to trust them, forcing analysts to context-switch and manually investigate every IOC.",
     solution:
-      "I designed reusable investigation modules, separated API/BFF concerns, and kept identity, tenant access, and auditability central to the product architecture.",
+      "I built a spec-first FastAPI platform where LangChain LCEL powers cited RAG over locally-embedded knowledge bases, a LangGraph ReAct agent adds live NVD and web-search tools, and a Researcher→Critic→Reporter graph runs autonomous investigations. OWASP LLM Top 10 hardening (injection detection + output redaction) is a tested first-class module, and RAGAs makes answer quality measurable.",
     results: [
-      "Created product modules that could scale across SOC, Threat Intel, and Threat Hunt workflows.",
-      "Reduced interaction friction by grouping evidence, AI context, and action states into one investigation surface.",
-      "Built backend access control and audit foundations suitable for security-sensitive enterprise users.",
+      "Cited Q&A pipeline: every answer returns sources from MITRE ATT&CK, OWASP LLM Top 10, and custom PDFs, streamed token-by-token via SSE for sub-two-second time-to-first-token.",
+      "Autonomous multi-agent investigation on any IOC (IP, hash, CVE) via a bounded LangGraph loop, with reports persisted to PostgreSQL + pgvector for similarity search over past investigations.",
+      "39/39 unit tests, Ruff-clean and Mypy-strict, OWASP-LLM-Top-10 hardened, and RAGAs-evaluated for faithfulness and relevancy — all running on a free-tier local stack (Qdrant + Ollama).",
     ],
+    coverImage: "/threatrag-title.png",
+    detailImage: "/threatrag-architecture.png",
   },
   {
     slug: "cloud-governance-control-plane",

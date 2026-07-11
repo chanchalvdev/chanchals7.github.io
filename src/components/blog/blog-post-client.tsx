@@ -287,30 +287,31 @@ function BlogPostInner() {
       <Footer />
 
       <style>{`
-        .prose-blog{color:rgba(12,13,17,0.76);line-height:1.85;font-size:1.0625rem;}
-        .prose-blog h1,.prose-blog h2,.prose-blog h3,.prose-blog h4{color:#0c0d11;font-weight:700;line-height:1.2;margin-top:2.5rem;margin-bottom:1rem;letter-spacing:-0.01em;}
+        .prose-blog{color:var(--ink);opacity:1;line-height:1.85;font-size:1.0625rem;}
+        .prose-blog *{color:inherit;}
+        .prose-blog h1,.prose-blog h2,.prose-blog h3,.prose-blog h4{color:var(--ink);font-weight:700;line-height:1.2;margin-top:2.5rem;margin-bottom:1rem;letter-spacing:-0.01em;}
         .prose-blog h1{font-size:2rem;}.prose-blog h2{font-size:1.625rem;}.prose-blog h3{font-size:1.375rem;}.prose-blog h4{font-size:1.125rem;}
-        .prose-blog p{margin-bottom:1.5rem;}
-        .prose-blog a{color:#3b5fe8;text-decoration:underline;text-underline-offset:3px;}
-        .prose-blog a:hover{color:#2948c8;}
-        .prose-blog strong{color:#0c0d11;font-weight:700;}
+        .prose-blog p{margin-bottom:1.5rem;opacity:0.85;}
+        .prose-blog a{color:var(--cobalt);text-decoration:underline;text-underline-offset:3px;}
+        .prose-blog a:hover{opacity:0.8;}
+        .prose-blog strong{color:var(--ink);font-weight:700;}
         .prose-blog em{font-style:italic;}
-        .prose-blog blockquote{border-left:3px solid #3b5fe8;padding-left:1.25rem;margin:2rem 0;color:rgba(12,13,17,0.62);font-style:italic;}
-        .prose-blog code{font-family:'IBM Plex Mono',monospace;font-size:0.875em;background:rgba(59,95,232,0.06);border:1px solid rgba(59,95,232,0.12);border-radius:4px;padding:0.15em 0.4em;}
-        .prose-blog pre{background:#0c0d11;border-radius:12px;padding:1.25rem 1.5rem;overflow-x:auto;margin:2rem 0;}
+        .prose-blog blockquote{border-left:3px solid var(--cobalt);padding-left:1.25rem;margin:2rem 0;color:var(--ink-soft);font-style:italic;}
+        .prose-blog code{font-family:'IBM Plex Mono',monospace;font-size:0.875em;background:var(--border);border:1px solid var(--border);border-radius:4px;padding:0.15em 0.4em;color:var(--cobalt);}
+        .prose-blog pre{background:#080d17;border-radius:12px;padding:1.25rem 1.5rem;overflow-x:auto;margin:2rem 0;}
         .prose-blog pre code{background:none;border:none;padding:0;color:#e2e8ef;font-size:0.875rem;line-height:1.7;}
         .prose-blog ul{list-style:disc;padding-left:1.5rem;margin-bottom:1.5rem;}
         .prose-blog ol{list-style:decimal;padding-left:1.5rem;margin-bottom:1.5rem;}
         .prose-blog li{margin-bottom:0.5rem;}
-        .prose-blog hr{border:none;border-top:1px solid rgba(12,13,17,0.08);margin:2.5rem 0;}
+        .prose-blog hr{border:none;border-top:1px solid var(--border);margin:2.5rem 0;}
         .prose-blog img{border-radius:12px;max-width:100%;height:auto;margin:2rem 0;}
         .prose-blog table{width:100%;border-collapse:collapse;margin:2rem 0;font-size:0.9375rem;}
-        .prose-blog th{background:rgba(12,13,17,0.04);font-weight:700;text-align:left;padding:0.75rem 1rem;border:1px solid rgba(12,13,17,0.1);}
-        .prose-blog td{padding:0.75rem 1rem;border:1px solid rgba(12,13,17,0.08);}
+        .prose-blog th{background:var(--surface-soft);font-weight:700;text-align:left;padding:0.75rem 1rem;border:1px solid var(--border);color:var(--ink);}
+        .prose-blog td{padding:0.75rem 1rem;border:1px solid var(--border);color:var(--ink);}
         .prose-blog .callout{border-radius:12px;padding:1.25rem 1.5rem;margin:2rem 0;border:1px solid;}
-        .prose-blog .callout-info{background:rgba(59,95,232,0.05);border-color:rgba(59,95,232,0.2);}
-        .prose-blog .callout-warning{background:rgba(245,158,11,0.05);border-color:rgba(245,158,11,0.25);}
-        .prose-blog .callout-danger{background:rgba(229,71,47,0.05);border-color:rgba(229,71,47,0.2);}
+        .prose-blog .callout-info{background:rgba(59,95,232,0.08);border-color:var(--cobalt);}
+        .prose-blog .callout-warning{background:rgba(251,191,36,0.08);border-color:rgba(251,191,36,0.4);}
+        .prose-blog .callout-danger{background:rgba(229,71,47,0.08);border-color:var(--coral);}
       `}</style>
     </>
   );

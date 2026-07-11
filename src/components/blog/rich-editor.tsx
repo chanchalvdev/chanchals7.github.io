@@ -341,6 +341,35 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
     [emit],
   );
 
+  const handlePaste = useCallback(
+    (e: React.ClipboardEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      const html = e.clipboardData.getData("text/html");
+      const text = e.clipboardData.getData("text/plain");
+
+      if (html) {
+        // Parse the pasted HTML and strip all inline color/background styles
+        const doc = new DOMParser().parseFromString(html, "text/html");
+        doc.querySelectorAll<HTMLElement>("*").forEach((el) => {
+          el.style.color = "";
+          el.style.backgroundColor = "";
+          el.style.background = "";
+          el.style.fontFamily = "";
+          el.style.fontSize = "";
+          // Remove empty style attributes
+          if (!el.getAttribute("style")) el.removeAttribute("style");
+        });
+        const cleaned = doc.body.innerHTML;
+        document.execCommand("insertHTML", false, cleaned);
+      } else {
+        // Plain text fallback
+        document.execCommand("insertText", false, text);
+      }
+      emit();
+    },
+    [emit],
+  );
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
       const isMac = navigator.platform.includes("Mac");
@@ -574,6 +603,7 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
         contentEditable
         suppressContentEditableWarning
         onInput={emit}
+        onPaste={handlePaste}
         onKeyDown={handleKeyDown}
         onKeyUp={updateActiveFormats}
         onMouseUp={updateActiveFormats}

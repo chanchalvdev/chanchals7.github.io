@@ -31,6 +31,34 @@
 
 }
 
+/* ── Light theme overrides ── */
+[data-theme="light"] {
+  --background: #f5f1eb;
+  --foreground: #0c0d11;
+  --page: #f8f6f1;
+  --surface: #ffffff;
+  --surface-soft: #f5f1eb;
+  --surface-warm: #f0ece4;
+  --muted: #e8e4dc;
+  --border: rgba(12, 13, 17, 0.10);
+  --ink: #0c0d11;
+  --ink-soft: #4a5568;
+  --signal: #059669;
+  --cobalt: #2563eb;
+  --cobalt-light: rgba(37, 99, 235, 0.08);
+  --amber: #d97706;
+  --coral: #e11d48;
+  --coral-light: rgba(225, 29, 72, 0.08);
+  --lime: #65a30d;
+  --lime-light: rgba(101, 163, 13, 0.08);
+  --violet: #7c3aed;
+  --shadow-soft: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lift: 0 12px 40px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-float: 0 20px 60px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-portrait: 0 28px 70px rgba(0,0,0,0.18);
+  --shadow-cobalt: 0 12px 32px rgba(37,99,235,0.2);
+}
+
 @theme {
   /* Shadows — depth + glow on dark */
   --shadow-soft: 0 4px 24px rgba(0, 0, 0, 0.35), 0 1px 4px rgba(0, 0, 0, 0.3);

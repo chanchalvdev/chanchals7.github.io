@@ -348,21 +348,18 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
       const text = e.clipboardData.getData("text/plain");
 
       if (html) {
-        // Parse the pasted HTML and strip all inline color/background styles
         const doc = new DOMParser().parseFromString(html, "text/html");
+        // Strip ALL inline styles — lets the editor's own CSS control appearance
         doc.querySelectorAll<HTMLElement>("*").forEach((el) => {
-          el.style.color = "";
-          el.style.backgroundColor = "";
-          el.style.background = "";
-          el.style.fontFamily = "";
-          el.style.fontSize = "";
-          // Remove empty style attributes
-          if (!el.getAttribute("style")) el.removeAttribute("style");
+          el.removeAttribute("style");
+          el.removeAttribute("class");
+          el.removeAttribute("color");
+          el.removeAttribute("bgcolor");
         });
-        const cleaned = doc.body.innerHTML;
-        document.execCommand("insertHTML", false, cleaned);
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        document.execCommand("insertHTML", false, doc.body.innerHTML);
       } else {
-        // Plain text fallback
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         document.execCommand("insertText", false, text);
       }
       emit();
@@ -679,33 +676,34 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
       <style>{`
         [contenteditable][data-placeholder]:empty:before {
           content: attr(data-placeholder);
-          color: rgba(12,13,17,0.28);
+          color: var(--ink-soft, rgba(230,237,247,0.35));
           pointer-events: none;
         }
-        .editor-content { font-size: 1rem; line-height: 1.8; color: #0c0d11; }
-        .editor-content h1,.editor-content h2,.editor-content h3,.editor-content h4 { font-weight:700; line-height:1.2; margin-top:1.75rem; margin-bottom:0.75rem; color:#0c0d11; letter-spacing:-0.01em; }
+        .editor-content { font-size: 1rem; line-height: 1.8; color: var(--ink); }
+        .editor-content * { color: inherit !important; background-color: unset !important; }
+        .editor-content h1,.editor-content h2,.editor-content h3,.editor-content h4 { font-weight:700; line-height:1.2; margin-top:1.75rem; margin-bottom:0.75rem; color:var(--ink); letter-spacing:-0.01em; }
         .editor-content h1{font-size:1.875rem;} .editor-content h2{font-size:1.5rem;} .editor-content h3{font-size:1.25rem;} .editor-content h4{font-size:1.125rem;}
         .editor-content p { margin-bottom:1rem; }
-        .editor-content a { color:#3b5fe8; text-decoration:underline; text-underline-offset:3px; }
-        .editor-content blockquote { border-left:3px solid #3b5fe8; padding-left:1rem; margin:1.5rem 0; color:rgba(12,13,17,0.6); font-style:italic; }
-        .editor-content code { font-family:'IBM Plex Mono',monospace; font-size:0.875em; background:rgba(59,95,232,0.06); border:1px solid rgba(59,95,232,0.12); border-radius:4px; padding:0.1em 0.35em; }
-        .editor-content pre { background:#0c0d11; border-radius:10px; padding:1rem 1.25rem; overflow-x:auto; margin:1.5rem 0; }
-        .editor-content pre code { background:none; border:none; padding:0; color:#e2e8ef; font-size:0.875rem; line-height:1.7; }
+        .editor-content a { color:var(--cobalt); text-decoration:underline; text-underline-offset:3px; }
+        .editor-content blockquote { border-left:3px solid var(--cobalt); padding-left:1rem; margin:1.5rem 0; color:var(--ink-soft); font-style:italic; }
+        .editor-content code { font-family:'IBM Plex Mono',monospace; font-size:0.875em; background:var(--cobalt-light); border:1px solid var(--border); border-radius:4px; padding:0.1em 0.35em; color:var(--cobalt) !important; }
+        .editor-content pre { background:#080d17; border-radius:10px; padding:1rem 1.25rem; overflow-x:auto; margin:1.5rem 0; }
+        .editor-content pre code { background:none !important; border:none; padding:0; color:#e2e8ef !important; font-size:0.875rem; line-height:1.7; }
         .editor-content ul:not([data-type="taskList"]) { list-style:disc; padding-left:1.5rem; margin-bottom:1rem; }
         .editor-content ol { list-style:decimal; padding-left:1.5rem; margin-bottom:1rem; }
         .editor-content li { margin-bottom:0.35rem; }
-        .editor-content hr { border:none; border-top:1px solid rgba(12,13,17,0.1); margin:2rem 0; }
+        .editor-content hr { border:none; border-top:1px solid var(--border); margin:2rem 0; }
         .editor-content img { border-radius:8px; max-width:100%; height:auto; margin:1.5rem 0; display:block; }
         .editor-content table { width:100%; border-collapse:collapse; margin:1.5rem 0; }
-        .editor-content th { background:rgba(12,13,17,0.04); font-weight:700; text-align:left; padding:0.6rem 0.875rem; border:1px solid rgba(12,13,17,0.1); }
-        .editor-content td { padding:0.6rem 0.875rem; border:1px solid rgba(12,13,17,0.08); }
+        .editor-content th { background:var(--muted); font-weight:700; text-align:left; padding:0.6rem 0.875rem; border:1px solid var(--border); color:var(--ink) !important; }
+        .editor-content td { padding:0.6rem 0.875rem; border:1px solid var(--border); color:var(--ink) !important; }
         .editor-content .callout { border-radius:10px; padding:1rem 1.25rem; margin:1.5rem 0; border:1px solid; }
-        .editor-content .callout-info { background:rgba(59,95,232,0.05); border-color:rgba(59,95,232,0.2); }
-        .editor-content .callout-warning { background:rgba(245,158,11,0.05); border-color:rgba(245,158,11,0.25); }
-        .editor-content .callout-danger { background:rgba(229,71,47,0.05); border-color:rgba(229,71,47,0.2); }
+        .editor-content .callout-info { background:var(--cobalt-light); border-color:var(--cobalt); }
+        .editor-content .callout-warning { background:rgba(251,191,36,0.08); border-color:rgba(251,191,36,0.35); }
+        .editor-content .callout-danger { background:var(--coral-light); border-color:var(--coral); }
         .editor-content ul[data-type="taskList"] { list-style:none; padding-left:0; }
         .editor-content ul[data-type="taskList"] li { display:flex; align-items:flex-start; gap:0.5rem; }
-        .editor-content ul[data-type="taskList"] input[type="checkbox"] { margin-top:0.25rem; accent-color:#3b5fe8; }
+        .editor-content ul[data-type="taskList"] input[type="checkbox"] { margin-top:0.25rem; accent-color:var(--cobalt); }
       `}</style>
     </div>
   );

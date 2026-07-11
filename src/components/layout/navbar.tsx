@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Mail, Menu, X } from "lucide-react";
 import { navItems, profile } from "@/content/portfolio";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { cn } from "@/lib/utils";
 
 function GitHubIcon({ className }: { className?: string }) {
@@ -99,6 +100,7 @@ export function Navbar() {
 
         {/* Desktop actions */}
         <div className="hidden shrink-0 items-center gap-2 md:flex">
+          <ThemeToggle />
           <a
             href={profile.github}
             target="_blank"

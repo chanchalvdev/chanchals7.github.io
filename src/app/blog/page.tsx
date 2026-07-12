@@ -51,7 +51,7 @@ function BlogCard({ post }: { post: StoredBlogPost }) {
       <p className="mt-3 flex-1 text-sm leading-7 text-ink/56">{post.excerpt}</p>
 
       <Link
-        href={`/blog/post/?id=${post.slug}`}
+        href={`/blog/post/${post.slug}/`}
         className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-cobalt/80 transition hover:text-cobalt"
       >
         Read post

@@ -1,27 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef, Suspense } from "react";
+import { useState, useEffect, useMemo, useRef, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Calendar, Clock, Share2, Twitter, Linkedin, Link2 } from "lucide-react";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { type StoredBlogPost, getBlogBySlug, getPublishedBlogs, formatDate } from "@/lib/blog-storage";
-
-function addHeadingIds(html: string): string {
-  let count = 0;
-  return html.replace(/<h([2-4])([^>]*)>(.*?)<\/h[2-4]>/gi, (_m, level, attrs, content) => {
-    const text = content.replace(/<[^>]+>/g, "");
-    const id =
-      text
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .replace(/\s+/g, "-")
-        .replace(/-+/g, "-")
-        .slice(0, 60) + `-${count++}`;
-    return `<h${level}${attrs} id="${id}">${content}</h${level}>`;
-  });
-}
+import { processBlogHtml } from "@/lib/blog-html";
 
 function Toc({ html }: { html: string }) {
   const headings = Array.from(
@@ -103,35 +89,46 @@ function ShareButtons({ title }: { title: string }) {
   );
 }
 
-function BlogPostInner() {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get("id") ?? undefined;
-  const [post, setPost] = useState<StoredBlogPost | null | undefined>(undefined);
+function BlogPostView({
+  slug,
+  initialPost,
+}: {
+  slug?: string;
+  initialPost?: StoredBlogPost;
+}) {
+  const [post, setPost] = useState<StoredBlogPost | null | undefined>(initialPost);
   const [relatedPosts, setRelatedPosts] = useState<StoredBlogPost[]>([]);
-  const [processedHtml, setProcessedHtml] = useState("");
   const articleRef = useRef<HTMLDivElement>(null);
+
+  const processedHtml = useMemo(
+    () => (post ? processBlogHtml(post.content) : ""),
+    [post],
+  );
 
   useEffect(() => {
     if (!slug) return;
     (async () => {
-      const found = await getBlogBySlug(slug);
-      setPost(found ?? null);
+      let found = initialPost ?? null;
+      if (!found) {
+        found = await getBlogBySlug(slug);
+        setPost(found ?? null);
+        if (found) document.title = `${found.title} | Chanchal Verma`;
+      }
       if (found) {
-        setProcessedHtml(addHeadingIds(found.content));
-        document.title = `${found.title} | Chanchal Verma`;
         const all = await getPublishedBlogs();
+        const current = found;
         setRelatedPosts(
           all
             .filter(
               (p) =>
-                p.id !== found.id &&
-                (p.category === found.category || p.tags.some((t) => found.tags.includes(t))),
+                p.id !== current.id &&
+                (p.category === current.category || p.tags.some((t) => current.tags.includes(t))),
             )
             .slice(0, 2),
         );
       }
     })();
-  }, [slug]);
+  }, [slug, initialPost]);
 
   if (post === undefined) {
     return (
@@ -255,7 +252,7 @@ function BlogPostInner() {
                     {relatedPosts.map((rel) => (
                       <Link
                         key={rel.id}
-                        href={`/blog/post/?id=${rel.slug}`}
+                        href={`/blog/post/${rel.slug}/`}
                         className="group rounded-xl border border-ink/10 bg-surface p-5 shadow-soft transition hover:-translate-y-0.5 hover:border-cobalt/20"
                       >
                         <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.14em] text-ink/36">
@@ -317,14 +314,23 @@ function BlogPostInner() {
   );
 }
 
-export function BlogPostClient() {
+function QueryParamPost() {
+  const searchParams = useSearchParams();
+  const slug = searchParams.get("id") ?? undefined;
+  return <BlogPostView slug={slug} />;
+}
+
+export function BlogPostClient({ initialPost }: { initialPost?: StoredBlogPost }) {
+  if (initialPost) {
+    return <BlogPostView slug={initialPost.slug} initialPost={initialPost} />;
+  }
   return (
     <Suspense fallback={
       <div className="flex min-h-screen items-center justify-center">
         <div className="size-6 animate-spin rounded-full border-2 border-cobalt border-t-transparent" />
       </div>
     }>
-      <BlogPostInner />
+      <QueryParamPost />
     </Suspense>
   );
 }

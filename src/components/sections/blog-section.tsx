@@ -78,7 +78,7 @@ export function BlogSection() {
                     </p>
                   </div>
 
-                  <Link href={`/blog/post/?id=${post.slug}`} className="group mt-4 block">
+                  <Link href={`/blog/post/${post.slug}/`} className="group mt-4 block">
                     <h3 className="text-xl font-bold leading-snug text-ink transition group-hover:text-cobalt sm:text-2xl">
                       {post.title}
                     </h3>
@@ -86,7 +86,7 @@ export function BlogSection() {
                   <p className="mt-3 text-sm leading-7 text-ink/55">{post.excerpt}</p>
 
                   <Link
-                    href={`/blog/post/?id=${post.slug}`}
+                    href={`/blog/post/${post.slug}/`}
                     className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-cobalt/80 transition hover:text-cobalt"
                   >
                     <BookOpen className="size-3.5" aria-hidden="true" />

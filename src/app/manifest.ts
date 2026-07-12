@@ -10,8 +10,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "Portfolio of Chanchal Verma, AI Security Engineer specializing in AI Product Engineering, Agentic AI, Golang, Node.js, React, Kubernetes, and UI/UX.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f5f7f2",
-    theme_color: "#0d1613",
+    background_color: "#080d17",
+    theme_color: "#34d399",
     icons: [
       {
         src: "/icon.svg",

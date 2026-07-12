@@ -13,6 +13,17 @@ const EMPTY_WEEKS: number[][] = Array.from({ length: 53 }, () =>
   Array.from({ length: 7 }, () => 0),
 );
 
+async function fetchPublicRepoCount(username: string): Promise<number> {
+  try {
+    const res = await fetch(`https://api.github.com/users/${username}`);
+    if (!res.ok) return 0;
+    const data = (await res.json()) as { public_repos?: number };
+    return data.public_repos ?? 0;
+  } catch {
+    return 0;
+  }
+}
+
 export function getStaticPortfolioSignals(): LivePortfolioSignals {
   return {
     refreshedAt: "No data available",
@@ -53,7 +64,7 @@ async function fetchPublicContributions(
     }).format(new Date()),
     contributionTotal: total,
     activeWeeks,
-    focusRepos: 7,
+    focusRepos: await fetchPublicRepoCount(username),
     weeks,
   };
 }
@@ -86,7 +97,7 @@ export async function getPortfolioSignals({
         contributionTotal: calendar.totalContributions,
         activeWeeks: weeks.filter((week) => week.some((level) => level > 0))
           .length,
-        focusRepos: 7,
+        focusRepos: await fetchPublicRepoCount(username),
         weeks,
       };
     } catch {

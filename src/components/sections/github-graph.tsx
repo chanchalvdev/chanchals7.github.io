@@ -66,7 +66,7 @@ export async function GitHubGraph() {
                 },
                 {
                   value: signals.focusRepos > 0 ? signals.focusRepos : "—",
-                  label: "focus repos",
+                  label: "public repos",
                 },
               ].map((stat) => (
                 <div key={stat.label} className="rounded-lg bg-muted/60 px-4 py-3 text-center">

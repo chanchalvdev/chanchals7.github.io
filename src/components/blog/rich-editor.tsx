@@ -35,6 +35,7 @@ import {
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { sanitizeHtml } from "@/lib/blog-html";
 
 interface RichEditorProps {
   value: string;
@@ -109,7 +110,6 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
     (command: string, value?: string) => {
       editorRef.current?.focus();
       try {
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         document.execCommand(command, false, value);
       } catch {
         // noop
@@ -124,7 +124,6 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
     (tag: string) => {
       editorRef.current?.focus();
       try {
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         document.execCommand("formatBlock", false, tag);
       } catch {
         // noop
@@ -348,7 +347,7 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
       const text = e.clipboardData.getData("text/plain");
 
       if (html) {
-        const doc = new DOMParser().parseFromString(html, "text/html");
+        const doc = new DOMParser().parseFromString(sanitizeHtml(html), "text/html");
         // Strip ALL inline styles — lets the editor's own CSS control appearance
         doc.querySelectorAll<HTMLElement>("*").forEach((el) => {
           el.removeAttribute("style");
@@ -356,10 +355,8 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
           el.removeAttribute("color");
           el.removeAttribute("bgcolor");
         });
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         document.execCommand("insertHTML", false, doc.body.innerHTML);
       } else {
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         document.execCommand("insertText", false, text);
       }
       emit();

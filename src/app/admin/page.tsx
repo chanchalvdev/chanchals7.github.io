@@ -43,28 +43,14 @@ type View = "list" | "new" | "edit";
 
 const AUTOSAVE_KEY = "portfolio_admin_autosave";
 
-function emptyPost(): Omit<StoredBlogPost, "id" | "createdAt" | "updatedAt" | "readTime" | "wordCount"> {
-  return {
-    title: "",
-    slug: "",
-    content: "",
-    excerpt: "",
-    category: "",
-    tags: [],
-    coverImage: undefined,
-    status: "draft",
-    seoTitle: "",
-    seoDescription: "",
-    publishedAt: undefined,
-  };
-}
+type PostDraft = Omit<StoredBlogPost, "id" | "createdAt" | "updatedAt" | "readTime" | "wordCount">;
 
 // ── Metadata panel ──────────────────────────────────────────────────────────
 function MetaPanel({
   data,
   onChange,
 }: {
-  data: ReturnType<typeof emptyPost> & Partial<Pick<StoredBlogPost, "id" | "createdAt" | "updatedAt" | "readTime" | "wordCount">>;
+  data: PostDraft & Partial<Pick<StoredBlogPost, "id" | "createdAt" | "updatedAt" | "readTime" | "wordCount">>;
   onChange: (patch: Partial<StoredBlogPost>) => void;
 }) {
   const coverRef = useRef<HTMLInputElement>(null);
@@ -598,7 +584,7 @@ export default function AdminPage() {
     setView("edit");
   }
 
-  function handleSave(post: StoredBlogPost) {
+  function handleSave() {
     refreshBlogs();
     setView("list");
     setEditingId(null);

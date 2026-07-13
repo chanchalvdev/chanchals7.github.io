@@ -5,6 +5,9 @@ on:
     branches:
       - main
       - master
+  # Triggered remotely when a post is published from the admin panel
+  # (via the trigger-deploy Supabase Edge Function)
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:

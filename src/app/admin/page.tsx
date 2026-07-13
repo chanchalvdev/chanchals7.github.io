@@ -27,6 +27,7 @@ import {
 import {
   type StoredBlogPost,
   getBlogs,
+  getBlogById,
   saveBlog,
   deleteBlog,
   generateId,
@@ -36,6 +37,8 @@ import {
   formatDate,
 } from "@/lib/blog-storage";
 import { isAdminLoggedIn, adminLogout } from "@/lib/admin-auth";
+import { uploadBlogImage } from "@/lib/blog-images";
+import { triggerSiteDeploy } from "@/lib/deploy-trigger";
 import { RichEditor } from "@/components/blog/rich-editor";
 import { cn } from "@/lib/utils";
 
@@ -55,13 +58,12 @@ function MetaPanel({
 }) {
   const coverRef = useRef<HTMLInputElement>(null);
 
-  function handleCoverUpload(e: ChangeEvent<HTMLInputElement>) {
+  async function handleCoverUpload(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => onChange({ coverImage: ev.target?.result as string });
-    reader.readAsDataURL(file);
     e.target.value = "";
+    if (!file) return;
+    const url = await uploadBlogImage(file);
+    onChange({ coverImage: url });
   }
 
   return (
@@ -441,6 +443,7 @@ function EditorView({
 
     await saveBlog(finalPost);
     localStorage.removeItem(AUTOSAVE_KEY);
+    if (publish) void triggerSiteDeploy();
     onSave(finalPost);
   }
 
@@ -537,7 +540,7 @@ export default function AdminPage() {
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
   const [view, setView] = useState<View>("list");
-  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingPost, setEditingPost] = useState<StoredBlogPost | null>(null);
   const [blogs, setBlogs] = useState<StoredBlogPost[]>([]);
 
   useEffect(() => {
@@ -566,7 +569,8 @@ export default function AdminPage() {
   }
 
   async function handleToggleStatus(id: string) {
-    const blog = blogs.find((b) => b.id === id);
+    // List rows omit content — fetch the full post so the upsert doesn't wipe it
+    const blog = await getBlogById(id);
     if (!blog) return;
     const now = new Date().toISOString();
     const updated: StoredBlogPost = {
@@ -576,18 +580,21 @@ export default function AdminPage() {
       updatedAt: now,
     };
     await saveBlog(updated);
+    if (updated.status === "published") void triggerSiteDeploy();
     refreshBlogs();
   }
 
-  function handleEdit(id: string) {
-    setEditingId(id);
+  async function handleEdit(id: string) {
+    const full = await getBlogById(id);
+    if (!full) return;
+    setEditingPost(full);
     setView("edit");
   }
 
   function handleSave() {
     refreshBlogs();
     setView("list");
-    setEditingId(null);
+    setEditingPost(null);
   }
 
   // Guard: not mounted
@@ -612,13 +619,12 @@ export default function AdminPage() {
     );
   }
 
-  if (view === "edit" && editingId) {
-    const blog = blogs.find((b) => b.id === editingId) ?? null;
+  if (view === "edit" && editingPost) {
     return (
       <EditorView
-        initialPost={blog}
+        initialPost={editingPost}
         onSave={handleSave}
-        onBack={() => { setView("list"); setEditingId(null); }}
+        onBack={() => { setView("list"); setEditingPost(null); }}
       />
     );
   }

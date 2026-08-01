@@ -23,6 +23,14 @@ function LinkedInIcon({ className }: { className?: string }) {
   );
 }
 
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -119,6 +127,17 @@ export function Navbar() {
           >
             <LinkedInIcon className="size-3.5" />
           </a>
+          {profile.twitter && (
+            <a
+              href={profile.twitter}
+              target="_blank"
+              rel="noreferrer"
+              className="grid size-9 place-items-center rounded-lg border border-border bg-surface/60 text-ink/60 transition-all duration-200 hover:border-cobalt/40 hover:text-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
+              aria-label="X (Twitter) profile"
+            >
+              <XIcon className="size-3.5" />
+            </a>
+          )}
           <a
             href={`mailto:${profile.email}`}
             className="inline-flex h-9 items-center gap-2 rounded-lg bg-linear-to-r from-cobalt to-signal px-4 text-sm font-bold text-page shadow-cobalt transition-all duration-200 hover:scale-105 hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
@@ -179,6 +198,17 @@ export function Navbar() {
                 <LinkedInIcon className="size-4" />
                 LinkedIn
               </a>
+              {profile.twitter && (
+                <a
+                  href={profile.twitter}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-surface text-sm font-semibold text-ink/70 transition-all hover:border-cobalt/40 hover:text-cobalt"
+                >
+                  <XIcon className="size-4" />
+                  X
+                </a>
+              )}
               <a
                 href={`mailto:${profile.email}`}
                 className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-linear-to-r from-cobalt to-signal text-sm font-bold text-page shadow-cobalt transition-all hover:brightness-110 active:scale-95"

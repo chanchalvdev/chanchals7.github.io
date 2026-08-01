@@ -92,6 +92,23 @@ create policy "public read published"
 create policy "auth full access"
   on public.blogs for all
   using (auth.uid() is not null);
+
+-- Storage policies for the blog-images bucket
+drop policy if exists "public read blog images"  on storage.objects;
+drop policy if exists "auth upload blog images"  on storage.objects;
+drop policy if exists "auth delete blog images"  on storage.objects;
+
+create policy "public read blog images"
+  on storage.objects for select
+  using (bucket_id = 'blog-images');
+
+create policy "auth upload blog images"
+  on storage.objects for insert
+  with check (bucket_id = 'blog-images' and auth.uid() is not null);
+
+create policy "auth delete blog images"
+  on storage.objects for delete
+  using (bucket_id = 'blog-images' and auth.uid() is not null);
 `;
 
 async function runMigration() {
@@ -113,6 +130,31 @@ async function runMigration() {
     } else {
       throw err;
     }
+  }
+}
+
+// ── Storage bucket ────────────────────────────────────────────────────────────
+async function createStorageBucket() {
+  console.log("\n🗄️   Creating blog-images storage bucket...");
+  const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+
+  const { error } = await supabase.storage.createBucket("blog-images", {
+    public: true,
+    fileSizeLimit: "10MB",
+    allowedMimeTypes: ["image/png", "image/jpeg", "image/gif", "image/webp", "image/svg+xml", "image/avif"],
+  });
+
+  if (error) {
+    if (/already exists/i.test(error.message)) {
+      console.log("⚠️   Bucket blog-images already exists — skipping.");
+    } else {
+      console.error("❌  Failed to create bucket:", error.message);
+      process.exit(1);
+    }
+  } else {
+    console.log("✅  Bucket blog-images created (public read).");
   }
 }
 
@@ -151,6 +193,7 @@ async function main() {
   console.log("🚀  Supabase one-time setup");
   console.log("────────────────────────────");
   await runMigration();
+  await createStorageBucket();
   await createAdminUser();
   console.log("\n🎉  Setup complete! You can now:");
   console.log(`     • Log in at /admin/login with ${ADMIN_EMAIL}`);

@@ -17,6 +17,14 @@ function LinkedInIcon({ className }: { className?: string }) {
   );
 }
 
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -83,6 +91,18 @@ export function Footer() {
                 <LinkedInIcon className="size-3.5" />
                 LinkedIn
               </a>
+              {profile.twitter && (
+                <a
+                  href={profile.twitter}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-surface px-3 text-sm font-semibold text-ink/60 transition-all hover:border-cobalt/40 hover:text-cobalt"
+                  aria-label="X (Twitter)"
+                >
+                  <XIcon className="size-3.5" />
+                  X
+                </a>
+              )}
               <a
                 href={`mailto:${profile.email}`}
                 className="inline-flex h-10 items-center gap-2 rounded-lg bg-linear-to-r from-cobalt to-signal px-3 text-sm font-bold text-page shadow-cobalt transition-all hover:scale-105 hover:brightness-110"

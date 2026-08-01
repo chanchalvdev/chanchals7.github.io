@@ -16,6 +16,7 @@ export type PortfolioProfile = {
   phoneIndia?: string;
   github: string;
   linkedin: string;
+  twitter?: string;
   blog: string;
   headline: string;
   summary: string;

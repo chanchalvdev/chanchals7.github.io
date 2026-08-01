@@ -67,10 +67,15 @@ function toDB(post: StoredBlogPost): DBRow {
 
 // ── CRUD (async — Supabase) ───────────────────────────────────────────────────
 
+// List views omit `content` (posts can embed large images); rows map with
+// content: "". Fetch the full post via getBlogById/getBlogBySlug when needed.
+const LISTING_COLUMNS =
+  "id,title,slug,excerpt,category,tags,cover_image,status,seo_title,seo_description,created_at,updated_at,published_at,read_time,word_count";
+
 export async function getBlogs(): Promise<StoredBlogPost[]> {
   const { data, error } = await supabase
     .from("blogs")
-    .select("*")
+    .select(LISTING_COLUMNS)
     .order("updated_at", { ascending: false });
   if (error || !data) return [];
   return data.map(fromDB);
@@ -79,7 +84,7 @@ export async function getBlogs(): Promise<StoredBlogPost[]> {
 export async function getPublishedBlogs(): Promise<StoredBlogPost[]> {
   const { data, error } = await supabase
     .from("blogs")
-    .select("*")
+    .select(LISTING_COLUMNS)
     .eq("status", "published")
     .order("published_at", { ascending: false });
   if (error || !data) return [];

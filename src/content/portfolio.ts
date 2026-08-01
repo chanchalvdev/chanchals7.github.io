@@ -15,9 +15,10 @@ export const profile: PortfolioProfile = {
   email: "chanchal9.dev@gmail.com",
   phone: "[redacted-phone]",
   phoneIndia: "+91 [redacted-phone]",
-  github: "https://github.com/ChanchalS7",
-  linkedin: "https://linkedin.com/in/chanchals7",
-  blog: "https://dev.to/chanchals7",
+  github: "https://github.com/chanchalvdev",
+  linkedin: "https://linkedin.com/in/chanchalvdev/",
+  twitter: "https://x.com/chanchalv_dev",
+  blog: "https://dev.to/chanchalvdev",
   headline: "I build intelligent systems that scale.",
   summary:
     "Senior Full Stack Engineer with 5+ years building cloud-native solutions — currently leading frontend for AI-powered security systems that detect and respond to cyber threats automatically, and building agentic AI systems that think and adapt on their own.",

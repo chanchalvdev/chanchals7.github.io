@@ -3,18 +3,55 @@ import Link from "next/link";
 import { ArrowLeft, Layers3 } from "lucide-react";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { JsonLd } from "@/components/seo/json-ld";
 import { ProjectList } from "@/components/sections/project-list";
 import { projects } from "@/content/portfolio";
+import { absoluteUrl } from "@/lib/site";
+import { PERSON_ID, breadcrumbSchema, graph } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Case studies from Chanchal Verma across security products, cloud platforms, backend systems, and frontend architecture.",
+    "Case studies from Chanchal Verma across AI security products, agentic AI systems, cloud platforms, backend systems, and frontend architecture.",
+  alternates: { canonical: "/projects/" },
+  openGraph: {
+    title: "Projects | Chanchal Verma",
+    description:
+      "Case studies across AI security products, agentic AI systems, cloud platforms, and frontend architecture.",
+    url: absoluteUrl("/projects/"),
+    type: "website",
+  },
 };
 
 export default function ProjectsPage() {
   return (
     <>
+      <JsonLd
+        data={graph(
+          {
+            "@type": "CollectionPage",
+            "@id": `${absoluteUrl("/projects/")}#collection`,
+            url: absoluteUrl("/projects/"),
+            name: "Projects — Chanchal Verma",
+            description: metadata.description,
+            about: { "@id": PERSON_ID },
+            mainEntity: {
+              "@type": "ItemList",
+              numberOfItems: projects.length,
+              itemListElement: projects.map((project, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                name: project.title,
+                url: absoluteUrl(`/projects/${project.slug}/`),
+              })),
+            },
+          },
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Projects", path: "/projects/" },
+          ]),
+        )}
+      />
       <Navbar />
       <main>
         <section className="section-band px-5 py-12 sm:px-8 lg:py-16">

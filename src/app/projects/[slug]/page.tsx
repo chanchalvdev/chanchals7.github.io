@@ -3,9 +3,12 @@ import { notFound } from "next/navigation";
 import { Code2, ExternalLink, Gauge, ShieldCheck } from "lucide-react";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { JsonLd } from "@/components/seo/json-ld";
 import { BackButton } from "@/components/ui/back-button";
 import { Tag } from "@/components/ui/tag";
 import { projects } from "@/content/portfolio";
+import { absoluteUrl } from "@/lib/site";
+import { breadcrumbSchema, graph, projectSchema } from "@/lib/structured-data";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -27,9 +30,20 @@ export async function generateMetadata({
     };
   }
 
+  const url = absoluteUrl(`/projects/${project.slug}/`);
+
   return {
     title: project.title,
     description: project.description,
+    keywords: project.stack,
+    alternates: { canonical: `/projects/${project.slug}/` },
+    openGraph: {
+      title: `${project.title} | Chanchal Verma`,
+      description: project.description,
+      url,
+      type: "article",
+      ...(project.coverImage ? { images: [{ url: project.coverImage }] } : {}),
+    },
   };
 }
 
@@ -41,6 +55,16 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
 
   return (
     <>
+      <JsonLd
+        data={graph(
+          projectSchema(project),
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Projects", path: "/projects/" },
+            { name: project.title, path: `/projects/${project.slug}/` },
+          ]),
+        )}
+      />
       <Navbar />
       <main>
         <article className="px-5 py-12 sm:px-8 lg:py-20">

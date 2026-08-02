@@ -71,6 +71,12 @@ export const metadata: Metadata = {
     canonical: "/",
     types: { "application/rss+xml": `${SITE_URL}/feed.xml` },
   },
+  // Search Console ownership token. Public by design — it only proves control
+  // of this site and grants nothing on its own. Kept alongside the HTML-file
+  // method in public/ so verification survives losing either one.
+  verification: {
+    google: "gHA85B4fhWFI3DLbr8HKwyOCaDEGpWh31EC4bq1r1BE",
+  },
   // max-image-preview:large is what upgrades a plain SERP result to a
   // thumbnail-sized preview; without it Google shows text only.
   robots: {

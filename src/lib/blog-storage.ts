@@ -91,6 +91,24 @@ export async function getPublishedBlogs(): Promise<StoredBlogPost[]> {
   return data.map(fromDB);
 }
 
+/**
+ * Published posts including `content`.
+ *
+ * Build-time feed generators (RSS, llms.txt) need a description, and a post
+ * may have neither `seo_description` nor `excerpt` set — leaving `content` as
+ * the only source to derive one from. Used at build only, so the larger
+ * payload never reaches a browser.
+ */
+export async function getPublishedBlogsWithContent(): Promise<StoredBlogPost[]> {
+  const { data, error } = await supabase
+    .from("blogs")
+    .select(`${LISTING_COLUMNS},content`)
+    .eq("status", "published")
+    .order("published_at", { ascending: false });
+  if (error || !data) return [];
+  return data.map(fromDB);
+}
+
 export async function getBlogBySlug(slug: string): Promise<StoredBlogPost | null> {
   const { data, error } = await supabase
     .from("blogs")

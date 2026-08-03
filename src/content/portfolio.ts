@@ -234,22 +234,22 @@ export const consoleScenes: ConsoleScene[] = [
     footerRight: "fewer context switches",
   },
   {
-    id: "cloudguard",
-    title: "cloudguard — governance",
+    id: "ingestion",
+    title: "ingestion — archive parsing",
     lines: [
-      { tone: "dim", text: "$ sg policy evaluate --stack prod-eu" },
-      { tone: "muted", text: "drift detected: s3 bucket acl public-read" },
-      { tone: "command", text: "→ agent remediate --plan" },
-      { tone: "result", prefix: "Policy restored", text: " · IaC patch applied" },
+      { tone: "dim", text: "$ ingest submit evidence.7z --10.4GB" },
+      { tone: "muted", text: "extract: depth 4 · 12,480 members · ratio ok" },
+      { tone: "command", text: "→ worker parse --stream" },
+      { tone: "result", prefix: "1.2M records", text: " · 10 IOC classes indexed" },
     ],
     chips: [
-      { text: "K8s · control plane", tone: "signal" },
-      { text: "Terraform · plan", tone: "amber" },
-      { text: "SDK · generated", tone: "cobalt" },
+      { text: "ZIP · RAR · 7Z · TAR", tone: "signal" },
+      { text: "traversal guard", tone: "amber" },
+      { text: "OpenSearch · bulk", tone: "cobalt" },
     ],
-    confidence: 97,
-    footerLeft: "Governance active",
-    footerRight: "policy as code",
+    confidence: 96,
+    footerLeft: "Worker streaming",
+    footerRight: "partial success by design",
   },
   {
     id: "delivery",
@@ -348,35 +348,37 @@ export const projects: Project[] = [
     detailImage: "/threatrag-architecture.png",
   },
   {
-    slug: "cloud-governance-control-plane",
-    title: "CloudGuard Control Plane",
-    category: "Cloud",
-    year: "2025",
+    slug: "file-ingestion-parser",
+    title: "File Ingestion Platform — Archive Parsing & IOC Extraction",
+    category: "Security",
+    year: "2026",
     featured: true,
-    sortScore: 92,
+    sortScore: 95,
+    caseStudyReady: true,
     description:
-      "A governance layer for infrastructure teams managing deployment automation, compliance checks, cost visibility, and cloud-native API orchestration.",
+      "A local-first ingestion platform that takes a 10 GB password-protected archive, recursively unpacks it, detects and parses every member format, extracts ten classes of indicator from each record, and streams the results into PostgreSQL and OpenSearch — with live progress in a React dashboard.",
     impact:
-      "Helped translate policy intent into Kubernetes-backed workflows platform teams could reason about and ship.",
-    stack: ["Go", "Node.js", "Kubernetes", "Fern", "React", "Terraform"],
+      "Turns an opaque evidence blob into searchable, indicator-tagged records without the API ever touching the data path — and keeps 49,999 good extractions when one member of 50,000 is corrupt.",
+    stack: ["Go", "Python", "React", "PostgreSQL", "Redis", "MinIO", "OpenSearch", "Docker"],
     links: {
-      demo: "#contact",
-      github: "https://github.com/ChanchalS7",
+      github: "https://github.com/chanchalvdev/parser-app",
     },
     metrics: [
-      { value: "SDK", label: "developer surface" },
-      { value: "K8s", label: "control layer" },
-      { value: "API", label: "governance" },
+      { value: "10 GB", label: "single-file ingest" },
+      { value: "10", label: "IOC classes/record" },
+      { value: "32", label: "worker tests passing" },
     ],
     challenge:
-      "Platform products must expose complex infrastructure decisions without burying users in cloud provider details.",
+      "Evidence arrives as one opaque blob — a multi-gigabyte encrypted archive of nested archives holding logs, CSVs, JSON, and infostealer credential dumps in a dozen inconsistent formats. Structure is unknown until you open it, untrusted archives carry path-traversal and zip-bomb payloads aimed at the extractor itself, and any all-or-nothing pipeline throws away thousands of good records the moment one member is malformed.",
     solution:
-      "I helped build SDK and API layers with clear contracts, reusable UI modules, and workflows that translated governance into concrete deployment actions.",
+      "I split the system by language strength: a Go API for presigned direct-to-MinIO uploads, RBAC, and aggregation queries, and a Python worker for detection, recursive extraction, and parsing. Path-traversal and expansion-ratio guards live in the base extractor so every archive format inherits them, a parser registry routes each member with a text fallback so nothing silently fails, and passwords are hashed at the exact function that recognises them — no plaintext credential ever reaches the database, the index, or the UI.",
     results: [
-      "Contributed to generated SDKs that improved developer ergonomics.",
-      "Built Kubernetes-backed APIs for deployment automation and orchestration.",
-      "Supported compliance, cost, and security modules with reusable frontend patterns.",
+      "10 GB uploads via presigned PUT straight to object storage — the API only handles two small JSON calls, so upload size became a database setting instead of a server-tuning problem.",
+      "Recursive ZIP/RAR/7Z/TAR extraction hardened against traversal, absolute and drive paths, and zip bombs by file-count, byte, and expansion-ratio ceilings, with encrypted archives parked as a first-class PASSWORD_REQUIRED state.",
+      "Partial success by design: child parse failures are recorded and skipped while the job continues, records batch-load 1,000 at a time into PostgreSQL with OpenSearch as a rebuildable projection, and a search-index outage degrades search without ever failing a job.",
     ],
+    coverImage: "/parser-title.png",
+    detailImage: "/parser-architecture.png",
   },
   {
     slug: "production-api-delivery-stack",
@@ -385,6 +387,7 @@ export const projects: Project[] = [
     year: "2024",
     featured: true,
     sortScore: 84,
+    confidential: true,
     description:
       "A production backend and delivery system with authentication, payments, notifications, cloud storage, observability, and CI/CD.",
     impact:
@@ -416,6 +419,7 @@ export const projects: Project[] = [
     year: "2023",
     featured: false,
     sortScore: 68,
+    confidential: true,
     description:
       "Internal learning and evaluation tools for developer education, mentoring, code review, and automated feedback workflows.",
     impact:

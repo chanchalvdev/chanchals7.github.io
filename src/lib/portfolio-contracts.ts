@@ -53,6 +53,8 @@ export type PortfolioProject = {
   detailImage?: string;
   /** Enables the case-study page link and external source link on the card. */
   caseStudyReady?: boolean;
+  /** Client work under NDA — the card renders the name blurred and withheld. */
+  confidential?: boolean;
 };
 
 export type ConsoleSceneLine = {

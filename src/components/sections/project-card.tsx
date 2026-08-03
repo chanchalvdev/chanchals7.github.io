@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Code2 } from "lucide-react";
+import { ArrowUpRight, Code2, Lock } from "lucide-react";
 import type { Project } from "@/content/portfolio";
 import { Tag } from "@/components/ui/tag";
 
@@ -49,11 +49,28 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
 
       {/* Main content */}
       <div className="border-t border-border p-5 lg:border-l lg:border-t-0 lg:p-6">
-        <div className="pointer-events-none block">
-          <h3 className="max-w-xl text-2xl font-bold leading-tight text-ink sm:text-3xl">
-            {project.title}
-          </h3>
-        </div>
+        {project.confidential ? (
+          /* Client work under NDA — the name is blurred and never announced. */
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <h3
+              aria-hidden="true"
+              className="max-w-xl select-none text-2xl font-bold leading-tight text-ink/70 blur-[7px] sm:text-3xl"
+            >
+              {project.title}
+            </h3>
+            <span className="sr-only">Confidential project — name withheld</span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/60 px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.16em] text-ink/45">
+              <Lock className="size-3" aria-hidden="true" />
+              Name withheld
+            </span>
+          </div>
+        ) : (
+          <div className="pointer-events-none block">
+            <h3 className="max-w-xl text-2xl font-bold leading-tight text-ink sm:text-3xl">
+              {project.title}
+            </h3>
+          </div>
+        )}
         <p className="mt-3 max-w-2xl text-base leading-7 text-ink/55">
           {project.description}
         </p>

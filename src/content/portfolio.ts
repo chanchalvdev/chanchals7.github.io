@@ -90,10 +90,23 @@ export const experience = [
     ],
   },
   {
+    company: "HCL Technologies",
+    role: "Technical Lead(Golang) ",
+    location: "Bengaluru, India",
+    period: "Apr 2025 — Aug 2025",
+    summary:
+      "Golang technical lead for the PCRE and PRD modules — owning Go service design, API contracts, and delivery through to production release.",
+    highlights: [
+      "Led Go backend development across the PCRED and PRD modules, owning service structure, REST API contracts, and code review standards for the team.",
+      "Set Go engineering practices for the team — package layout, error handling, and concurrency patterns — and mentored engineers onto the stack.",
+      "Translated enterprise requirements into service contracts and delivery milestones, coordinating with frontend and QA through release.",
+    ],
+  },
+  {
     company: "StackGuardian",
     role: "Founding Software Engineer",
-    location: "Bavaria, Germany",
-    period: "Jul 2024 — Jun 2025",
+    location: "Germany — Remote",
+    period: "Jul 2024 — Mar 2025",
     summary:
       "One of the first engineers building an infrastructure governance platform from absolute scratch.",
     highlights: [
@@ -105,7 +118,7 @@ export const experience = [
   {
     company: "Thor Solutions",
     role: "Senior Full Stack Engineer",
-    location: "New Delhi, India",
+    location: "Remote, India",
     period: "Jun 2023 — Jun 2024",
     summary:
       "Led backend and cloud delivery for production applications across two client engagements using Go, MERN, AWS, and CI/CD automation.",
@@ -118,7 +131,7 @@ export const experience = [
   {
     company: "Masai School",
     role: "Software Engineer",
-    location: "Bengaluru, India",
+    location: "Bengaluru / Remote",
     period: "Oct 2021 — Jun 2023",
     summary:
       "Built internal learning platforms in React and Node.js while mentoring 200+ students into MERN developers.",
@@ -126,19 +139,6 @@ export const experience = [
       "Mentored 200+ students on React, Node, and DSA through daily stand-ups, pair programming, and weekly evaluations.",
       "Developed internal products for learning and job-readiness as a React.js and Node.js product developer.",
       "Guided student project builds on the MERN stack, with structured code review and assessment.",
-    ],
-  },
-  {
-    company: "Freelance",
-    role: "Freelance Web Developer",
-    location: "Pune, India",
-    period: "Jun 2020 — Sep 2021",
-    summary:
-      "Started with static sites for local vendors and grew into real-time production work on the MERN stack and Go.",
-    highlights: [
-      "Built frontend features and REST APIs on MongoDB, working from trainee to junior level under senior developers.",
-      "Worked with Jest for testing and handled third-party API integrations.",
-      "Built APIs in Golang across Gin, Fiber, and Chi frameworks.",
     ],
   },
 ];

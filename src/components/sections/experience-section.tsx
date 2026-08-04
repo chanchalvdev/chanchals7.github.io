@@ -18,7 +18,7 @@ export function ExperienceSection() {
             <SectionHeading
               eyebrow="Experience"
               title="Five years, four countries, one trajectory."
-              description="From freelance MERN work in Pune to AI-driven cybersecurity in Abu Dhabi — each role compounding toward intelligent, secure systems."
+              description="From mentoring MERN developers in Bengaluru to AI-driven cybersecurity in Abu Dhabi — each role compounding toward intelligent, secure systems."
             />
           </Reveal>
 

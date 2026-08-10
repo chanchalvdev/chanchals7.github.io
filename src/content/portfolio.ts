@@ -97,7 +97,7 @@ export const experience = [
     summary:
       "Golang technical lead for the PCRE and PRD modules — owning Go service design, API contracts, and delivery through to production release.",
     highlights: [
-      "Led Go backend development across the PCRED and PRD modules, owning service structure, REST API contracts, and code review standards for the team.",
+      "Led Go backend development across the PCRE and PRD modules, owning service structure, REST API contracts, and code review standards for the team.",
       "Set Go engineering practices for the team — package layout, error handling, and concurrency patterns — and mentored engineers onto the stack.",
       "Translated enterprise requirements into service contracts and delivery milestones, coordinating with frontend and QA through release.",
     ],

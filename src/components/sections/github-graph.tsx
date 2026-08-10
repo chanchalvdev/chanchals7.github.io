@@ -14,7 +14,7 @@ const levels = [
 
 export async function GitHubGraph() {
   const signals = await getPortfolioSignals({
-    username: "ChanchalS7",
+    username: "chanchalvdev",
     token: process.env.GITHUB_TOKEN,
   });
 

@@ -1,7 +1,7 @@
 # Case Study: ThreatRAG — Agentic Threat Intelligence RAG Platform
 
 **Author:** Chanchal S. Verma  
-**GitHub:** [github.com/ChanchalS7/threat-RAG](https://github.com/ChanchalS7/threat-RAG)  
+**GitHub:** [github.com/chanchalvdev/threat-RAG](https://github.com/chanchalvdev/threat-RAG)  
 **Stack:** Python · FastAPI · LangChain · LangGraph · React · Qdrant · Ollama · PostgreSQL + pgvector · Docker  
 **Status:** Production-ready — Phase 1, 2 & 3 complete
 
@@ -259,10 +259,10 @@ ThreatRAG was built **spec-first** with an automated quality harness:
 
 ## Repository
 
-**GitHub:** [github.com/ChanchalS7/threat-RAG](https://github.com/ChanchalS7/threat-RAG)
+**GitHub:** [github.com/chanchalvdev/threat-RAG](https://github.com/chanchalvdev/threat-RAG)
 
 ```bash
-git clone https://github.com/ChanchalS7/threat-RAG.git
+git clone https://github.com/chanchalvdev/threat-RAG.git
 cd threat-RAG/threatrag
 cp backend/.env.example backend/.env   # set KIMCHI_API_KEY
 make docker-up && make pull-models && make migrate

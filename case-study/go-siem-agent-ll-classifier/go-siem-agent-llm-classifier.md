@@ -1,7 +1,7 @@
 # Case Study: Go SIEM Agent — AI-Powered Security Event Classifier
 
 **Author:** Chanchal S. Verma  
-**GitHub:** [github.com/ChanchalS7/go-siem-agent-llm-classifier](https://github.com/ChanchalS7/go-siem-agent-llm-classifier)  
+**GitHub:** [github.com/chanchalvdev/go-siem-agent-llm-classifier](https://github.com/chanchalvdev/go-siem-agent-llm-classifier)  
 **Stack:** Go · React · Kimchi LLM · Qdrant · Ollama · PostgreSQL · Docker  
 **Status:** Production-ready MVP — Phase 1 & 2 complete
 
@@ -306,10 +306,10 @@ Jan 15 10:34:00 workstation01 powershell[7890]: Invoke-Expression (New-Object Ne
 
 ## Repository
 
-**GitHub:** [github.com/ChanchalS7/go-siem-agent-llm-classifier](https://github.com/ChanchalS7/go-siem-agent-llm-classifier)
+**GitHub:** [github.com/chanchalvdev/go-siem-agent-llm-classifier](https://github.com/chanchalvdev/go-siem-agent-llm-classifier)
 
 ```bash
-git clone https://github.com/ChanchalS7/go-siem-agent-llm-classifier.git
+git clone https://github.com/chanchalvdev/go-siem-agent-llm-classifier.git
 cd go-siem-agent-llm-classifier/siemagent
 make setup && make docker-up && make pull-models && make serve
 # Frontend: cd web && npm run dev

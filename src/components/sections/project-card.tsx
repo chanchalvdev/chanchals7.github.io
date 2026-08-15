@@ -99,6 +99,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
             <img
               src={project.coverImage}
               alt={`${project.title} preview`}
+              loading="lazy"
               className="w-full transition duration-500 group-hover:scale-[1.02]"
             />
           </div>

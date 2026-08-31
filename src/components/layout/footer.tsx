@@ -1,5 +1,5 @@
 import { Mail } from "lucide-react";
-import { navItems, profile } from "@/content/portfolio";
+import { profile } from "@/content/portfolio";
 
 function GitHubIcon({ className }: { className?: string }) {
   return (
@@ -31,86 +31,56 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-background px-5 py-12 text-ink sm:px-8">
       <div className="mx-auto w-full">
-        <div className="grid gap-10 md:grid-cols-[1fr_1fr_auto] md:items-start">
+        <div className="flex flex-col items-center gap-8 text-center md:flex-row md:items-center md:justify-between md:text-left">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3">
-              <span className="glow-cobalt grid size-10 place-items-center rounded-xl bg-linear-to-br from-cobalt to-signal font-mono text-sm font-bold text-page">
-                CV
-              </span>
-              <span className="text-sm font-bold text-ink">{profile.name}</span>
-            </div>
-            <p className="mt-4 max-w-xs text-sm leading-7 text-ink/55">
+            <span className="glow-cobalt grid size-10 place-items-center rounded-xl bg-linear-to-br from-cobalt to-signal font-mono text-sm font-bold text-page">
+              CV
+            </span>
+            <p className="mx-auto mt-4 max-w-xs text-sm leading-7 text-ink/55 md:mx-0">
               Building intelligent, secure systems for teams that need clarity
               under pressure.
             </p>
           </div>
 
-          {/* Nav links */}
-          <nav aria-label="Footer navigation">
-            <p className="mb-4 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/40">
-              Navigation
-            </p>
-            <ul className="flex flex-col gap-2.5">
-              {navItems.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    className="text-sm font-semibold text-ink/55 transition-colors hover:text-cobalt"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Social + email */}
-          <div>
-            <p className="mb-4 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/40">
-              Connect
-            </p>
-            <div className="flex flex-col gap-2">
+          {/* Social icons */}
+          <div className="flex items-center gap-3">
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              className="grid size-11 place-items-center rounded-full border border-border bg-surface text-ink/60 transition-all duration-200 hover:-translate-y-0.5 hover:border-cobalt/40 hover:text-cobalt"
+              aria-label="GitHub"
+            >
+              <GitHubIcon className="size-4" />
+            </a>
+            <a
+              href={profile.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="grid size-11 place-items-center rounded-full border border-border bg-surface text-ink/60 transition-all duration-200 hover:-translate-y-0.5 hover:border-cobalt/40 hover:text-cobalt"
+              aria-label="LinkedIn"
+            >
+              <LinkedInIcon className="size-4" />
+            </a>
+            {profile.twitter && (
               <a
-                href={profile.github}
+                href={profile.twitter}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-surface px-3 text-sm font-semibold text-ink/60 transition-all hover:border-cobalt/40 hover:text-cobalt"
-                aria-label="GitHub"
+                className="grid size-11 place-items-center rounded-full border border-border bg-surface text-ink/60 transition-all duration-200 hover:-translate-y-0.5 hover:border-cobalt/40 hover:text-cobalt"
+                aria-label="X (Twitter)"
               >
-                <GitHubIcon className="size-4" />
-                GitHub
+                <XIcon className="size-4" />
               </a>
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-surface px-3 text-sm font-semibold text-ink/60 transition-all hover:border-cobalt/40 hover:text-cobalt"
-                aria-label="LinkedIn"
-              >
-                <LinkedInIcon className="size-3.5" />
-                LinkedIn
-              </a>
-              {profile.twitter && (
-                <a
-                  href={profile.twitter}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-surface px-3 text-sm font-semibold text-ink/60 transition-all hover:border-cobalt/40 hover:text-cobalt"
-                  aria-label="X (Twitter)"
-                >
-                  <XIcon className="size-3.5" />
-                  X
-                </a>
-              )}
-              <a
-                href={`mailto:${profile.email}`}
-                className="inline-flex h-10 items-center gap-2 rounded-lg bg-linear-to-r from-cobalt to-signal px-3 text-sm font-bold text-page shadow-cobalt transition-all hover:scale-105 hover:brightness-110"
-              >
-                <Mail className="size-4" aria-hidden="true" />
-                Email me
-              </a>
-            </div>
+            )}
+            <a
+              href={`mailto:${profile.email}`}
+              className="grid size-11 place-items-center rounded-full bg-linear-to-br from-cobalt to-signal text-page shadow-cobalt transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110"
+              aria-label="Email"
+            >
+              <Mail className="size-4" aria-hidden="true" />
+            </a>
           </div>
         </div>
 

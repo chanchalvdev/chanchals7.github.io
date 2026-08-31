@@ -13,8 +13,6 @@ export const profile: PortfolioProfile = {
   role: "AI Security Engineer • AI Product Engineering • Agentic AI • Golang • Node.js • React • UI/UX • Kubernetes • Cloud • Security",
   location: "Abu Dhabi, UAE",
   email: "chanchal9.dev@gmail.com",
-  phone: "[redacted-phone]",
-  phoneIndia: "+91 [redacted-phone]",
   github: "https://github.com/chanchalvdev",
   linkedin: "https://linkedin.com/in/chanchalvdev/",
   twitter: "https://x.com/chanchalv_dev",
@@ -394,7 +392,7 @@ export const projects: Project[] = [
       "Improved release speed and reliability by making cloud delivery predictable and repeatable.",
     stack: ["Go", "Gin", "PostgreSQL", "AWS", "Docker", "GitHub Actions"],
     links: {
-      demo: "#contact",
+      demo: `mailto:${profile.email}`,
       github: "https://github.com/chanchalvdev",
     },
     metrics: [
@@ -426,7 +424,7 @@ export const projects: Project[] = [
       "Supported developer growth at scale through structured evaluation and clearer feedback loops.",
     stack: ["Node.js", "React", "MongoDB", "Express", "Testing", "Mentoring"],
     links: {
-      demo: "#contact",
+      demo: `mailto:${profile.email}`,
       github: "https://github.com/chanchalvdev",
     },
     metrics: [

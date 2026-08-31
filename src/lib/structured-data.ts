@@ -45,7 +45,6 @@ export function personSchema() {
     url: SITE_URL,
     image: OG_IMAGE,
     email: `mailto:${profile.email}`,
-    telephone: profile.phone,
     jobTitle: "AI Security Engineer",
     description: profile.summary,
     disambiguatingDescription: SITE_DESCRIPTION,

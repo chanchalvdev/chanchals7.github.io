@@ -8,7 +8,7 @@
 //   supabase functions deploy trigger-deploy
 // Secrets (Dashboard → Edge Functions → trigger-deploy → Secrets):
 //   GH_DISPATCH_TOKEN — fine-grained PAT with Actions read/write on the repo
-//   GH_REPO           — e.g. "ChanchalS7/chanchals7.github.io"
+//   GH_REPO           — e.g. "chanchalvdev/chanchalvdev.github.io"
 //   GH_WORKFLOW       — workflow file name, e.g. "deploy.yml"
 //   GH_BRANCH         — ref to run against, e.g. "master"
 

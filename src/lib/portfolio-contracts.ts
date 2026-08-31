@@ -12,8 +12,6 @@ export type PortfolioProfile = {
   role: string;
   location: string;
   email: string;
-  phone: string;
-  phoneIndia?: string;
   github: string;
   linkedin: string;
   twitter?: string;

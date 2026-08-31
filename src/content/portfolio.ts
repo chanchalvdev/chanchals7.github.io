@@ -13,8 +13,6 @@ export const profile: PortfolioProfile = {
   role: "AI Security Engineer • AI Product Engineering • Agentic AI • Golang • Node.js • React • UI/UX • Kubernetes • Cloud • Security",
   location: "Abu Dhabi, UAE",
   email: "chanchal9.dev@gmail.com",
-  phone: "[redacted-phone]",
-  phoneIndia: "+91 [redacted-phone]",
   github: "https://github.com/chanchalvdev",
   linkedin: "https://linkedin.com/in/chanchalvdev/",
   twitter: "https://x.com/chanchalv_dev",
@@ -295,7 +293,7 @@ export const projects: Project[] = [
       "Turns hours of manual SOC triage into a sub-20-second automated pipeline, reducing analyst time spent on alert noise by eliminating rule-writing and manual MITRE mapping.",
     stack: ["Go", "React", "Qdrant", "Ollama", "PostgreSQL", "Docker", "Prometheus"],
     links: {
-      github: "https://github.com/ChanchalS7/go-siem-agent-llm-classifier",
+      github: "https://github.com/chanchalvdev/go-siem-agent-llm-classifier",
     },
     metrics: [
       { value: "<20s", label: "per classification" },
@@ -328,7 +326,7 @@ export const projects: Project[] = [
       "Collapses hours of manual searching across MITRE ATT&CK, NVD, and OWASP into sub-two-second cited answers, and turns end-to-end IOC investigation into an autonomous Researcher→Critic→Reporter pipeline.",
     stack: ["Python", "FastAPI", "LangChain", "LangGraph", "React", "Qdrant", "Ollama", "PostgreSQL"],
     links: {
-      github: "https://github.com/ChanchalS7/threat-RAG",
+      github: "https://github.com/chanchalvdev/threat-RAG",
     },
     metrics: [
       { value: "<2s", label: "cited answer (TTFT)" },
@@ -394,8 +392,8 @@ export const projects: Project[] = [
       "Improved release speed and reliability by making cloud delivery predictable and repeatable.",
     stack: ["Go", "Gin", "PostgreSQL", "AWS", "Docker", "GitHub Actions"],
     links: {
-      demo: "#contact",
-      github: "https://github.com/ChanchalS7",
+      demo: `mailto:${profile.email}`,
+      github: "https://github.com/chanchalvdev",
     },
     metrics: [
       { value: "CI/CD", label: "release flow" },
@@ -426,8 +424,8 @@ export const projects: Project[] = [
       "Supported developer growth at scale through structured evaluation and clearer feedback loops.",
     stack: ["Node.js", "React", "MongoDB", "Express", "Testing", "Mentoring"],
     links: {
-      demo: "#contact",
-      github: "https://github.com/ChanchalS7",
+      demo: `mailto:${profile.email}`,
+      github: "https://github.com/chanchalvdev",
     },
     metrics: [
       { value: "200+", label: "developers" },
@@ -447,6 +445,6 @@ export const projects: Project[] = [
 ];
 
 export const githubActivity = {
-  username: "ChanchalS7",
+  username: "chanchalvdev",
   summary: "Connect a GitHub token to display real contribution data.",
 };

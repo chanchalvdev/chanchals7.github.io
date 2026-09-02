@@ -23,8 +23,10 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 bg-transparent transition-all duration-300 ease-in-out",
-        scrolled ? "py-2.5" : "py-4 sm:py-5",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
+        scrolled
+          ? "border-b border-border bg-page/80 py-2.5 backdrop-blur-md"
+          : "bg-transparent py-4 sm:py-5",
       )}
     >
       {/* Scroll progress */}

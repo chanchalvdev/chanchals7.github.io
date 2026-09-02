@@ -19,7 +19,7 @@ export const profile: PortfolioProfile = {
   blog: "https://dev.to/chanchalvdev",
   headline: "I build intelligent systems that scale.",
   summary:
-    "Senior Full Stack Engineer with 5+ years building cloud-native solutions — currently leading frontend for AI-powered security systems that detect and respond to cyber threats automatically, and building agentic AI systems that think and adapt on their own.",
+    "Senior Full Stack Engineer at CPX with 5+ years building cloud-native solutions — currently leading frontend for AI-powered security systems that detect and respond to cyber threats automatically, and building agentic AI systems that think and adapt on their own.",
   narrative:
     "My best work happens at the intersection of AI and cloud systems: interfaces that stay calm under pressure, backend platforms that stay reliable, and agents that make intelligent decisions faster than we can. That's the future I'm building toward.",
 };

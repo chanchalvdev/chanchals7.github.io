@@ -57,7 +57,7 @@ export function ExperienceSection() {
           <span className="timeline-rail" aria-hidden="true" />
           <div className="grid gap-4">
             {experience.map((item, index) => (
-              <Reveal key={`${item.company}-${item.period}`} delay={index * 90} as="article">
+              <Reveal key={`${item.company}-${item.period}`} delay={Math.min(index, 2) * 90} as="article">
                 <div className="group relative rounded-xl border border-border bg-surface p-6 transition duration-300 hover:-translate-y-0.5 hover:border-cobalt/30 hover:shadow-(--shadow-lift)">
                   {/* Node on the rail */}
                   <span

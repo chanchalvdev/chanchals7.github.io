@@ -86,7 +86,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-xs font-medium text-ink/40">
-          <p>© Copyright {year} {profile.name}. .</p>
+          <p>© {year} {profile.name}. All rights reserved.</p>
           <p className="font-mono uppercase tracking-[0.12em]">Abu Dhabi, UAE</p>
         </div>
       </div>

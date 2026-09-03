@@ -4,6 +4,8 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { RoleRotator } from "@/components/ui/role-rotator";
 
 export function HeroSection() {
+  const [summaryBefore, summaryAfter] = profile.summary.split("CPX");
+
   return (
     <section id="main" className="px-5 py-14 sm:px-8">
       <div className="mx-auto w-full max-w-6xl">
@@ -39,11 +41,13 @@ export function HeroSection() {
 
         {/* Summary */}
         <p className="fade-up delay-3 mt-5 max-w-xl text-[1.1rem] leading-[1.65] text-ink/80">
-          {profile.summary}
+          {summaryBefore}
+          <span className="font-bold text-cobalt">CPX</span>
+          {summaryAfter}
         </p>
 
         {/* CTAs */}
-        <div className="fade-up delay-4 mt-8 flex flex-col gap-3 sm:flex-row">
+        <div className="fade-up delay-4 mt-8 flex flex-wrap gap-3">
           <ButtonLink href="#projects" variant="primary">
             Open component specs ▸
           </ButtonLink>

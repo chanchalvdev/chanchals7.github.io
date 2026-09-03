@@ -12,7 +12,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         <span className="part-badge">{String(index + 1).padStart(2, "0")}</span>
       </div>
 
-      <div className="leader-block grid gap-6 lg:grid-cols-[1fr_18rem]">
+      <div className="leader-block">
         <div>
           {/* Spec head */}
           <div className="flex flex-wrap items-center gap-3">
@@ -94,19 +94,6 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
             ) : null}
           </div>
         </div>
-
-        {/* Cover image */}
-        {project.coverImage ? (
-          <div className="self-start overflow-hidden border border-border">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={project.coverImage}
-              alt={`${project.title} preview`}
-              loading="lazy"
-              className="w-full"
-            />
-          </div>
-        ) : null}
       </div>
     </article>
   );

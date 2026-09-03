@@ -303,7 +303,7 @@ h1, h2, h3 {
 
 .dim-cell {
   position: relative;
-  border-left: 1px solid var(--border);
+  border-left: 4px double var(--ink);
 }
 
 .dim-cell:first-child { border-left: none; }

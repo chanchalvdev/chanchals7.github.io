@@ -7,11 +7,7 @@ export function SkillsSection() {
   return (
     <SectionShell id="skills" className="bg-background">
       <Reveal>
-        <SectionHeading
-          eyebrow="Sheet 05 / Bill of Materials"
-          title="Stack manifest"
-          description="The stack matters because of what it enables: clear interfaces, secure services, intelligent agents, reliable delivery, and operational trust."
-        />
+        <SectionHeading eyebrow="Sheet 05 / Bill of Materials" title="Stack manifest" />
       </Reveal>
 
       <Reveal delay={110}>

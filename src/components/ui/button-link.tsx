@@ -12,13 +12,13 @@ type ButtonLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 
 const variants = {
   primary:
-    "bg-linear-to-r from-cobalt to-signal text-page font-bold shadow-cobalt hover:-translate-y-0.5 hover:brightness-110 hover:scale-105 focus-visible:outline-cobalt",
+    "border-[1.5px] border-ink bg-ink text-page font-bold hover:border-cobalt hover:bg-cobalt hover:text-white focus-visible:outline-cobalt",
   secondary:
-    "border border-border bg-surface/70 text-ink backdrop-blur hover:-translate-y-0.5 hover:border-cobalt/40 hover:text-cobalt focus-visible:outline-cobalt",
+    "border-[1.5px] border-ink bg-transparent text-ink hover:bg-muted focus-visible:outline-cobalt",
   ghost:
-    "text-ink hover:bg-cobalt/8 hover:text-cobalt focus-visible:outline-cobalt",
+    "text-ink hover:bg-cobalt-light hover:text-cobalt focus-visible:outline-cobalt",
   dark:
-    "border border-border bg-ink text-page hover:-translate-y-0.5 hover:bg-ink/90 focus-visible:outline-ink",
+    "border-[1.5px] border-ink bg-ink text-page hover:bg-ink/90 focus-visible:outline-ink",
 };
 
 export function ButtonLink({
@@ -35,7 +35,7 @@ export function ButtonLink({
     href.startsWith("tel:");
 
   const sharedClassName = cn(
-    "inline-flex h-11 items-center justify-center gap-2 rounded-lg px-5 text-sm font-semibold transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 sm:h-12 sm:px-6",
+    "inline-flex h-11 items-center justify-center gap-2 rounded-none px-5 font-mono text-[0.78rem] font-bold uppercase tracking-[0.06em] transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 sm:h-12 sm:px-6",
     variants[variant],
     className,
   );

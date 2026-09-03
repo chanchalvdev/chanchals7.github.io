@@ -5,6 +5,14 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
+const sheetLinks = [
+  { no: "02", label: "Notes", href: "/#about" },
+  { no: "03", label: "Timeline", href: "/#experience" },
+  { no: "04", label: "Components", href: "/#projects" },
+  { no: "05", label: "Materials", href: "/#skills" },
+  { no: "06", label: "Field Notes", href: "/#writing" },
+];
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -23,41 +31,47 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out",
+        "fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ease-in-out",
         scrolled
-          ? "border-b border-border bg-page/80 py-2.5 backdrop-blur-md"
-          : "bg-transparent py-4 sm:py-5",
+          ? "border-border bg-page/85 py-2.5 backdrop-blur-md"
+          : "border-transparent bg-transparent py-4",
       )}
     >
-      {/* Scroll progress */}
+      {/* Scroll progress — redline */}
       <span
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-0.5 origin-left bg-linear-to-r from-cobalt via-signal to-violet transition-transform duration-150"
+        className="absolute inset-x-0 top-0 h-0.5 origin-left bg-cobalt transition-transform duration-150"
         style={{ transform: `scaleX(${progress})` }}
       />
 
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-60 focus:rounded-lg focus:bg-cobalt focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-page"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-60 focus:bg-cobalt focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:font-bold focus:text-page"
       >
         Skip to content
       </a>
 
-      <div className="flex items-center justify-between px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="group inline-flex rounded-xl transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cobalt"
+          className="font-mono text-[0.72rem] font-semibold tracking-[0.04em] text-ink/70 transition hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cobalt"
           aria-label="Chanchal Verma home"
         >
-          <span
-            className={cn(
-              "glow-cobalt grid shrink-0 place-items-center rounded-xl bg-linear-to-br from-cobalt to-signal font-mono font-bold text-page transition-all duration-300 group-hover:scale-105",
-              scrolled ? "size-9 text-sm" : "size-10 text-sm sm:size-11 sm:text-base",
-            )}
-          >
-            CV
-          </span>
+          DWG NO. CV-2026 · REV C
         </Link>
+
+        <nav className="hidden items-center gap-5 lg:flex" aria-label="Sections">
+          {sheetLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="group font-mono text-[0.7rem] font-medium tracking-[0.04em] text-ink/55 transition hover:text-ink"
+            >
+              <span className="mr-1.5 text-ink/30 transition group-hover:text-cobalt">{link.no}</span>
+              {link.label}
+            </a>
+          ))}
+        </nav>
 
         <ThemeToggle />
       </div>

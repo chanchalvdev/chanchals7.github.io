@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { Archivo, Big_Shoulders, JetBrains_Mono } from "next/font/google";
 import { JsonLd } from "@/components/seo/json-ld";
-import { LoadingProvider } from "@/components/ui/loading-screen";
 import { profile } from "@/content/portfolio";
 import {
   SITE_DESCRIPTION,
@@ -12,19 +11,20 @@ import {
 import { graph, personSchema, websiteSchema } from "@/lib/structured-data";
 import "./globals.css";
 
-const inter = Inter({
+const archivo = Archivo({
   subsets: ["latin"],
   variable: "--font-space",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const bigShoulders = Big_Shoulders({
+  weight: ["600", "700", "800"],
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
 });
 
-const ibmMono = IBM_Plex_Mono({
+const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   variable: "--font-ibm-mono",
@@ -115,8 +115,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#060a12" },
-    { media: "(prefers-color-scheme: light)", color: "#f8f6f1" },
+    { media: "(prefers-color-scheme: dark)", color: "#163157" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f6f4" },
   ],
   colorScheme: "dark light",
 };
@@ -129,7 +129,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased ${inter.variable} ${ibmMono.variable} ${spaceGrotesk.variable}`}
+      className={`h-full antialiased ${archivo.variable} ${jetbrainsMono.variable} ${bigShoulders.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -140,10 +140,14 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-page">
+        {/* Drawing-sheet frame with corner crop marks (decorative) */}
+        <div className="sheet-frame" aria-hidden="true">
+          <span className="tl" /><span className="tr" /><span className="bl" /><span className="br" />
+        </div>
         {/* Person + WebSite are site-wide facts; per-page graphs reference
             these by @id instead of restating them. */}
         <JsonLd data={graph(personSchema(), websiteSchema())} />
-        <LoadingProvider>{children}</LoadingProvider>
+        {children}
       </body>
     </html>
   );

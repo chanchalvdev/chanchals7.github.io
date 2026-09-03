@@ -1,14 +1,7 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chanchal Verma">
-  <defs>
-    <linearGradient id="cv-tile" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#2dd4bf"/>
-      <stop offset="52%" stop-color="#22d3ee"/>
-      <stop offset="100%" stop-color="#0891b2"/>
-    </linearGradient>
-  </defs>
-  <rect width="512" height="512" rx="116" fill="url(#cv-tile)"/>
-  <g fill="none" stroke="#060a12" stroke-width="64" stroke-linecap="butt" stroke-linejoin="miter">
-    <path d="M 208.79 206.36 A 63.00 63.00 0 1 0 208.79 305.64"/>
-    <path d="M 289.00 161.00 L 363.00 351.00 L 437.00 161.00"/>
+  <rect width="512" height="512" rx="32" fill="#163157"/>
+  <g fill="none" stroke-width="64" stroke-linecap="butt" stroke-linejoin="miter">
+    <path d="M 208.79 206.36 A 63.00 63.00 0 1 0 208.79 305.64" stroke="#eaf2fb"/>
+    <path d="M 289.00 161.00 L 363.00 351.00 L 437.00 161.00" stroke="#ff8a63"/>
   </g>
 </svg>

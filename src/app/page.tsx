@@ -2,9 +2,7 @@ import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { JsonLd } from "@/components/seo/json-ld";
 import { AboutSection } from "@/components/sections/about-section";
-import { BlogSection } from "@/components/sections/blog-section";
 import { ExperienceSection } from "@/components/sections/experience-section";
-import { GitHubGraph } from "@/components/sections/github-graph";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProjectList } from "@/components/sections/project-list";
 import { SkillsSection } from "@/components/sections/skills-section";
@@ -25,9 +23,7 @@ export default function Home() {
         <AboutSection />
         <ExperienceSection />
         <ProjectList projects={projects} />
-        <GitHubGraph />
         <SkillsSection />
-        <BlogSection />
       </main>
       <Footer />
     </>

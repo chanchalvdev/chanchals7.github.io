@@ -8,98 +8,87 @@ import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { SectionShell } from "@/components/ui/section-shell";
 
+const axisYears = ["2021", "2022", "2023", "2024", "2025", "2026"];
+
 export function ExperienceSection() {
   return (
     <SectionShell id="experience" className="section-band">
-      <div className="grid gap-12 lg:grid-cols-[0.36fr_0.64fr] lg:items-start">
-        {/* Left: heading + education + credentials */}
-        <div className="lg:sticky lg:top-28">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Experience"
-              title="Five years, four countries, one trajectory."
-              description="From mentoring MERN developers in Bengaluru to AI-driven cybersecurity in Abu Dhabi — each role compounding toward intelligent, secure systems."
-            />
-          </Reveal>
+      <Reveal>
+        <SectionHeading
+          eyebrow="Sheet 03 / Assembly Timeline"
+          title="Career axis"
+          description="From mentoring MERN developers in Bengaluru to AI-driven cybersecurity in Abu Dhabi — each role compounding toward intelligent, secure systems."
+        />
+      </Reveal>
 
-          <Reveal delay={140} className="mt-10 grid gap-3">
-            {/* Education */}
-            <div className="rounded-xl border border-border bg-surface p-5">
-              <p className="flex items-center gap-2 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/40">
-                <GraduationCap className="size-3.5 text-cobalt" aria-hidden="true" />
-                Education
-              </p>
-              {education.map((item) => (
-                <div key={item.school} className="mt-4 first:mt-3">
-                  <p className="text-sm font-bold text-ink">{item.school}</p>
-                  <p className="mt-0.5 text-xs text-ink/50">
-                    {item.degree} · {item.period}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Languages */}
-            <div className="rounded-xl border border-border bg-surface p-5">
-              <p className="flex items-center gap-2 font-mono text-[0.65rem] font-bold uppercase tracking-[0.16em] text-ink/40">
-                <Languages className="size-3.5 text-violet" aria-hidden="true" />
-                Languages
-              </p>
-              <p className="mt-2 text-sm font-medium text-ink/65">
-                {languages.join(" · ")}
-              </p>
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Right: timeline */}
-        <div className="relative pl-8">
-          <span className="timeline-rail" aria-hidden="true" />
-          <div className="grid gap-4">
-            {experience.map((item, index) => (
-              <Reveal key={`${item.company}-${item.period}`} delay={Math.min(index, 2) * 90} as="article">
-                <div className="group relative rounded-xl border border-border bg-surface p-6 transition duration-300 hover:-translate-y-0.5 hover:border-cobalt/30 hover:shadow-(--shadow-lift)">
-                  {/* Node on the rail */}
-                  <span
-                    className={`absolute -left-8 top-7 size-4 -translate-x-[3px] rounded-full border-2 ${
-                      index === 0
-                        ? "border-cobalt bg-cobalt/25 shadow-[0_0_12px_rgba(34,211,238,0.6)]"
-                        : "border-ink/25 bg-page"
-                    }`}
-                    aria-hidden="true"
-                  />
-
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="font-mono text-[0.68rem] font-bold uppercase tracking-[0.16em] text-cobalt">
-                      {item.period}
-                    </p>
-                    <p className="flex items-center gap-1.5 text-xs font-semibold text-ink/40">
-                      <MapPin className="size-3" aria-hidden="true" />
-                      {item.location}
-                    </p>
-                  </div>
-
-                  <h3 className="mt-3 text-xl font-bold text-ink">{item.company}</h3>
-                  <p className="mt-0.5 text-sm font-semibold text-signal">{item.role}</p>
-                  <p className="mt-3 text-sm leading-7 text-ink/55">{item.summary}</p>
-
-                  <ul className="mt-4 grid gap-2 border-t border-border pt-4">
-                    {item.highlights.map((highlight) => (
-                      <li key={highlight} className="flex gap-2.5 text-sm leading-6 text-ink/60">
-                        <span
-                          className="mt-2.5 size-1 shrink-0 rounded-full bg-cobalt/70"
-                          aria-hidden="true"
-                        />
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
+      {/* Year axis */}
+      <Reveal delay={100}>
+        <div className="mt-12 hidden sm:block" aria-hidden="true">
+          <div className="flex justify-between px-1">
+            {axisYears.map((year) => (
+              <span key={year} className="relative font-mono text-[0.64rem] text-ink/40">
+                {year}
+                <span className="absolute left-1/2 top-[1.35rem] h-2.5 w-px bg-ink" />
+              </span>
             ))}
           </div>
+          <div className="mt-2 h-0.5 bg-ink" />
         </div>
+      </Reveal>
+
+      {/* Stations */}
+      <div className="mt-6">
+        {experience.map((item, index) => (
+          <Reveal key={`${item.company}-${item.period}`} delay={Math.min(index, 2) * 90} as="article">
+            <div className="grid gap-2 border-t border-border py-7 first:border-t-0 lg:grid-cols-[4rem_10rem_1fr] lg:gap-6">
+              <p className="font-mono text-[0.72rem] text-ink/35 tabular-nums">
+                {String(experience.length - index).padStart(2, "0")}
+              </p>
+              <p className="font-mono text-[0.72rem] leading-5 text-ink/55">{item.period}</p>
+              <div>
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <h3 className="text-lg font-bold text-ink">{item.role}</h3>
+                  <p className="font-mono text-[0.72rem] font-medium text-cobalt">
+                    {item.company}
+                  </p>
+                  <p className="flex items-center gap-1 font-mono text-[0.68rem] text-ink/40">
+                    <MapPin className="size-3" aria-hidden="true" />
+                    {item.location}
+                  </p>
+                </div>
+                <p className="mt-2.5 max-w-2xl text-sm leading-7 text-ink/55">{item.summary}</p>
+              </div>
+            </div>
+          </Reveal>
+        ))}
       </div>
+
+      {/* Education + languages */}
+      <Reveal delay={120}>
+        <div className="mt-10 grid gap-4 border-t-2 border-ink pt-8 sm:grid-cols-2">
+          <div className="border border-border bg-surface p-5">
+            <p className="flex items-center gap-2 font-mono text-[0.65rem] font-bold uppercase tracking-[0.12em] text-ink/45">
+              <GraduationCap className="size-3.5 text-cobalt" aria-hidden="true" />
+              Education
+            </p>
+            {education.map((item) => (
+              <div key={item.school} className="mt-3">
+                <p className="text-sm font-bold text-ink">{item.school}</p>
+                <p className="mt-0.5 font-mono text-xs text-ink/50">
+                  {item.degree} · {item.period}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="border border-border bg-surface p-5">
+            <p className="flex items-center gap-2 font-mono text-[0.65rem] font-bold uppercase tracking-[0.12em] text-ink/45">
+              <Languages className="size-3.5 text-cobalt" aria-hidden="true" />
+              Languages
+            </p>
+            <p className="mt-3 font-mono text-sm text-ink/65">{languages.join(" · ")}</p>
+          </div>
+        </div>
+      </Reveal>
     </SectionShell>
   );
 }

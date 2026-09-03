@@ -15,7 +15,7 @@ export const profile: PortfolioProfile = {
   email: "chanchal9.dev@gmail.com",
   github: "https://github.com/chanchalvdev",
   linkedin: "https://linkedin.com/in/chanchalvdev/",
-  twitter: "https://x.com/chanchalv_dev",
+  twitter: "https://x.com/chanchalvdev",
   blog: "https://dev.to/chanchalvdev",
   headline: "I build intelligent systems that scale.",
   summary:
@@ -23,15 +23,6 @@ export const profile: PortfolioProfile = {
   narrative:
     "My best work happens at the intersection of AI and cloud systems: interfaces that stay calm under pressure, backend platforms that stay reliable, and agents that make intelligent decisions faster than we can. That's the future I'm building toward.",
 };
-
-export const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Work", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Writing", href: "#writing" },
-  { label: "Contact", href: "#contact" },
-];
 
 export const heroRoles = [
   "AI Security Engineer",
@@ -61,15 +52,15 @@ export const proofPoints = [
 export const capabilities = [
   {
     title: "Secure by design",
-    text: "Security is not a final checklist. I build identity, permissions, auditability, and safe defaults into the architecture early — proactive defense against malware, phishing, and emerging attacks.",
+    text: "Identity, permissions, auditability, and safe defaults built into the architecture early — not bolted on as a final checklist.",
   },
   {
     title: "AI-native engineering",
-    text: "From LLM-powered threat classification to autonomous agents, I design systems where AI is the engine, not a bolt-on — software that can heal itself and optimize automatically.",
+    text: "From LLM-powered threat classification to autonomous agents — AI is the load-bearing engine, not decoration.",
   },
   {
     title: "Product clarity",
-    text: "Complex systems only become useful when flows, states, copy, and information hierarchy make decisions easier. I design data-rich interfaces that simplify complex security insights.",
+    text: "Complex systems earn their keep only when flows, states, and hierarchy make decisions easier for the person reading them.",
   },
 ];
 
@@ -169,22 +160,22 @@ export const skillGroups = [
     items: ["React", "Next.js", "TypeScript", "TanStack Query", "Redux", "Tailwind CSS", "Vite", "Figma"],
   },
   {
-    title: "Backend platforms",
+    title: "Backend Platforms",
     description: "APIs, service boundaries, auth, integrations, and data workflows.",
     items: ["Go", "Node.js", "NestJS", "Express", "Gin", "Fiber", "GraphQL", "gRPC"],
   },
   {
-    title: "AI & agentic systems",
+    title: "AI & Agentic Systems",
     description: "LLM pipelines, autonomous agents, embeddings, and AI-native product features.",
     items: ["Agentic AI", "LLM Integration", "Ollama", "Qdrant", "RAG", "Prompt Engineering", "Anomaly Detection"],
   },
   {
-    title: "Cloud & security",
+    title: "Cloud & Security",
     description: "Deployment, governance, identity, secure access, and operational reliability.",
     items: ["AWS", "Azure", "GCP", "Docker", "Kubernetes", "Terraform", "Keycloak", "CI/CD"],
   },
   {
-    title: "Data & operations",
+    title: "Data & Operations",
     description: "Persistence, caching, queues, audits, and system observability.",
     items: ["PostgreSQL", "MongoDB", "Redis", "DynamoDB", "Kafka", "Prisma", "Prometheus", "Temporal"],
   },

@@ -24,15 +24,6 @@ export const profile: PortfolioProfile = {
     "My best work happens at the intersection of AI and cloud systems: interfaces that stay calm under pressure, backend platforms that stay reliable, and agents that make intelligent decisions faster than we can. That's the future I'm building toward.",
 };
 
-export const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Work", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Writing", href: "#writing" },
-  { label: "Contact", href: "#contact" },
-];
-
 export const heroRoles = [
   "AI Security Engineer",
   "Full Stack AI Engineer",

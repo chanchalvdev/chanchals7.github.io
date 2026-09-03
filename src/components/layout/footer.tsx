@@ -19,7 +19,7 @@ export function Footer() {
         {/* Title block */}
         <div className="mt-8 border-[1.5px] border-ink">
           <div className="border-b border-ink p-6 sm:p-8">
-            <h2 className="text-display max-w-xl text-3xl text-ink sm:text-4xl">
+            <h2 className="text-display max-w-xl text-3xl font-bold text-ink sm:text-4xl">
               Open for new engagements.
             </h2>
           </div>

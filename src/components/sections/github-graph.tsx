@@ -24,8 +24,8 @@ export async function GitHubGraph() {
         {/* Left */}
         <div>
           <SectionHeading
-            eyebrow="Sheet 06 / Open Work"
-            title="Work signal."
+            eyebrow="Sheet 05 / Open Work"
+            title="Work signal"
             description="Public activity treated as a product signal: useful, current, and grounded in actual shipping rhythm."
           />
           <a
@@ -50,7 +50,7 @@ export async function GitHubGraph() {
                   @{profile.github.split("/").pop()} · {signals.refreshedAt}
                 </p>
               </div>
-              <h3 className="text-display mt-3 text-xl text-ink">Contribution rhythm</h3>
+              <h3 className="text-display mt-3 text-xl font-bold text-ink">Contribution rhythm</h3>
             </div>
 
             {/* Stat tiles */}

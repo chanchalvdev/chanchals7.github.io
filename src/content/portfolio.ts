@@ -15,7 +15,7 @@ export const profile: PortfolioProfile = {
   email: "chanchal9.dev@gmail.com",
   github: "https://github.com/chanchalvdev",
   linkedin: "https://linkedin.com/in/chanchalvdev/",
-  twitter: "https://x.com/chanchalv_dev",
+  twitter: "https://x.com/chanchalvdev",
   blog: "https://dev.to/chanchalvdev",
   headline: "I build intelligent systems that scale.",
   summary:

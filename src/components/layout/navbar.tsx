@@ -56,7 +56,7 @@ export function Navbar() {
         className="font-mono text-[0.72rem] tracking-[0.04em] text-ink/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cobalt"
         aria-label="Chanchal Verma home"
       >
-        DWG NO. CV-2026-01 · REV C
+CV
       </Link>
 
       <nav className="flex flex-wrap gap-x-5 gap-y-1" aria-label="Sections">

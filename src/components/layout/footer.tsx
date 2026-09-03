@@ -95,9 +95,8 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 flex flex-wrap items-center justify-between gap-4 font-mono text-[0.68rem] text-ink/40">
+        <div className="mt-8 font-mono text-[0.68rem] text-ink/40">
           <p>© {year} {profile.name}. All rights reserved.</p>
-          <p>Rev C — {year}</p>
         </div>
       </div>
     </footer>

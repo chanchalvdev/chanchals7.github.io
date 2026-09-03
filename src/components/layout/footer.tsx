@@ -13,7 +13,7 @@ export function Footer() {
     <footer id="contact" className="border-t border-border bg-background px-5 py-14 text-ink sm:px-8">
       <div className="mx-auto w-full max-w-6xl">
         <p className="bp-divider font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink/55">
-          Sheet 08 / Title Block
+          Sheet 07 / Title Block
         </p>
 
         {/* Title block */}
@@ -73,7 +73,7 @@ export function Footer() {
             </div>
             <div className="p-5 sm:border-r sm:border-ink">
               <span className={cellLabel}>Sheet</span>
-              <span className={cellValue}>08 of 08</span>
+              <span className={cellValue}>07 of 07</span>
             </div>
             <div className="p-5">
               <span className={cellLabel}>Rev</span>

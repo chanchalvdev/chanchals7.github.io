@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Layers3 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -74,10 +74,6 @@ export default function ProjectsPage() {
                 A focused archive of shipped product work across security,
                 cloud governance, backend delivery, and frontend systems.
               </p>
-              <div className="mt-8 inline-flex items-center gap-2 border border-border bg-surface px-4 py-3 font-mono text-[0.78rem] font-semibold text-ink/60">
-                <Layers3 className="size-4 text-coral" aria-hidden="true" />
-                Filter and sort by the product context that matters.
-              </div>
             </div>
           </div>
         </section>

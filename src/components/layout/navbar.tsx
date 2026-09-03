@@ -10,10 +10,9 @@ const sheetLinks = [
   { no: "02", label: "Notes", href: "/#about" },
   { no: "03", label: "Timeline", href: "/#experience" },
   { no: "04", label: "Components", href: "/#projects" },
-  { no: "05", label: "Open Work", href: "/#github" },
-  { no: "06", label: "Materials", href: "/#skills" },
-  { no: "07", label: "Field Notes", href: "/blog" },
-  { no: "08", label: "Title Block", href: "/#contact" },
+  { no: "05", label: "Materials", href: "/#skills" },
+  { no: "06", label: "Field Notes", href: "/blog" },
+  { no: "07", label: "Title Block", href: "/#contact" },
 ];
 
 export function Navbar() {
@@ -60,7 +59,7 @@ export function Navbar() {
         DWG NO. CV-2026-01 · REV C
       </Link>
 
-      <nav className="hidden flex-wrap gap-x-5 gap-y-1 lg:flex" aria-label="Sections">
+      <nav className="flex flex-wrap gap-x-5 gap-y-1" aria-label="Sections">
         {sheetLinks.map((link, i) => (
           <a
             key={link.href}

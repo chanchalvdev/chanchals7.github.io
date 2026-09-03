@@ -57,14 +57,6 @@ export function ExperienceSection() {
                   </p>
                 </div>
                 <p className="mt-2.5 max-w-2xl text-sm leading-7 text-ink/55">{item.summary}</p>
-                <ul className="mt-3.5 grid max-w-2xl gap-2">
-                  {item.highlights.map((highlight) => (
-                    <li key={highlight} className="flex gap-2.5 text-sm leading-6 text-ink/60">
-                      <span className="mt-2.5 size-1 shrink-0 bg-cobalt" aria-hidden="true" />
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           </Reveal>

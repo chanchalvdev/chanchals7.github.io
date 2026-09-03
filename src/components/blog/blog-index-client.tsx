@@ -138,7 +138,7 @@ export function BlogIndexClient() {
 
           <div className="mt-10">
             <p className="bp-divider font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink/55">
-              Sheet 07 / Field Notes
+              Sheet 06 / Field Notes
             </p>
             <h1 className="text-display mt-5 text-4xl font-bold text-ink sm:text-5xl">
               Field Notes

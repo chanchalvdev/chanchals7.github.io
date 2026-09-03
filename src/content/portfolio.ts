@@ -52,15 +52,15 @@ export const proofPoints = [
 export const capabilities = [
   {
     title: "Secure by design",
-    text: "Security is not a final checklist. I build identity, permissions, auditability, and safe defaults into the architecture early — proactive defense against malware, phishing, and emerging attacks.",
+    text: "Identity, permissions, auditability, and safe defaults built into the architecture early — not bolted on as a final checklist.",
   },
   {
     title: "AI-native engineering",
-    text: "From LLM-powered threat classification to autonomous agents, I design systems where AI is the engine, not a bolt-on — software that can heal itself and optimize automatically.",
+    text: "From LLM-powered threat classification to autonomous agents — AI is the load-bearing engine, not decoration.",
   },
   {
     title: "Product clarity",
-    text: "Complex systems only become useful when flows, states, copy, and information hierarchy make decisions easier. I design data-rich interfaces that simplify complex security insights.",
+    text: "Complex systems earn their keep only when flows, states, and hierarchy make decisions easier for the person reading them.",
   },
 ];
 

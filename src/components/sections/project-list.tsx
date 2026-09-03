@@ -35,8 +35,8 @@ export function ProjectList({ projects }: { projects: Project[] }) {
         <div className="grid gap-8 lg:grid-cols-[0.72fr_0.28fr] lg:items-end">
           <Reveal>
             <SectionHeading
-              eyebrow="Selected work"
-              title="Work shown as product evidence."
+              eyebrow="Sheet 04 / Component Specs"
+              title="Exploded view — work."
               description="Each case study is framed by the user pressure, the system decision, and the product result it made possible."
             />
           </Reveal>
@@ -45,13 +45,13 @@ export function ProjectList({ projects }: { projects: Project[] }) {
             <label className="sr-only" htmlFor="project-sort">
               Sort projects
             </label>
-            <div className="inline-flex w-full items-center gap-2 rounded-xl border border-border bg-surface px-3 transition hover:border-cobalt/30 lg:w-auto">
+            <div className="inline-flex w-full items-center gap-2 border border-border bg-surface px-3 transition hover:border-ink/40 lg:w-auto">
               <SlidersHorizontal className="size-4 shrink-0 text-cobalt" aria-hidden="true" />
               <select
                 id="project-sort"
                 value={sortMode}
                 onChange={(e) => setSortMode(e.target.value as SortMode)}
-                className="h-11 flex-1 cursor-pointer bg-transparent text-sm font-semibold text-ink outline-none lg:flex-none"
+                className="h-11 flex-1 cursor-pointer bg-transparent font-mono text-[0.78rem] font-semibold text-ink outline-none lg:flex-none"
               >
                 <option value="selected">Selected first</option>
                 <option value="recent">Newest first</option>
@@ -71,10 +71,10 @@ export function ProjectList({ projects }: { projects: Project[] }) {
                 type="button"
                 onClick={() => setActiveCategory(cat)}
                 className={cn(
-                  "h-9 cursor-pointer rounded-full border px-4 text-sm font-semibold transition",
+                  "h-9 cursor-pointer border px-4 font-mono text-[0.74rem] font-semibold uppercase tracking-[0.04em] transition",
                   isActive
-                    ? "border-cobalt bg-cobalt/10 text-cobalt shadow-cobalt"
-                    : "border-border bg-surface text-ink/55 hover:border-cobalt/30 hover:text-cobalt",
+                    ? "border-ink bg-ink text-page"
+                    : "border-border bg-surface text-ink/55 hover:border-ink/40 hover:text-ink",
                 )}
                 aria-pressed={isActive}
               >
@@ -85,13 +85,13 @@ export function ProjectList({ projects }: { projects: Project[] }) {
         </div>
 
         {/* Count bar */}
-        <div className="mt-8 flex items-center gap-2 border-y border-border py-3.5 text-sm font-semibold text-ink/45">
+        <div className="mt-8 flex items-center gap-2 border-y border-border py-3 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.06em] text-ink/45">
           <LayoutGrid className="size-4 text-cobalt" aria-hidden="true" />
-          {visibleProjects.length} case {visibleProjects.length === 1 ? "study" : "studies"} in this view
+          {visibleProjects.length} {visibleProjects.length === 1 ? "file" : "files"} in this view
         </div>
 
-        {/* Cards */}
-        <div className="mt-6 grid gap-4">
+        {/* Component specs */}
+        <div className="mt-2">
           {visibleProjects.map((project, i) => (
             <Reveal key={project.slug} delay={Math.min(i, 2) * 80}>
               <ProjectCard project={project} index={i} />

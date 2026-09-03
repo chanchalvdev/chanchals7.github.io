@@ -24,15 +24,15 @@ export async function GitHubGraph() {
         {/* Left */}
         <div>
           <SectionHeading
-            eyebrow="Open work"
-            title="Real-time work signal."
+            eyebrow="Sheet 06 / Open Work"
+            title="Work signal."
             description="Public activity treated as a product signal: useful, current, and grounded in actual shipping rhythm."
           />
           <a
             href={profile.github}
             target="_blank"
             rel="noreferrer"
-            className="mt-8 inline-flex h-10 items-center gap-2 rounded-lg bg-cobalt px-5 text-sm font-bold text-page shadow-cobalt transition hover:-translate-y-0.5 hover:brightness-110"
+            className="mt-8 inline-flex h-10 items-center gap-2 border-[1.5px] border-ink bg-ink px-5 font-mono text-[0.74rem] font-bold uppercase tracking-[0.05em] text-page transition hover:border-cobalt hover:bg-cobalt hover:text-white"
           >
             Open GitHub
             <ArrowUpRight className="size-4" aria-hidden="true" />
@@ -40,7 +40,7 @@ export async function GitHubGraph() {
         </div>
 
         {/* Right: graph card */}
-        <div className="glow-ring min-w-0 overflow-hidden rounded-xl border border-border bg-surface p-5 shadow-(--shadow-lift) sm:p-6">
+        <div className="min-w-0 overflow-hidden border border-border bg-surface p-5 sm:p-6">
           {/* Header */}
           <div className="flex flex-col justify-between gap-5 border-b border-border pb-5 sm:flex-row sm:items-end">
             <div>
@@ -50,7 +50,7 @@ export async function GitHubGraph() {
                   @{profile.github.split("/").pop()} · {signals.refreshedAt}
                 </p>
               </div>
-              <h3 className="mt-3 text-xl font-bold text-ink">Contribution rhythm</h3>
+              <h3 className="text-display mt-3 text-xl text-ink">Contribution rhythm</h3>
             </div>
 
             {/* Stat tiles */}
@@ -69,7 +69,7 @@ export async function GitHubGraph() {
                   label: "public repos",
                 },
               ].map((stat) => (
-                <div key={stat.label} className="rounded-lg bg-muted/60 px-4 py-3 text-center">
+                <div key={stat.label} className="border border-border bg-muted/40 px-4 py-3 text-center">
                   <p className="text-xl font-bold text-ink">{stat.value}</p>
                   <p className="mt-0.5 text-[0.65rem] font-semibold text-ink/42">{stat.label}</p>
                 </div>

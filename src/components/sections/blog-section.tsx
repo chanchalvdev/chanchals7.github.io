@@ -22,13 +22,13 @@ export function BlogSection() {
           {/* Left */}
           <div>
             <SectionHeading
-              eyebrow="Writing"
-              title="How I reason in public."
+              eyebrow="Sheet 07 / Field Notes"
+              title="Field notes."
               description="Short essays on engineering judgment, product tradeoffs, and security decisions."
             />
             <Link
               href="/blog"
-              className="mt-8 inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-surface px-4 text-sm font-semibold text-ink/65 transition hover:-translate-y-0.5 hover:border-cobalt/40 hover:text-cobalt"
+              className="mt-8 inline-flex h-10 items-center gap-2 border-[1.5px] border-ink bg-transparent px-4 font-mono text-[0.74rem] font-bold uppercase tracking-[0.05em] text-ink transition hover:bg-muted"
             >
               All notes
               <ArrowUpRight className="size-3.5" aria-hidden="true" />
@@ -37,7 +37,7 @@ export function BlogSection() {
 
           {/* Right */}
           {!mounted ? (
-            <div className="divide-y divide-border rounded-xl border border-border bg-surface shadow-(--shadow-soft)">
+            <div className="divide-y divide-border border border-border bg-surface">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="p-6 sm:p-7">
                   <div className="h-5 w-24 animate-pulse rounded bg-ink/8" />
@@ -47,8 +47,8 @@ export function BlogSection() {
               ))}
             </div>
           ) : posts.length === 0 ? (
-            <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-border bg-surface px-8 py-16 text-center shadow-(--shadow-soft)">
-              <div className="grid size-14 place-items-center rounded-2xl bg-cobalt/10">
+            <div className="flex flex-col items-center justify-center gap-4 border border-border bg-surface px-8 py-16 text-center">
+              <div className="grid size-14 place-items-center border border-border bg-cobalt-light">
                 <PenLine className="size-6 text-cobalt" aria-hidden="true" />
               </div>
               <div>
@@ -59,7 +59,7 @@ export function BlogSection() {
               </div>
             </div>
           ) : (
-            <div className="divide-y divide-border rounded-xl border border-border bg-surface shadow-(--shadow-soft)">
+            <div className="divide-y divide-border border border-border bg-surface">
               {posts.map((post, i) => (
                 <article key={post.id} className={`p-6 sm:p-7 ${i === 0 ? "pb-6" : ""}`}>
                   <div className="flex flex-wrap items-start justify-between gap-4">
@@ -67,7 +67,7 @@ export function BlogSection() {
                       {post.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="rounded-md border border-cobalt/20 bg-cobalt/8 px-2.5 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-[0.14em] text-cobalt"
+                          className="border border-cobalt/30 bg-cobalt-light px-2.5 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-[0.14em] text-cobalt"
                         >
                           {tag}
                         </span>

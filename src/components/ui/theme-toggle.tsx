@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
@@ -23,30 +22,21 @@ export function ThemeToggle() {
   const isNight = theme === "dark";
 
   return (
-    <button
-      type="button"
-      onClick={toggle}
-      role="switch"
-      aria-checked={isNight}
-      aria-label={`Switch to ${isNight ? "day" : "night"} mode`}
-      className="group inline-flex items-center gap-2.5"
-    >
-      <span
-        className={cn(
-          "relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border transition-colors duration-300",
-          "border-ink/20 bg-ink/5 group-hover:border-ink/35",
-        )}
+    <div className="flex items-center gap-2.5 font-mono text-[0.65rem] font-semibold uppercase tracking-[0.08em] text-ink/55">
+      <span>{isNight ? "Night" : "Day"}</span>
+      <button
+        type="button"
+        onClick={toggle}
+        role="switch"
+        aria-checked={isNight}
+        aria-label={`Switch to ${isNight ? "day" : "night"} mode`}
+        className="relative h-[1.55rem] w-[3.1rem] shrink-0 cursor-pointer border-[1.5px] border-ink bg-muted p-0"
       >
         <span
-          className={cn(
-            "inline-block size-4 translate-x-1 rounded-full bg-ink shadow-sm transition-transform duration-300 ease-out",
-            isNight && "translate-x-6",
-          )}
+          className="absolute top-px bottom-px left-px block w-[1.2rem] bg-ink transition-transform duration-200 ease-out"
+          style={{ transform: isNight ? "translateX(1.45rem)" : "translateX(0)" }}
         />
-      </span>
-      <span className="font-mono text-[0.65rem] font-semibold uppercase tracking-[0.25em] text-ink/50 transition-colors duration-200 group-hover:text-ink/80">
-        {isNight ? "Night" : "Day"}
-      </span>
-    </button>
+      </button>
+    </div>
   );
 }

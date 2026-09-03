@@ -47,6 +47,12 @@ export async function generateMetadata({
   };
 }
 
+const narrativeSections = [
+  { key: "impact", label: "Product impact", icon: Gauge },
+  { key: "challenge", label: "Challenge", icon: ShieldCheck },
+  { key: "solution", label: "Approach", icon: Gauge },
+] as const;
+
 export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
@@ -67,22 +73,22 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
       />
       <Navbar />
       <main>
-        <article className="px-5 py-12 sm:px-8 lg:py-20">
+        <article className="px-5 py-12 sm:px-8 lg:py-16">
           <div className="mx-auto max-w-6xl">
             <BackButton />
 
-            <header className="mt-10 border-b border-ink/10 pb-10">
-              <p className="text-kicker text-cobalt">
-                {project.category} case study / {project.year}
+            <header className="mt-10 border-b border-border pb-10">
+              <p className="bp-divider font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink/55">
+                {project.category} case study · {project.year}
               </p>
-              <h1 className="mt-5 max-w-4xl text-5xl font-semibold leading-[1.02] text-ink sm:text-7xl">
+              <h1 className="text-display mt-5 max-w-4xl text-5xl font-bold leading-[1.0] text-ink sm:text-7xl">
                 {project.title}
               </h1>
-              <p className="mt-7 max-w-3xl text-xl leading-9 text-ink/66">
+              <p className="mt-7 max-w-3xl text-xl leading-9 text-ink/70">
                 {project.description}
               </p>
-              {project.coverImage && (
-                <div className="mt-10 overflow-hidden rounded-2xl border border-ink/10 shadow-soft">
+              {project.coverImage ? (
+                <div className="mt-10 overflow-hidden border border-border">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={project.coverImage}
@@ -90,16 +96,22 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
                     className="w-full"
                   />
                 </div>
-              )}
+              ) : null}
             </header>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {project.metrics.map((metric) => (
-                <div key={metric.label} className="rounded-lg border border-ink/10 bg-surface p-5 shadow-sm">
-                  <p className="text-3xl font-semibold text-ink">{metric.value}</p>
-                  <p className="mt-1 text-sm font-semibold text-ink/48">{metric.label}</p>
-                </div>
-              ))}
+            {/* Performance ruler */}
+            <div className="mt-10">
+              <div className="dim-ruler" aria-hidden="true" />
+              <div className="grid grid-cols-1 sm:grid-cols-3">
+                {project.metrics.map((metric) => (
+                  <div key={metric.label} className="dim-cell px-4 pb-0 pt-[0.9rem] first:pl-0 sm:px-6">
+                    <p className="text-display text-2xl font-bold text-ink">{metric.value}</p>
+                    <p className="mt-0.5 font-mono text-[0.63rem] font-semibold uppercase tracking-[0.04em] text-ink/45">
+                      {metric.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="mt-10 flex flex-wrap gap-2">
@@ -109,41 +121,43 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
             </div>
 
             <div className="mt-12 grid gap-6 lg:grid-cols-[0.68fr_0.32fr]">
-              <div className="space-y-6">
-                <section className="rounded-lg border border-cobalt/12 bg-cobalt/4 p-6">
-                  <div className="flex items-center gap-2">
-                    <Gauge className="size-5 text-cobalt" aria-hidden="true" />
-                    <h2 className="text-2xl font-semibold text-ink">Product impact</h2>
+              <div>
+                {narrativeSections.map(({ key, label, icon: Icon }, index) => (
+                  <section key={key} className="grid grid-cols-[2.75rem_1fr] gap-5 border-t border-dashed border-border py-6 first:border-t-0">
+                    <span className="part-badge size-8 text-xs">{index + 1}</span>
+                    <div>
+                      <h2 className="flex items-center gap-2 font-mono text-sm font-semibold uppercase tracking-[0.05em] text-ink">
+                        <Icon className="size-4 text-cobalt" aria-hidden="true" />
+                        {label}
+                      </h2>
+                      <p className="mt-2.5 max-w-2xl text-base leading-8 text-ink/65">
+                        {project[key]}
+                      </p>
+                    </div>
+                  </section>
+                ))}
+
+                <section className="border-t border-dashed border-border py-6">
+                  <div className="grid grid-cols-[2.75rem_1fr] gap-5">
+                    <span className="part-badge size-8 text-xs">4</span>
+                    <div>
+                      <h2 className="font-mono text-sm font-semibold uppercase tracking-[0.05em] text-ink">
+                        Results
+                      </h2>
+                      <ul className="mt-3 grid max-w-2xl gap-2.5">
+                        {project.results.map((result) => (
+                          <li key={result} className="flex gap-2.5 text-base leading-7 text-ink/65">
+                            <span className="mt-2.5 size-1 shrink-0 bg-cobalt" aria-hidden="true" />
+                            <span>{result}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-                  <p className="mt-4 leading-8 text-ink/66">{project.impact}</p>
                 </section>
-                <section className="rounded-lg border border-ink/10 bg-surface p-6">
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck className="size-5 text-coral" aria-hidden="true" />
-                    <h2 className="text-2xl font-semibold text-ink">Challenge</h2>
-                  </div>
-                  <p className="mt-4 leading-8 text-ink/66">{project.challenge}</p>
-                </section>
-                <section className="rounded-lg border border-ink/10 bg-surface p-6">
-                  <div className="flex items-center gap-2">
-                    <Gauge className="size-5 text-cobalt" aria-hidden="true" />
-                    <h2 className="text-2xl font-semibold text-ink">Approach</h2>
-                  </div>
-                  <p className="mt-4 leading-8 text-ink/66">{project.solution}</p>
-                </section>
-                <section className="rounded-lg border border-ink/10 bg-surface p-6">
-                  <h2 className="text-2xl font-semibold text-ink">Results</h2>
-                  <ul className="mt-5 grid gap-3 leading-8 text-ink/66">
-                    {project.results.map((result) => (
-                      <li key={result} className="flex gap-3">
-                        <span className="mt-3 size-1.5 shrink-0 rounded-full bg-cobalt" />
-                        <span>{result}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-                {project.detailImage && (
-                  <div className="overflow-hidden rounded-xl border border-ink/10 shadow-soft">
+
+                {project.detailImage ? (
+                  <div className="mt-6 overflow-hidden border border-border">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={project.detailImage}
@@ -151,16 +165,18 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
                       className="w-full"
                     />
                   </div>
-                )}
+                ) : null}
               </div>
 
-              <aside className="h-fit rounded-lg border border-ink/10 bg-ink p-5 text-page">
-                <h2 className="text-xl font-semibold">Project links</h2>
-                <div className="mt-5 grid gap-3">
+              <aside className="h-fit border-[1.5px] border-ink bg-ink p-5 text-page">
+                <p className="font-mono text-[0.68rem] font-bold uppercase tracking-[0.1em] text-page/50">
+                  Project Links
+                </p>
+                <div className="mt-4 grid gap-3">
                   {project.links.demo ? (
                     <a
                       href={project.links.demo}
-                      className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-surface px-4 text-sm font-bold text-ink"
+                      className="inline-flex h-11 items-center justify-center gap-2 border border-page bg-page px-4 font-mono text-[0.78rem] font-bold uppercase tracking-[0.04em] text-ink"
                     >
                       Demo request
                       <ExternalLink className="size-4" aria-hidden="true" />
@@ -171,14 +187,14 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
                       href={project.links.github}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-page/12 px-4 text-sm font-bold text-page"
+                      className="inline-flex h-11 items-center justify-center gap-2 border border-page/25 px-4 font-mono text-[0.78rem] font-bold uppercase tracking-[0.04em] text-page transition hover:border-page"
                     >
                       <Code2 className="size-4" aria-hidden="true" />
                       GitHub
                     </a>
                   ) : null}
                 </div>
-                <p className="mt-5 text-sm leading-6 text-page/52">
+                <p className="mt-5 text-sm leading-6 text-page/55">
                   Some production details are summarized to respect employer and client confidentiality.
                 </p>
               </aside>

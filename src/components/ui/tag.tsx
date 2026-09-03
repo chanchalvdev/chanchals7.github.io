@@ -21,7 +21,7 @@ export function Tag({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-md border px-2.5 py-1 font-mono text-[0.68rem] font-semibold",
+        "inline-flex items-center rounded-none border px-2.5 py-1 font-mono text-[0.68rem] font-semibold",
         tones[tone],
         className,
       )}

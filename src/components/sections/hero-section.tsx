@@ -9,17 +9,17 @@ export function HeroSection() {
       <div className="mx-auto w-full max-w-6xl">
         {/* Status badges */}
         <div className="fade-up mb-7 flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-2 border border-signal/40 bg-signal/10 px-3 py-1.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.06em] text-signal">
+          <span className="inline-flex items-center gap-2 border border-signal/40 bg-signal/10 px-3 py-1.5 font-mono text-[0.7rem] font-semibold tracking-[0.04em] text-signal">
             <span className="pulse-dot size-1.5 rounded-full bg-signal" />
-            Open for work
+            Open For Work
           </span>
-          <span className="inline-flex items-center gap-2 border border-border px-3 py-1.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.06em] text-ink/60">
+          <span className="inline-flex items-center gap-2 border border-border px-3 py-1.5 font-mono text-[0.7rem] font-semibold tracking-[0.04em] text-ink/60">
             <MapPin className="size-3.5 text-ink/40" aria-hidden="true" />
             {profile.location}
           </span>
-          <span className="inline-flex items-center gap-2 border border-border px-3 py-1.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.06em] text-ink/60">
+          <span className="inline-flex items-center gap-2 border border-border px-3 py-1.5 font-mono text-[0.7rem] font-semibold tracking-[0.04em] text-ink/60">
             <Globe className="size-3.5 text-ink/40" aria-hidden="true" />
-            Relocation — worldwide
+            Relocation — Worldwide
           </span>
         </div>
 
@@ -35,11 +35,6 @@ export function HeroSection() {
           <span aria-hidden="true" className="text-ink/40">◂</span>
           <RoleRotator roles={heroRoles} />
           <span aria-hidden="true" className="text-ink/40">▸</span>
-        </p>
-
-        {/* Headline */}
-        <p className="fade-up delay-2 mt-5 max-w-2xl text-2xl font-semibold leading-snug text-ink/90 sm:text-3xl">
-          {profile.headline}
         </p>
 
         {/* Summary */}

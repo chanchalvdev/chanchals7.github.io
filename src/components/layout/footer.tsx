@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { profile } from "@/content/portfolio";
 
 export function Footer() {
@@ -67,17 +68,28 @@ export function Footer() {
               </a>
             </div>
 
-            <div className="p-5 sm:border-r sm:border-ink">
-              <span className={cellLabel}>Scale</span>
-              <span className={cellValue}>1 : 1</span>
-            </div>
-            <div className="p-5 sm:border-r sm:border-ink">
-              <span className={cellLabel}>Sheet</span>
-              <span className={cellValue}>07 of 07</span>
-            </div>
-            <div className="p-5">
-              <span className={cellLabel}>Rev</span>
-              <span className={cellValue}>C — {year}</span>
+            <div className="grid sm:col-span-3 sm:grid-cols-2">
+              <div className="border-b border-ink p-5 sm:border-b-0 sm:border-r">
+                <span className={cellLabel}>X / Twitter</span>
+                {profile.twitter ? (
+                  <a
+                    href={profile.twitter}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`${cellValue} transition hover:text-cobalt`}
+                  >
+                    @{profile.twitter.split("/").filter(Boolean).pop()}
+                  </a>
+                ) : (
+                  <span className={cellValue}>—</span>
+                )}
+              </div>
+              <div className="p-5">
+                <span className={cellLabel}>Blog</span>
+                <Link href="/blog" className={`${cellValue} transition hover:text-cobalt`}>
+                  Field notes
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -85,16 +97,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-8 flex flex-wrap items-center justify-between gap-4 font-mono text-[0.68rem] text-ink/40">
           <p>© {year} {profile.name}. All rights reserved.</p>
-          <div className="flex gap-5">
-            {profile.twitter ? (
-              <a href={profile.twitter} target="_blank" rel="noreferrer" className="transition hover:text-cobalt">
-                X / Twitter
-              </a>
-            ) : null}
-            <a href={profile.blog} target="_blank" rel="noreferrer" className="transition hover:text-cobalt">
-              Blog
-            </a>
-          </div>
+          <p>Rev C — {year}</p>
         </div>
       </div>
     </footer>

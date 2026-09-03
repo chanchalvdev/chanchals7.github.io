@@ -13,14 +13,9 @@ export function AboutSection() {
       <Reveal delay={120}>
         <p className="text-display mt-9 max-w-3xl text-2xl font-semibold leading-[1.2] text-ink sm:text-3xl">
           &ldquo;My best work happens at the intersection of{" "}
-          <span className="gradient-text">AI and cloud systems</span> — interfaces that stay calm
+          <span className="gradient-text">AI</span> and cloud systems — interfaces that stay calm
           under pressure, platforms that stay reliable, and agents that decide faster than we
           can.&rdquo;
-        </p>
-        <p className="mt-6 max-w-3xl text-base leading-8 text-ink/55 sm:text-lg">
-          Recently I have worked on AI-driven threat detection, agentic investigation flows,
-          generated SDKs, infrastructure APIs, identity, RBAC, audit trails, and cloud deployment
-          pipelines — across the full stack, from UI/UX to Kubernetes.
         </p>
       </Reveal>
 

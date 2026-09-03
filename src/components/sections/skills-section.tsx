@@ -8,7 +8,7 @@ export function SkillsSection() {
     <SectionShell id="skills" className="bg-background">
       <Reveal>
         <SectionHeading
-          eyebrow="Sheet 06 / Bill of Materials"
+          eyebrow="Sheet 05 / Bill of Materials"
           title="Stack manifest"
           description="The stack matters because of what it enables: clear interfaces, secure services, intelligent agents, reliable delivery, and operational trust."
         />
@@ -41,17 +41,8 @@ export function SkillsSection() {
                   </td>
                   <td className="py-4 pr-4 text-sm font-bold text-ink">{group.title}</td>
                   <td className="py-4 pr-4 text-sm leading-6 text-ink/50">{group.description}</td>
-                  <td className="py-4">
-                    <div className="flex flex-wrap gap-1.5">
-                      {group.items.map((item) => (
-                        <span
-                          key={item}
-                          className="border border-border bg-surface px-2 py-0.5 font-mono text-[0.68rem] font-medium text-ink/65"
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
+                  <td className="py-4 font-mono text-[0.78rem] text-ink/60">
+                    {group.items.join(" · ")}
                   </td>
                 </tr>
               ))}

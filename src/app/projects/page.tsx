@@ -58,21 +58,23 @@ export default function ProjectsPage() {
           <div className="mx-auto max-w-7xl">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm font-bold text-ink/58 transition hover:text-cobalt"
+              className="inline-flex items-center gap-2 font-mono text-[0.78rem] font-bold text-ink/60 transition hover:text-cobalt"
             >
               <ArrowLeft className="size-4" aria-hidden="true" />
               Back home
             </Link>
             <div className="mt-10 max-w-4xl">
-              <p className="text-kicker text-cobalt">Work archive</p>
-              <h1 className="mt-4 text-5xl font-semibold leading-none text-ink sm:text-6xl">
+              <p className="bp-divider font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink/55">
+                Work Archive
+              </p>
+              <h1 className="text-display mt-5 text-5xl font-bold leading-none text-ink sm:text-6xl">
                 Case studies for technical products and systems.
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-ink/62">
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-ink/65">
                 A focused archive of shipped product work across security,
                 cloud governance, backend delivery, and frontend systems.
               </p>
-              <div className="mt-8 inline-flex items-center gap-2 rounded-lg border border-ink/10 bg-surface px-4 py-3 text-sm font-semibold text-ink/58">
+              <div className="mt-8 inline-flex items-center gap-2 border border-border bg-surface px-4 py-3 font-mono text-[0.78rem] font-semibold text-ink/60">
                 <Layers3 className="size-4 text-coral" aria-hidden="true" />
                 Filter and sort by the product context that matters.
               </div>

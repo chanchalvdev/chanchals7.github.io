@@ -16,7 +16,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         <div>
           {/* Spec head */}
           <div className="flex flex-wrap items-center gap-3">
-            <h3 className="text-display text-xl text-ink sm:text-2xl">{project.title}</h3>
+            <h3 className="text-display text-xl font-bold text-ink sm:text-2xl">{project.title}</h3>
             {isRestricted ? (
               <span className="inline-flex items-center gap-1.5 border border-cobalt bg-cobalt-light px-2 py-0.5 font-mono text-[0.62rem] font-bold uppercase tracking-[0.08em] text-cobalt">
                 <Lock className="size-3" aria-hidden="true" />

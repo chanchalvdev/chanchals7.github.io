@@ -7,14 +7,11 @@ export function AboutSection() {
   return (
     <SectionShell id="about">
       <Reveal>
-        <SectionHeading
-          eyebrow="Sheet 02 / General Notes"
-          title="Intelligent systems, built calm."
-        />
+        <SectionHeading eyebrow="Sheet 02 / Design Notes" title="General Notes" />
       </Reveal>
 
       <Reveal delay={120}>
-        <p className="text-display mt-9 max-w-3xl text-2xl leading-[1.2] text-ink sm:text-3xl">
+        <p className="text-display mt-9 max-w-3xl text-2xl font-semibold leading-[1.2] text-ink sm:text-3xl">
           &ldquo;My best work happens at the intersection of{" "}
           <span className="gradient-text">AI and cloud systems</span> — interfaces that stay calm
           under pressure, platforms that stay reliable, and agents that decide faster than we

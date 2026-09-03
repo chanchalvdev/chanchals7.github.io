@@ -18,7 +18,7 @@ export function SectionHeading({
       <p className="bp-divider font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink/55">
         {eyebrow}
       </p>
-      <h2 className="text-display mt-5 text-3xl text-ink sm:text-4xl lg:text-[2.6rem]">
+      <h2 className="text-display mt-5 text-3xl font-bold text-ink sm:text-4xl lg:text-[2.6rem]">
         {title}
       </h2>
       {description ? (

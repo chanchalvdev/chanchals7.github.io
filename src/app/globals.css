@@ -12,7 +12,7 @@
   --surface-soft: #1f4270;
   --surface-warm: #224874;
   --muted: #264c7e;
-  --border: rgba(234, 242, 251, 0.16);
+  --border: rgba(62, 97, 147, 0.33);
 
   /* Ink scale (light-on-blue) */
   --ink: #eaf2fb;
@@ -221,7 +221,6 @@ select {
 
 .text-display {
   font-family: var(--font-display), sans-serif;
-  font-weight: 700;
   line-height: 0.9;
   letter-spacing: 0.01em;
   text-transform: uppercase;

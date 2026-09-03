@@ -16,7 +16,7 @@ export function ExperienceSection() {
       <Reveal>
         <SectionHeading
           eyebrow="Sheet 03 / Assembly Timeline"
-          title="Career axis."
+          title="Career axis"
           description="From mentoring MERN developers in Bengaluru to AI-driven cybersecurity in Abu Dhabi — each role compounding toward intelligent, secure systems."
         />
       </Reveal>

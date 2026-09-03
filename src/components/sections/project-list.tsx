@@ -36,7 +36,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
           <Reveal>
             <SectionHeading
               eyebrow="Sheet 04 / Component Specs"
-              title="Exploded view — work."
+              title="Exploded view — work"
               description="Each case study is framed by the user pressure, the system decision, and the product result it made possible."
             />
           </Reveal>

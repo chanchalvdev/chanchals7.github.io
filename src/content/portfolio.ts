@@ -160,22 +160,22 @@ export const skillGroups = [
     items: ["React", "Next.js", "TypeScript", "TanStack Query", "Redux", "Tailwind CSS", "Vite", "Figma"],
   },
   {
-    title: "Backend platforms",
+    title: "Backend Platforms",
     description: "APIs, service boundaries, auth, integrations, and data workflows.",
     items: ["Go", "Node.js", "NestJS", "Express", "Gin", "Fiber", "GraphQL", "gRPC"],
   },
   {
-    title: "AI & agentic systems",
+    title: "AI & Agentic Systems",
     description: "LLM pipelines, autonomous agents, embeddings, and AI-native product features.",
     items: ["Agentic AI", "LLM Integration", "Ollama", "Qdrant", "RAG", "Prompt Engineering", "Anomaly Detection"],
   },
   {
-    title: "Cloud & security",
+    title: "Cloud & Security",
     description: "Deployment, governance, identity, secure access, and operational reliability.",
     items: ["AWS", "Azure", "GCP", "Docker", "Kubernetes", "Terraform", "Keycloak", "CI/CD"],
   },
   {
-    title: "Data & operations",
+    title: "Data & Operations",
     description: "Persistence, caching, queues, audits, and system observability.",
     items: ["PostgreSQL", "MongoDB", "Redis", "DynamoDB", "Kafka", "Prisma", "Prometheus", "Temporal"],
   },

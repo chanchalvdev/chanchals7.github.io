@@ -286,7 +286,7 @@ function BlogPostView({
                   Author
                 </p>
                 <p className="mt-3 font-bold text-ink">Chanchal Verma</p>
-                <p className="mt-1 text-sm text-ink/55">Senior Full Stack Engineer</p>
+                <p className="mt-1 text-sm text-ink/55">Senior Full Stack AI Engineer</p>
                 <p className="mt-3 font-mono text-[0.72rem] text-ink/40">Abu Dhabi, UAE</p>
               </div>
             </aside>

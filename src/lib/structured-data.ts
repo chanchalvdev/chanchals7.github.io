@@ -123,7 +123,7 @@ export function faqSchema() {
   const qa: Array<[string, string]> = [
     [
       "Who is Chanchal Verma?",
-      "Chanchal Verma is an AI Security Engineer based in Abu Dhabi, UAE, and a Senior Full Stack Engineer with over 5 years of experience building cloud-native systems. He currently leads frontend development for AI-powered security products at CPX and builds agentic AI systems that detect and respond to cyber threats automatically.",
+      "Chanchal Verma is an AI Security Engineer based in Abu Dhabi, UAE, and a Senior Full Stack AI Engineer with over 5 years of experience building cloud-native systems. He currently leads frontend development for AI-powered security products at CPX and builds agentic AI systems that detect and respond to cyber threats automatically.",
     ],
     [
       "What does Chanchal Verma do?",

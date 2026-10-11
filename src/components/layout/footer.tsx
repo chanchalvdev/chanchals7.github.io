@@ -1,14 +1,23 @@
-import Link from "next/link";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { profile } from "@/content/portfolio";
+
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
 
 export function Footer() {
   const year = new Date().getFullYear();
-  const githubHandle = profile.github.split("/").filter(Boolean).pop();
-  const linkedinHandle = profile.linkedin.split("/").filter(Boolean).pop();
 
-  const cellLabel =
-    "block font-mono text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-ink/40";
-  const cellValue = "mt-1.5 block font-mono text-[0.82rem] text-ink";
+  const links = [
+    { label: "GitHub", href: profile.github, Icon: Github, external: true },
+    { label: "LinkedIn", href: profile.linkedin, Icon: Linkedin, external: true },
+    { label: "X (Twitter)", href: profile.twitter, Icon: XIcon, external: true },
+    { label: "Email", href: `mailto:${profile.email}`, Icon: Mail, external: false },
+  ].filter((link) => Boolean(link.href));
 
   return (
     <footer id="contact" className="border-t border-border bg-background px-5 py-14 text-ink sm:px-8">
@@ -17,84 +26,28 @@ export function Footer() {
           Sheet 07 / Title Block
         </p>
 
-        {/* Title block */}
-        <div className="mt-8 border-[1.5px] border-ink">
-          <div className="border-b border-ink p-6 sm:p-8">
-            <h2 className="text-display max-w-xl text-3xl font-bold text-ink sm:text-4xl">
-              Open for new engagements
-            </h2>
-          </div>
+        <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="text-display max-w-xl text-3xl font-bold text-ink sm:text-4xl">
+            Open for new engagements
+          </h2>
 
-          <div className="grid sm:grid-cols-3">
-            <div className="border-b border-ink p-5 sm:border-r">
-              <span className={cellLabel}>Drawn by</span>
-              <span className={cellValue}>{profile.name}</span>
-            </div>
-            <div className="border-b border-ink p-5 sm:border-r">
-              <span className={cellLabel}>Location</span>
-              <span className={cellValue}>{profile.location}</span>
-            </div>
-            <div className="border-b border-ink p-5">
-              <span className={cellLabel}>Status</span>
-              <span className={`${cellValue} text-signal`}>Open</span>
-            </div>
-
-            <div className="border-b border-ink p-5 sm:border-r">
-              <span className={cellLabel}>Contact</span>
-              <a href={`mailto:${profile.email}`} className={`${cellValue} transition hover:text-cobalt`}>
-                {profile.email}
-              </a>
-            </div>
-            <div className="border-b border-ink p-5 sm:border-r">
-              <span className={cellLabel}>GitHub</span>
-              <a
-                href={profile.github}
-                target="_blank"
-                rel="noreferrer"
-                className={`${cellValue} transition hover:text-cobalt`}
-              >
-                {githubHandle}
-              </a>
-            </div>
-            <div className="border-b border-ink p-5">
-              <span className={cellLabel}>LinkedIn</span>
-              <a
-                href={profile.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className={`${cellValue} transition hover:text-cobalt`}
-              >
-                in/{linkedinHandle}
-              </a>
-            </div>
-
-            <div className="grid sm:col-span-3 sm:grid-cols-2">
-              <div className="border-b border-ink p-5 sm:border-b-0 sm:border-r">
-                <span className={cellLabel}>X / Twitter</span>
-                {profile.twitter ? (
-                  <a
-                    href={profile.twitter}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`${cellValue} transition hover:text-cobalt`}
-                  >
-                    @{profile.twitter.split("/").filter(Boolean).pop()}
-                  </a>
-                ) : (
-                  <span className={cellValue}>—</span>
-                )}
-              </div>
-              <div className="p-5">
-                <span className={cellLabel}>Blog</span>
-                <Link href="/blog" className={`${cellValue} transition hover:text-cobalt`}>
-                  Field notes
-                </Link>
-              </div>
-            </div>
-          </div>
+          <ul className="flex items-center gap-3">
+            {links.map(({ label, href, Icon, external }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  aria-label={label}
+                  title={label}
+                  {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="flex size-11 items-center justify-center border-[1.5px] border-ink text-ink transition hover:border-cobalt hover:text-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
+                >
+                  <Icon className="size-5" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Bottom bar */}
         <div className="mt-8 font-mono text-[0.68rem] text-ink/40">
           <p>© {year} {profile.name}. All rights reserved.</p>
         </div>

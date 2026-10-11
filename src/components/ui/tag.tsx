@@ -11,7 +11,7 @@ export function Tag({
   tone?: "neutral" | "blue" | "green" | "coral" | "dark";
 }) {
   const tones = {
-    neutral: "border-border bg-muted/50 text-ink/60",
+    neutral: "border-border bg-muted/50 text-ink-faint",
     blue:    "border-cobalt/20 bg-cobalt/8 text-cobalt",
     green:   "border-signal/20 bg-signal/8 text-signal",
     coral:   "border-violet/20 bg-violet/8 text-violet",
@@ -21,7 +21,7 @@ export function Tag({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-none border px-2.5 py-1 font-mono text-[0.68rem] font-semibold",
+        "inline-flex items-center rounded-none border px-2.5 py-1 font-mono text-xs font-semibold",
         tones[tone],
         className,
       )}

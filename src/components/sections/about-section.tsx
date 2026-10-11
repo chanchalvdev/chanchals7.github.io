@@ -29,7 +29,7 @@ export function AboutSection() {
                 <h3 className="font-mono text-sm font-semibold uppercase tracking-[0.05em] text-ink">
                   {item.title}
                 </h3>
-                <p className="mt-1.5 max-w-2xl text-sm leading-7 text-ink/55">{item.text}</p>
+                <p className="mt-1.5 max-w-2xl text-sm leading-7 text-ink-faint">{item.text}</p>
               </div>
             </div>
           </Reveal>

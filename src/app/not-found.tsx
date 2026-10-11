@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { SheetLoader } from "@/components/ui/sheet-loader";
 
 export default function NotFound() {
   const [redirecting, setRedirecting] = useState(true);
@@ -22,8 +23,8 @@ export default function NotFound() {
 
   if (redirecting) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="size-6 animate-spin rounded-full border-2 border-cobalt border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center px-5">
+        <SheetLoader label="Opening post" detail="Handing off to the post viewer" />
       </div>
     );
   }
@@ -32,11 +33,11 @@ export default function NotFound() {
     <>
       <Navbar />
       <main className="flex min-h-[60vh] flex-col items-center justify-center px-5 py-20 text-center">
-        <p className="font-mono text-[0.7rem] font-bold uppercase tracking-[0.12em] text-cobalt">
+        <p className="font-mono text-xs font-bold uppercase tracking-[0.12em] text-cobalt">
           404 — Not filed
         </p>
         <h1 className="text-display mt-3 text-3xl font-bold text-ink">Page not found</h1>
-        <p className="mt-3 text-ink/60">The page you are looking for may have been moved or removed.</p>
+        <p className="mt-3 text-ink-faint">The page you are looking for may have been moved or removed.</p>
         <Link
           href="/"
           className="mt-8 inline-flex items-center gap-2 border-[1.5px] border-ink bg-ink px-5 py-2.5 font-mono text-[0.78rem] font-bold uppercase tracking-[0.05em] text-page transition hover:border-cobalt hover:bg-cobalt"

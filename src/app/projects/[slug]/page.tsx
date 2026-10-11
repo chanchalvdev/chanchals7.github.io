@@ -78,13 +78,13 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
             <BackButton />
 
             <header className="mt-10 border-b border-border pb-10">
-              <p className="bp-divider font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink/55">
+              <p className="bp-divider font-mono text-xs font-semibold uppercase tracking-[0.12em] text-ink-faint">
                 {project.category} case study · {project.year}
               </p>
               <h1 className="text-display mt-5 max-w-4xl text-5xl font-bold leading-[1.0] text-ink sm:text-7xl">
                 {project.title}
               </h1>
-              <p className="mt-7 max-w-3xl text-xl leading-9 text-ink/70">
+              <p className="mt-7 max-w-3xl text-xl leading-9 text-ink-soft">
                 {project.description}
               </p>
               {project.coverImage ? (
@@ -106,7 +106,7 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
                 {project.metrics.map((metric) => (
                   <div key={metric.label} className="dim-cell px-4 pb-0 pt-[0.9rem] first:pl-0 sm:px-6">
                     <p className="text-display text-2xl font-bold text-ink">{metric.value}</p>
-                    <p className="mt-0.5 font-mono text-[0.63rem] font-semibold uppercase tracking-[0.04em] text-ink/45">
+                    <p className="mt-0.5 font-mono text-xs font-semibold uppercase tracking-[0.04em] text-ink-faint">
                       {metric.label}
                     </p>
                   </div>
@@ -130,7 +130,7 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
                         <Icon className="size-4 text-cobalt" aria-hidden="true" />
                         {label}
                       </h2>
-                      <p className="mt-2.5 max-w-2xl text-base leading-8 text-ink/65">
+                      <p className="mt-2.5 max-w-2xl text-base leading-8 text-ink-soft">
                         {project[key]}
                       </p>
                     </div>
@@ -146,7 +146,7 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
                       </h2>
                       <ul className="mt-3 grid max-w-2xl gap-2.5">
                         {project.results.map((result) => (
-                          <li key={result} className="flex gap-2.5 text-base leading-7 text-ink/65">
+                          <li key={result} className="flex gap-2.5 text-base leading-7 text-ink-soft">
                             <span className="mt-2.5 size-1 shrink-0 bg-cobalt" aria-hidden="true" />
                             <span>{result}</span>
                           </li>
@@ -169,7 +169,7 @@ export default async function ProjectCaseStudy({ params }: ProjectPageProps) {
               </div>
 
               <aside className="h-fit border-[1.5px] border-ink bg-ink p-5 text-page">
-                <p className="font-mono text-[0.68rem] font-bold uppercase tracking-[0.1em] text-page/50">
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.1em] text-page/50">
                   Project Links
                 </p>
                 <div className="mt-4 grid gap-3">

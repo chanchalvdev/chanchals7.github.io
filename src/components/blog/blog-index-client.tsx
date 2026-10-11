@@ -24,25 +24,25 @@ function BlogCard({ post, index }: { post: StoredBlogPost; index: number }) {
               {post.title}
             </h2>
           </Link>
-          <span className="border border-cobalt bg-cobalt-light px-2 py-0.5 font-mono text-[0.62rem] font-bold uppercase tracking-[0.08em] text-cobalt">
+          <span className="border border-cobalt bg-cobalt-light px-2 py-0.5 font-mono text-xs font-bold uppercase tracking-[0.08em] text-cobalt">
             {post.category}
           </span>
-          <span className="font-mono text-[0.66rem] uppercase tracking-[0.06em] text-ink/40">
+          <span className="font-mono text-xs uppercase tracking-[0.06em] text-ink-faint">
             {post.publishedAt ? formatDate(post.publishedAt) : formatDate(post.createdAt)} ·{" "}
             {post.readTime}
           </span>
         </div>
 
-        <p className="mt-3 max-w-2xl text-base leading-7 text-ink/60">{post.excerpt}</p>
+        <p className="mt-3 max-w-2xl text-base leading-7 text-ink-faint">{post.excerpt}</p>
 
         {/* Spec table */}
         {post.tags.length > 0 && (
           <div className="mt-5 max-w-2xl">
             <div className="grid grid-cols-[7rem_1fr] gap-x-4 border-t border-border py-2.5 text-sm">
-              <p className="font-mono text-[0.64rem] font-semibold uppercase tracking-[0.08em] leading-6 text-ink/40">
+              <p className="font-mono text-xs font-semibold uppercase tracking-[0.08em] leading-6 text-ink-faint">
                 Tags
               </p>
-              <p className="font-mono text-[0.78rem] leading-6 text-ink/65">
+              <p className="font-mono text-[0.78rem] leading-6 text-ink-soft">
                 {post.tags.join(" · ")}
               </p>
             </div>
@@ -53,7 +53,7 @@ function BlogCard({ post, index }: { post: StoredBlogPost; index: number }) {
         <div className="mt-5 flex flex-wrap items-center gap-5">
           <Link
             href={`/blog/post/${post.slug}/`}
-            className="inline-flex items-center gap-1.5 border-b-[1.5px] border-cobalt pb-0.5 font-mono text-[0.74rem] font-bold uppercase tracking-[0.05em] text-ink transition hover:text-cobalt"
+            className="inline-flex items-center gap-1.5 border-b-[1.5px] border-cobalt pb-0.5 font-mono text-xs font-bold uppercase tracking-[0.05em] text-ink transition hover:text-cobalt"
           >
             Read post
             <ArrowUpRight className="size-3.5" aria-hidden="true" />
@@ -130,20 +130,20 @@ export function BlogIndexClient() {
         <div className="mx-auto max-w-7xl">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 font-mono text-[0.78rem] font-bold text-ink/60 transition hover:text-cobalt"
+            className="inline-flex items-center gap-2 font-mono text-[0.78rem] font-bold text-ink-faint transition hover:text-cobalt"
           >
             <ArrowLeft className="size-4" aria-hidden="true" />
             Back home
           </Link>
 
           <div className="mt-10">
-            <p className="bp-divider font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink/55">
+            <p className="bp-divider font-mono text-xs font-semibold uppercase tracking-[0.12em] text-ink-faint">
               Sheet 06 / Field Notes
             </p>
             <h1 className="text-display mt-5 text-4xl font-bold text-ink sm:text-5xl">
               Field Notes
             </h1>
-            <p className="mt-4 max-w-xl text-base leading-7 text-ink/60">
+            <p className="mt-4 max-w-xl text-base leading-7 text-ink-faint">
               Notes on secure AI workflows, frontend systems, backend service design, and the
               judgment that makes products easier to trust.
             </p>
@@ -152,18 +152,18 @@ export function BlogIndexClient() {
           {/* Search + sort bar */}
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-ink/40" aria-hidden="true" />
+              <Search className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-ink-faint" aria-hidden="true" />
               <input
                 type="text"
                 placeholder="Search posts…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="h-11 w-full border border-border bg-surface pl-10 pr-4 font-mono text-[0.85rem] text-ink placeholder:text-ink/40 focus:border-cobalt/50 focus:outline-none"
+                className="h-11 w-full border border-border-control bg-surface pl-10 pr-4 font-mono text-[0.85rem] text-ink placeholder:text-ink-faint focus:border-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
               />
               {search && (
                 <button
                   onClick={() => setSearch("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-ink/40 hover:text-ink"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-faint hover:text-ink"
                   aria-label="Clear search"
                 >
                   <X className="size-4" />
@@ -189,10 +189,10 @@ export function BlogIndexClient() {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={cn(
-                    "h-9 border px-4 font-mono text-[0.74rem] font-semibold uppercase tracking-[0.04em] transition",
+                    "h-9 border px-4 font-mono text-xs font-semibold uppercase tracking-[0.04em] transition",
                     activeCategory === cat
                       ? "border-ink bg-ink text-page"
-                      : "border-border bg-surface text-ink/55 hover:border-ink/40 hover:text-ink",
+                      : "border-border bg-surface text-ink-faint hover:border-ink/40 hover:text-ink",
                   )}
                 >
                   {cat}
@@ -209,10 +209,10 @@ export function BlogIndexClient() {
                   key={tag}
                   onClick={() => setActiveTag(activeTag === tag ? "" : tag)}
                   className={cn(
-                    "h-7 border px-3 font-mono text-[0.62rem] font-bold uppercase tracking-[0.08em] transition",
+                    "h-7 border px-3 font-mono text-xs font-bold uppercase tracking-[0.08em] transition",
                     activeTag === tag
                       ? "border-cobalt bg-cobalt-light text-cobalt"
-                      : "border-border bg-page text-ink/45 hover:border-cobalt/40 hover:text-cobalt/80",
+                      : "border-border bg-page text-ink-faint hover:border-cobalt/40 hover:text-cobalt/80",
                   )}
                 >
                   {tag}
@@ -247,7 +247,7 @@ export function BlogIndexClient() {
                 <p className="text-lg font-bold text-ink">
                   {allPosts.length === 0 ? "No blogs published yet" : "No posts match your filters"}
                 </p>
-                <p className="mt-1 text-sm text-ink/50">
+                <p className="mt-1 text-sm text-ink-faint">
                   {allPosts.length === 0
                     ? "Engineering notes and product essays coming soon."
                     : "Try adjusting your search or filters."}
@@ -256,7 +256,7 @@ export function BlogIndexClient() {
             </div>
           ) : (
             <>
-              <p className="mt-8 border-y border-border py-3 font-mono text-[0.72rem] font-semibold uppercase tracking-[0.06em] text-ink/45">
+              <p className="mt-8 border-y border-border py-3 font-mono text-xs font-semibold uppercase tracking-[0.06em] text-ink-faint">
                 {filtered.length} {filtered.length === 1 ? "entry" : "entries"} in this view
               </p>
               <div className="mt-2">

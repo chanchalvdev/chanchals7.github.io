@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowUpRight, Calendar, Clock, Share2, Twitter, Linkedin, Link2 } from "lucide-react";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { SheetLoader } from "@/components/ui/sheet-loader";
 import { type StoredBlogPost, getBlogBySlug, getPublishedBlogs, formatDate } from "@/lib/blog-storage";
 import { processBlogHtml } from "@/lib/blog-html";
 
@@ -22,13 +23,13 @@ function Toc({ html }: { html: string }) {
 
   return (
     <nav aria-label="Table of contents" className="border border-border bg-surface p-5">
-      <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.1em] text-ink/45">
+      <p className="font-mono text-xs font-bold uppercase tracking-[0.1em] text-ink-faint">
         Contents
       </p>
       <ul className="mt-3 space-y-1.5">
         {headings.map((h) => (
           <li key={h.id} style={{ paddingLeft: `${(h.level - 2) * 1}rem` }}>
-            <a href={`#${h.id}`} className="text-sm font-medium text-ink/60 transition hover:text-cobalt">
+            <a href={`#${h.id}`} className="text-sm font-medium text-ink-faint transition hover:text-cobalt">
               {h.text}
             </a>
           </li>
@@ -58,7 +59,7 @@ function ShareButtons({ title }: { title: string }) {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="flex items-center gap-1.5 font-mono text-[0.72rem] font-bold uppercase tracking-[0.04em] text-ink/45">
+      <span className="flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-[0.04em] text-ink-faint">
         <Share2 className="size-3.5" aria-hidden="true" />
         Share
       </span>
@@ -67,7 +68,7 @@ function ShareButtons({ title }: { title: string }) {
         target="_blank"
         rel="noreferrer"
         aria-label="Share on Twitter"
-        className="grid size-8 place-items-center border border-border text-ink/55 transition hover:border-cobalt/50 hover:text-cobalt"
+        className="grid size-8 place-items-center border border-border text-ink-faint transition hover:border-cobalt/50 hover:text-cobalt"
       >
         <Twitter className="size-3.5" />
       </a>
@@ -76,17 +77,17 @@ function ShareButtons({ title }: { title: string }) {
         target="_blank"
         rel="noreferrer"
         aria-label="Share on LinkedIn"
-        className="grid size-8 place-items-center border border-border text-ink/55 transition hover:border-cobalt/50 hover:text-cobalt"
+        className="grid size-8 place-items-center border border-border text-ink-faint transition hover:border-cobalt/50 hover:text-cobalt"
       >
         <Linkedin className="size-3.5" />
       </a>
       <button
         onClick={copyLink}
         aria-label="Copy link"
-        className="grid size-8 place-items-center border border-border text-ink/55 transition hover:border-cobalt/50 hover:text-cobalt"
+        className="grid size-8 place-items-center border border-border text-ink-faint transition hover:border-cobalt/50 hover:text-cobalt"
       >
         {copied ? (
-          <span className="font-mono text-[0.6rem] font-bold text-cobalt">✓</span>
+          <span className="font-mono text-xs font-bold text-cobalt">✓</span>
         ) : (
           <Link2 className="size-3.5" />
         )}
@@ -159,11 +160,11 @@ function BlogPostView({
       <>
         <Navbar />
         <main className="flex min-h-[60vh] flex-col items-center justify-center px-5 py-20 text-center">
-          <p className="font-mono text-[0.7rem] font-bold uppercase tracking-[0.12em] text-cobalt">
+          <p className="font-mono text-xs font-bold uppercase tracking-[0.12em] text-cobalt">
             404 — Not filed
           </p>
           <h1 className="text-display mt-3 text-3xl font-bold text-ink">Post not found</h1>
-          <p className="mt-3 text-ink/60">This post may have been removed or the URL is incorrect.</p>
+          <p className="mt-3 text-ink-faint">This post may have been removed or the URL is incorrect.</p>
           <Link
             href="/blog"
             className="mt-8 inline-flex items-center gap-2 border-[1.5px] border-ink bg-ink px-5 py-2.5 font-mono text-[0.78rem] font-bold uppercase tracking-[0.05em] text-page transition hover:border-cobalt hover:bg-cobalt"
@@ -184,7 +185,7 @@ function BlogPostView({
         <article className="mx-auto max-w-6xl">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 font-mono text-[0.78rem] font-bold text-ink/60 transition hover:text-cobalt"
+            className="inline-flex items-center gap-2 font-mono text-[0.78rem] font-bold text-ink-faint transition hover:text-cobalt"
           >
             <ArrowLeft className="size-4" aria-hidden="true" />
             Back to field notes
@@ -201,13 +202,13 @@ function BlogPostView({
             <div>
               <header className="border-b border-border pb-10">
                 <div className="flex flex-wrap gap-2">
-                  <span className="border border-amber bg-amber/10 px-2.5 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-[0.08em] text-amber">
+                  <span className="border border-amber bg-amber/10 px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-[0.08em] text-amber">
                     {post.category}
                   </span>
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="border border-border px-2.5 py-1 font-mono text-[0.65rem] font-bold uppercase tracking-[0.08em] text-ink/50"
+                      className="border border-border px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-[0.08em] text-ink-faint"
                     >
                       {tag}
                     </span>
@@ -217,9 +218,9 @@ function BlogPostView({
                 <h1 className="text-display mt-6 text-4xl font-bold text-ink sm:text-5xl">
                   {post.title}
                 </h1>
-                <p className="mt-5 text-xl leading-8 text-ink/65">{post.excerpt}</p>
+                <p className="mt-5 text-xl leading-8 text-ink-soft">{post.excerpt}</p>
 
-                <div className="mt-6 flex flex-wrap items-center gap-5 font-mono text-[0.78rem] font-semibold text-ink/50">
+                <div className="mt-6 flex flex-wrap items-center gap-5 font-mono text-[0.78rem] font-semibold text-ink-faint">
                   <span className="flex items-center gap-1.5">
                     <Calendar className="size-3.5" aria-hidden="true" />
                     {post.publishedAt ? formatDate(post.publishedAt) : formatDate(post.createdAt)}
@@ -246,7 +247,7 @@ function BlogPostView({
                 <ShareButtons title={post.title} />
                 <Link
                   href="/blog"
-                  className="inline-flex items-center gap-2 font-mono text-[0.78rem] font-bold text-ink/60 transition hover:text-cobalt"
+                  className="inline-flex items-center gap-2 font-mono text-[0.78rem] font-bold text-ink-faint transition hover:text-cobalt"
                 >
                   More posts
                   <ArrowUpRight className="size-4" aria-hidden="true" />
@@ -255,7 +256,7 @@ function BlogPostView({
 
               {relatedPosts.length > 0 && (
                 <section className="mt-14">
-                  <p className="font-mono text-[0.68rem] font-bold uppercase tracking-[0.1em] text-ink/45">
+                  <p className="font-mono text-xs font-bold uppercase tracking-[0.1em] text-ink-faint">
                     Related
                   </p>
                   <div className="mt-5 grid gap-4 sm:grid-cols-2">
@@ -265,13 +266,13 @@ function BlogPostView({
                         href={`/blog/post/${rel.slug}/`}
                         className="group border border-border bg-surface p-5 transition hover:border-cobalt/40"
                       >
-                        <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.08em] text-ink/40">
+                        <p className="font-mono text-xs font-bold uppercase tracking-[0.08em] text-ink-faint">
                           {rel.category}
                         </p>
                         <h3 className="mt-2 font-bold text-ink transition group-hover:text-cobalt">
                           {rel.title}
                         </h3>
-                        <p className="mt-2 line-clamp-2 text-sm text-ink/55">{rel.excerpt}</p>
+                        <p className="mt-2 line-clamp-2 text-sm text-ink-faint">{rel.excerpt}</p>
                       </Link>
                     ))}
                   </div>
@@ -282,12 +283,12 @@ function BlogPostView({
             <aside className="hidden lg:sticky lg:top-24 lg:block">
               <Toc html={processedHtml} />
               <div className="mt-5 border border-border bg-surface p-5">
-                <p className="font-mono text-[0.65rem] font-bold uppercase tracking-[0.1em] text-ink/45">
+                <p className="font-mono text-xs font-bold uppercase tracking-[0.1em] text-ink-faint">
                   Author
                 </p>
                 <p className="mt-3 font-bold text-ink">Chanchal Verma</p>
-                <p className="mt-1 text-sm text-ink/55">Senior Full Stack AI Engineer</p>
-                <p className="mt-3 font-mono text-[0.72rem] text-ink/40">Abu Dhabi, UAE</p>
+                <p className="mt-1 text-sm text-ink-faint">Senior Full Stack AI Engineer</p>
+                <p className="mt-3 font-mono text-xs text-ink-faint">Abu Dhabi, UAE</p>
               </div>
             </aside>
           </div>
@@ -338,8 +339,8 @@ export function BlogPostClient({ initialPost }: { initialPost?: StoredBlogPost }
   }
   return (
     <Suspense fallback={
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="size-6 animate-spin rounded-full border-2 border-cobalt border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center px-5">
+        <SheetLoader label="Fetching post" skeleton />
       </div>
     }>
       <QueryParamPost />

@@ -38,6 +38,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { uploadBlogImage } from "@/lib/blog-images";
+import { SheetLoader } from "@/components/ui/sheet-loader";
 
 interface RichEditorProps {
   value: string;
@@ -220,7 +221,7 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
   if (!editor || !editorState) {
     return (
       <div className="flex min-h-120 items-center justify-center rounded-xl border border-ink/10 bg-surface shadow-soft">
-        <div className="size-6 animate-spin rounded-full border-2 border-cobalt border-t-transparent" />
+        <SheetLoader label="Preparing editor" />
       </div>
     );
   }
@@ -396,7 +397,7 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
                 btn.action();
               }}
               className={cn(
-                "grid size-8 place-items-center rounded-lg text-ink/60 transition hover:bg-ink/5 hover:text-ink",
+                "grid size-8 place-items-center rounded-lg text-ink-faint transition hover:bg-ink/5 hover:text-ink",
                 btn.active && "bg-cobalt/8 text-cobalt",
               )}
             >
@@ -406,14 +407,14 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
         )}
 
         <div className="ml-auto flex items-center gap-2">
-          <span className="hidden font-mono text-[0.65rem] text-ink/36 sm:block">
+          <span className="hidden font-mono text-xs text-ink-faint sm:block">
             {editorState.words}w · {editorState.characters}c · {readTime} read
           </span>
           <button
             type="button"
             title={isFullscreen ? "Exit fullscreen" : "Fullscreen"}
             onClick={() => setIsFullscreen((v) => !v)}
-            className="grid size-8 place-items-center rounded-lg text-ink/50 transition hover:bg-ink/5 hover:text-ink"
+            className="grid size-8 place-items-center rounded-lg text-ink-faint transition hover:bg-ink/5 hover:text-ink"
           >
             {isFullscreen ? <Minimize2 className="size-4" /> : <Maximize2 className="size-4" />}
           </button>
@@ -422,7 +423,7 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
 
       {/* Mobile word count */}
       <div className="flex items-center gap-3 border-b border-ink/6 px-4 py-1.5 sm:hidden">
-        <span className="font-mono text-[0.65rem] text-ink/36">
+        <span className="font-mono text-xs text-ink-faint">
           {editorState.words}w · {readTime} read
         </span>
       </div>
@@ -451,7 +452,7 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
               <h3 className="font-bold text-ink">Insert link</h3>
               <button
                 onClick={() => setLinkDialog({ open: false, url: "" })}
-                className="grid size-7 place-items-center rounded-lg text-ink/40 hover:bg-ink/5"
+                className="grid size-7 place-items-center rounded-lg text-ink-faint hover:bg-ink/5"
               >
                 <X className="size-4" />
               </button>
@@ -463,7 +464,7 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
               onChange={(e) => setLinkDialog((d) => ({ ...d, url: e.target.value }))}
               onKeyDown={(e) => e.key === "Enter" && applyLink()}
               autoFocus
-              className="mt-4 h-10 w-full rounded-lg border border-ink/10 px-3 text-sm text-ink placeholder:text-ink/36 focus:border-cobalt/40 focus:outline-none"
+              className="mt-4 h-10 w-full rounded-lg border border-ink/10 px-3 text-sm text-ink placeholder:text-ink-faint focus:border-cobalt/40 focus:outline-none"
             />
             <div className="mt-4 flex gap-2">
               <button
@@ -474,7 +475,7 @@ export function RichEditor({ value, onChange, placeholder = "Start writing…" }
               </button>
               <button
                 onClick={() => setLinkDialog({ open: false, url: "" })}
-                className="flex-1 rounded-lg border border-ink/10 py-2 text-sm font-semibold text-ink/60 hover:bg-ink/3"
+                className="flex-1 rounded-lg border border-ink/10 py-2 text-sm font-semibold text-ink-faint hover:bg-ink/3"
               >
                 Cancel
               </button>

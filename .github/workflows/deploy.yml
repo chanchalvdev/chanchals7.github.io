@@ -40,6 +40,9 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          # Set the repo variable ASK_ME_ENABLED=true once the ask-me Edge
+          # Function is deployed with its GEMINI_API_KEY secret.
+          NEXT_PUBLIC_ASK_ME_ENABLED: ${{ vars.ASK_ME_ENABLED }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Upload artifact

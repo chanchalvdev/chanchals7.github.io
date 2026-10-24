@@ -8,57 +8,38 @@ import { Navbar } from "@/components/layout/navbar";
 import { type StoredBlogPost, getPublishedBlogs, formatDate } from "@/lib/blog-storage";
 import { cn } from "@/lib/utils";
 
-function BlogCard({ post, index }: { post: StoredBlogPost; index: number }) {
+function BlogCard({ post }: { post: StoredBlogPost }) {
   return (
-    <article className="grid gap-5 border-t border-border py-9 first:border-t-0 lg:grid-cols-[3.25rem_1fr]">
-      {/* Part callout badge */}
-      <div>
-        <span className="part-badge">{String(index + 1).padStart(2, "0")}</span>
-      </div>
-
-      <div className="leader-block">
-        {/* Spec head */}
-        <div className="flex flex-wrap items-center gap-3">
-          <Link href={`/blog/post/${post.slug}/`} className="group">
-            <h2 className="text-display text-xl font-bold text-ink transition group-hover:text-cobalt sm:text-2xl">
-              {post.title}
-            </h2>
-          </Link>
-          <span className="border border-cobalt bg-cobalt-light px-2 py-0.5 font-mono text-xs font-bold uppercase tracking-[0.08em] text-cobalt">
+    <article className="tile tile-hover flex h-full flex-col p-6 sm:p-7">
+      <p className="lbl flex flex-wrap items-center gap-x-2 text-ink-faint">
+        {post.category ? (
+          <span className="rounded-full bg-[var(--tile-lime-bg)] px-2.5 py-0.5 text-[var(--tile-lime-fg)]">
             {post.category}
           </span>
-          <span className="font-mono text-xs uppercase tracking-[0.06em] text-ink-faint">
-            {post.publishedAt ? formatDate(post.publishedAt) : formatDate(post.createdAt)} ·{" "}
-            {post.readTime}
-          </span>
-        </div>
-
-        <p className="mt-3 max-w-2xl text-base leading-7 text-ink-faint">{post.excerpt}</p>
-
-        {/* Spec table */}
-        {post.tags.length > 0 && (
-          <div className="mt-5 max-w-2xl">
-            <div className="grid grid-cols-[7rem_1fr] gap-x-4 border-t border-border py-2.5 text-sm">
-              <p className="font-mono text-xs font-semibold uppercase tracking-[0.08em] leading-6 text-ink-faint">
-                Tags
-              </p>
-              <p className="font-mono text-[0.78rem] leading-6 text-ink-soft">
-                {post.tags.join(" · ")}
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* Actions */}
-        <div className="mt-5 flex flex-wrap items-center gap-5">
-          <Link
-            href={`/blog/post/${post.slug}/`}
-            className="inline-flex items-center gap-1.5 border-b-[1.5px] border-cobalt pb-0.5 font-mono text-xs font-bold uppercase tracking-[0.05em] text-ink transition hover:text-cobalt"
-          >
-            Read post
-            <ArrowUpRight className="size-3.5" aria-hidden="true" />
-          </Link>
-        </div>
+        ) : null}
+        {post.publishedAt ? formatDate(post.publishedAt) : formatDate(post.createdAt)} · {post.readTime}
+      </p>
+      <Link href={`/blog/post/${post.slug}/`} className="group mt-4">
+        <h2 className="text-2xl font-extrabold leading-tight tracking-tight text-ink transition group-hover:text-cobalt">
+          {post.title}
+        </h2>
+      </Link>
+      {post.excerpt || post.seoDescription ? (
+        <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft">
+          {post.excerpt || post.seoDescription}
+        </p>
+      ) : null}
+      {post.tags.length > 0 && (
+        <p className="mt-4 font-mono text-xs leading-relaxed text-ink-faint">{post.tags.join(" · ")}</p>
+      )}
+      <div className="mt-auto pt-6">
+        <Link
+          href={`/blog/post/${post.slug}/`}
+          className="inline-flex h-10 items-center gap-1.5 rounded-full bg-[var(--tile-ink-bg)] px-4 text-sm font-semibold text-[var(--tile-ink-fg)] transition hover:opacity-85"
+        >
+          Read post
+          <ArrowUpRight className="size-4" aria-hidden="true" />
+        </Link>
       </div>
     </article>
   );
@@ -126,26 +107,25 @@ export function BlogIndexClient() {
   return (
     <>
       <Navbar />
-      <main className="px-5 py-12 sm:px-8 lg:py-16">
-        <div className="mx-auto max-w-7xl">
+      <main className="px-3 pb-6 pt-6 sm:px-6">
+        <div className="mx-auto max-w-[82rem]">
+          <div className="tile p-7 sm:p-10">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 font-mono text-[0.78rem] font-bold text-ink-faint transition hover:text-cobalt"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-ink-soft transition hover:text-ink"
           >
             <ArrowLeft className="size-4" aria-hidden="true" />
             Back home
           </Link>
 
-          <div className="mt-10">
-            <p className="bp-divider font-mono text-xs font-semibold uppercase tracking-[0.12em] text-ink-faint">
-              Sheet 06 / Field Notes
-            </p>
-            <h1 className="text-display mt-5 text-4xl font-bold text-ink sm:text-5xl">
-              Field Notes
+          <div className="mt-8">
+            <p className="bp-divider lbl text-ink-faint">Writing</p>
+            <h1 className="text-display mt-4 text-4xl font-extrabold text-ink sm:text-6xl">
+              Notes on building <span className="serif-accent">agents</span>
             </h1>
-            <p className="mt-4 max-w-xl text-base leading-7 text-ink-faint">
-              Notes on secure AI workflows, frontend systems, backend service design, and the
-              judgment that makes products easier to trust.
+            <p className="mt-4 max-w-xl text-lg leading-relaxed text-ink-soft">
+              What I learn shipping AI agents, LLM apps, and the systems around them — and keeping
+              them safe in production.
             </p>
           </div>
 
@@ -158,7 +138,7 @@ export function BlogIndexClient() {
                 placeholder="Search posts…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="h-11 w-full border border-border-control bg-surface pl-10 pr-4 font-mono text-[0.85rem] text-ink placeholder:text-ink-faint focus:border-cobalt focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
+                className="h-12 w-full rounded-full border border-border-control bg-page pl-10 pr-10 text-sm text-ink placeholder:text-ink-faint focus:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
               />
               {search && (
                 <button
@@ -173,7 +153,7 @@ export function BlogIndexClient() {
             <select
               value={sortMode}
               onChange={(e) => setSortMode(e.target.value)}
-              className="h-11 border border-border bg-surface px-4 font-mono text-[0.78rem] font-semibold text-ink focus:border-cobalt/50 focus:outline-none"
+              className="h-12 rounded-full border border-border-control bg-page px-4 text-sm font-medium text-ink focus:border-ink focus:outline-none"
             >
               {SORT_OPTIONS.map((o) => (
                 <option key={o.value} value={o.value}>{o.label}</option>
@@ -189,10 +169,10 @@ export function BlogIndexClient() {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={cn(
-                    "h-9 border px-4 font-mono text-xs font-semibold uppercase tracking-[0.04em] transition",
+                    "h-9 rounded-full px-4 text-sm font-medium transition",
                     activeCategory === cat
-                      ? "border-ink bg-ink text-page"
-                      : "border-border bg-surface text-ink-faint hover:border-ink/40 hover:text-ink",
+                      ? "bg-[var(--tile-ink-bg)] text-[var(--tile-ink-fg)]"
+                      : "bg-surface-warm text-ink-soft hover:text-ink",
                   )}
                 >
                   {cat}
@@ -209,10 +189,10 @@ export function BlogIndexClient() {
                   key={tag}
                   onClick={() => setActiveTag(activeTag === tag ? "" : tag)}
                   className={cn(
-                    "h-7 border px-3 font-mono text-xs font-bold uppercase tracking-[0.08em] transition",
+                    "h-8 rounded-full px-3 font-mono text-xs transition",
                     activeTag === tag
-                      ? "border-cobalt bg-cobalt-light text-cobalt"
-                      : "border-border bg-page text-ink-faint hover:border-cobalt/40 hover:text-cobalt/80",
+                      ? "bg-[var(--tile-lime-bg)] text-[var(--tile-lime-fg)]"
+                      : "bg-surface-soft text-ink-faint hover:text-ink",
                   )}
                 >
                   {tag}
@@ -221,27 +201,24 @@ export function BlogIndexClient() {
             </div>
           )}
 
+          </div>
+
           {/* Results */}
           {!mounted ? (
-            <div className="mt-10">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="grid gap-5 border-t border-border py-9 first:border-t-0 lg:grid-cols-[3.25rem_1fr]"
-                >
-                  <div className="size-9 animate-pulse rounded-full bg-ink/8" />
-                  <div>
-                    <div className="h-6 w-1/2 animate-pulse bg-ink/8" />
-                    <div className="mt-3 h-4 w-full animate-pulse bg-ink/8" />
-                    <div className="mt-2 h-4 w-5/6 animate-pulse bg-ink/8" />
-                  </div>
+            <div className="mt-3.5 grid gap-3.5 md:grid-cols-2">
+              {[1, 2].map((i) => (
+                <div key={i} className="tile p-7">
+                  <div className="h-5 w-1/3 animate-pulse rounded-full bg-muted" />
+                  <div className="mt-4 h-7 w-3/4 animate-pulse rounded-full bg-muted" />
+                  <div className="mt-3 h-4 w-full animate-pulse rounded-full bg-muted" />
+                  <div className="mt-2 h-4 w-5/6 animate-pulse rounded-full bg-muted" />
                 </div>
               ))}
             </div>
           ) : filtered.length === 0 ? (
-            <div className="mt-10 flex flex-col items-center gap-4 border border-border bg-surface py-20 text-center">
-              <div className="grid size-14 place-items-center border border-border bg-cobalt-light">
-                <PenLine className="size-6 text-cobalt" aria-hidden="true" />
+            <div className="tile mt-3.5 flex flex-col items-center gap-4 py-20 text-center">
+              <div className="grid size-14 place-items-center rounded-2xl bg-[var(--tile-lime-bg)]">
+                <PenLine className="size-6 text-[var(--tile-lime-fg)]" aria-hidden="true" />
               </div>
               <div>
                 <p className="text-lg font-bold text-ink">
@@ -256,12 +233,12 @@ export function BlogIndexClient() {
             </div>
           ) : (
             <>
-              <p className="mt-8 border-y border-border py-3 font-mono text-xs font-semibold uppercase tracking-[0.06em] text-ink-faint">
-                {filtered.length} {filtered.length === 1 ? "entry" : "entries"} in this view
+              <p className="lbl px-2 pt-6 text-ink-faint">
+                {filtered.length} {filtered.length === 1 ? "post" : "posts"}
               </p>
-              <div className="mt-2">
-                {filtered.map((post, i) => (
-                  <BlogCard key={post.id} post={post} index={i} />
+              <div className="mt-3 grid gap-3.5 md:grid-cols-2">
+                {filtered.map((post) => (
+                  <BlogCard key={post.id} post={post} />
                 ))}
               </div>
             </>

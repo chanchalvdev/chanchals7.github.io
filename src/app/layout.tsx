@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Big_Shoulders, JetBrains_Mono } from "next/font/google";
+import { Bricolage_Grotesque, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { AskMe } from "@/components/chat/ask-me";
 import { JsonLd } from "@/components/seo/json-ld";
 import { profile } from "@/content/portfolio";
 import {
@@ -11,21 +12,21 @@ import {
 import { graph, personSchema, websiteSchema } from "@/lib/structured-data";
 import "./globals.css";
 
-const archivo = Archivo({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-space",
   display: "swap",
 });
 
-const bigShoulders = Big_Shoulders({
-  weight: ["600", "700", "800"],
+const instrumentSerif = Instrument_Serif({
+  weight: "400",
+  style: "italic",
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-serif",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  weight: ["400", "500", "600", "700"],
+const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-ibm-mono",
   display: "swap",
@@ -48,9 +49,12 @@ export const metadata: Metadata = {
   category: "technology",
   keywords: [
     "Chanchal Verma",
-    "AI Security Engineer",
-    "AI Product Engineering",
+    "AI Engineer",
+    "Forward Deployed Engineer",
+    "FDE",
     "Agentic AI",
+    "LLM Engineer",
+    "RAG",
     "Golang",
     "Node.js",
     "React",
@@ -59,8 +63,7 @@ export const metadata: Metadata = {
     "UI/UX",
     "DevOps",
     "Cloud",
-    "Cybersecurity",
-    "AI threat intelligence",
+    "AI Security",
     "Abu Dhabi software engineer",
     "Senior Full Stack AI Engineer",
   ],
@@ -115,10 +118,10 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#163157" },
-    { media: "(prefers-color-scheme: light)", color: "#f5f6f4" },
+    { media: "(prefers-color-scheme: light)", color: "#ecebe6" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0c" },
   ],
-  colorScheme: "dark light",
+  colorScheme: "light dark",
 };
 
 export default function RootLayout({
@@ -129,25 +132,23 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased ${archivo.variable} ${jetbrainsMono.variable} ${bigShoulders.variable}`}
+      className={`h-full antialiased ${bricolage.variable} ${geistMono.variable} ${instrumentSerif.variable}`}
       suppressHydrationWarning
     >
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){var t=localStorage.getItem('theme')||'light';document.documentElement.setAttribute('data-theme',t);})();`,
+            // Light unless the visitor explicitly chose dark before.
+            __html: `(function(){var t='light';try{if(localStorage.getItem('theme')==='dark')t='dark';}catch(e){}document.documentElement.setAttribute('data-theme',t);})();`,
           }}
         />
       </head>
       <body className="min-h-full flex flex-col bg-page">
-        {/* Drawing-sheet frame with corner crop marks (decorative) */}
-        <div className="sheet-frame" aria-hidden="true">
-          <span className="tl" /><span className="tr" /><span className="bl" /><span className="br" />
-        </div>
         {/* Person + WebSite are site-wide facts; per-page graphs reference
             these by @id instead of restating them. */}
         <JsonLd data={graph(personSchema(), websiteSchema())} />
         {children}
+        <AskMe />
       </body>
     </html>
   );

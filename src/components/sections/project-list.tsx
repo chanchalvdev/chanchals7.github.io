@@ -3,7 +3,15 @@ import { ProjectCard } from "@/components/sections/project-card";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 
-export function ProjectList({ projects }: { projects: Project[] }) {
+export function ProjectList({
+  projects,
+  title = "Things I've built",
+  eyebrow = "Work",
+}: {
+  projects: Project[];
+  title?: string;
+  eyebrow?: string;
+}) {
   const orderedProjects = [...projects].sort(
     (a, b) => Number(b.featured) - Number(a.featured) || b.sortScore - a.sortScore,
   );
@@ -13,15 +21,15 @@ export function ProjectList({ projects }: { projects: Project[] }) {
       <div className="container-shell">
         <Reveal>
           <SectionHeading
-            eyebrow="Sheet 04 / Component Specs"
-            title="Exploded view — work"
-            description="Each case study is framed by the user pressure, the system decision, and the product result it made possible."
+            eyebrow={eyebrow}
+            title={title}
+            description="Agents, RAG pipelines, and the platforms around them — each framed by the real problem, the system decision, and what it made possible."
           />
         </Reveal>
 
-        <div className="mt-10">
+        <div className="mt-10 grid items-start gap-3.5 md:grid-cols-2">
           {orderedProjects.map((project, i) => (
-            <Reveal key={project.slug} delay={Math.min(i, 2) * 80}>
+            <Reveal key={project.slug} delay={Math.min(i % 2, 1) * 80}>
               <ProjectCard project={project} index={i} />
             </Reveal>
           ))}

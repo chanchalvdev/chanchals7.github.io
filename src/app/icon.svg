@@ -1,7 +1,7 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chanchal Verma">
-  <rect width="512" height="512" rx="32" fill="#163157"/>
-  <g fill="none" stroke-width="64" stroke-linecap="butt" stroke-linejoin="miter">
-    <path d="M 208.79 206.36 A 63.00 63.00 0 1 0 208.79 305.64" stroke="#eaf2fb"/>
-    <path d="M 289.00 161.00 L 363.00 351.00 L 437.00 161.00" stroke="#ff8a63"/>
+  <rect width="512" height="512" rx="112" fill="#16151a"/>
+  <g fill="none" stroke-width="64" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 208.79 206.36 A 63.00 63.00 0 1 0 208.79 305.64" stroke="#f4f3ef"/>
+    <path d="M 289.00 161.00 L 363.00 351.00 L 437.00 161.00" stroke="#d8f36b"/>
   </g>
 </svg>

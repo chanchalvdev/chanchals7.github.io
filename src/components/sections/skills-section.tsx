@@ -2,50 +2,37 @@ import { skillGroups } from "@/content/portfolio";
 import { Reveal } from "@/components/ui/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { SectionShell } from "@/components/ui/section-shell";
+import { cn } from "@/lib/utils";
 
 export function SkillsSection() {
   return (
-    <SectionShell id="skills" className="bg-background">
+    <SectionShell id="skills">
       <Reveal>
-        <SectionHeading eyebrow="Sheet 05 / Bill of Materials" title="Stack manifest" />
+        <SectionHeading eyebrow="Stack" title="What I build with" />
       </Reveal>
 
-      <Reveal delay={110}>
-        <div className="mt-10 overflow-x-auto">
-          <table className="w-full min-w-[40rem] border-collapse">
-            <thead>
-              <tr className="border-b-2 border-ink text-left">
-                <th className="w-12 pb-3 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-ink-faint">
-                  No.
-                </th>
-                <th className="w-44 pb-3 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-ink-faint">
-                  Description
-                </th>
-                <th className="w-72 pb-3 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-ink-faint">
-                  Spec
-                </th>
-                <th className="pb-3 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-ink-faint">
-                  Parts
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {skillGroups.map((group, gi) => (
-                <tr key={group.title} className="border-b border-border align-top">
-                  <td className="py-4 pr-3 font-mono text-xs tabular-nums text-ink-faint">
-                    {String(gi + 1).padStart(2, "0")}
-                  </td>
-                  <td className="py-4 pr-4 text-sm font-bold text-ink">{group.title}</td>
-                  <td className="py-4 pr-4 text-sm leading-6 text-ink-faint">{group.description}</td>
-                  <td className="py-4 font-mono text-[0.78rem] text-ink-faint">
-                    {group.items.join(" · ")}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Reveal>
+      <div className="mt-10 grid gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+        {skillGroups.map((group, gi) => (
+          <Reveal key={group.title} delay={Math.min(gi, 2) * 80} className={cn("h-full", gi === 0 && "sm:col-span-2")}>
+            <div className={cn("tile h-full p-6 sm:p-7", gi === 0 && "tile-lime")}>
+              <h3 className="text-xl font-bold tracking-tight">{group.title}</h3>
+              <p className={cn("mt-1.5 text-sm leading-6", gi === 0 ? "on-tile-soft" : "text-ink-soft")}>
+                {group.description}
+              </p>
+              <ul className="mt-5 flex flex-wrap gap-1.5">
+                {group.items.map((item) => (
+                  <li
+                    key={item}
+                    className={cn("chip", gi === 0 && "bg-[var(--tile-lime-fg)] text-[var(--tile-lime-bg)]")}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+        ))}
+      </div>
     </SectionShell>
   );
 }

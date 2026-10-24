@@ -23,11 +23,12 @@ const OG_IMAGE = absoluteUrl("/opengraph-image.png");
 
 /** Flattened skill list — the `knowsAbout` claims an answer engine can cite. */
 const knowsAbout = [
-  "AI Security Engineering",
+  "AI Engineering",
+  "Forward Deployed Engineering",
   "Agentic AI",
   "Large Language Models",
-  "Cybersecurity",
-  "Threat Detection",
+  "Retrieval-Augmented Generation",
+  "AI Security",
   "Full Stack Engineering",
   "Cloud Architecture",
   ...skillGroups.flatMap((group) => group.items),
@@ -45,7 +46,7 @@ export function personSchema() {
     url: SITE_URL,
     image: OG_IMAGE,
     email: `mailto:${profile.email}`,
-    jobTitle: "AI Security Engineer",
+    jobTitle: "AI Engineer",
     description: profile.summary,
     disambiguatingDescription: SITE_DESCRIPTION,
     knowsAbout: Array.from(new Set(knowsAbout)),
@@ -62,7 +63,7 @@ export function personSchema() {
     },
     hasOccupation: {
       "@type": "Occupation",
-      name: "AI Security Engineer",
+      name: "AI Engineer / Forward Deployed Engineer",
       occupationLocation: {
         "@type": "City",
         name: "Abu Dhabi",
@@ -104,7 +105,7 @@ export function profilePageSchema() {
     "@type": "ProfilePage",
     "@id": `${SITE_URL}/#profilepage`,
     url: SITE_URL,
-    name: `${SITE_NAME} — AI Security Engineer`,
+    name: `${SITE_NAME} — AI Engineer & Forward Deployed Engineer`,
     description: SITE_DESCRIPTION,
     inLanguage: "en",
     isPartOf: { "@id": WEBSITE_ID },
@@ -123,11 +124,11 @@ export function faqSchema() {
   const qa: Array<[string, string]> = [
     [
       "Who is Chanchal Verma?",
-      "Chanchal Verma is an AI Security Engineer based in Abu Dhabi, UAE, and a Senior Full Stack AI Engineer with over 5 years of experience building cloud-native systems. He currently leads frontend development for AI-powered security products at CPX and builds agentic AI systems that detect and respond to cyber threats automatically.",
+      "Chanchal Verma is an AI Engineer and Forward Deployed Engineer based in Abu Dhabi, UAE — a Senior Full Stack AI Engineer at CPX with over 5 years of experience. He builds production AI agents end to end, working closely with the teams who use them, and designs them to be secure from day one.",
     ],
     [
       "What does Chanchal Verma do?",
-      "He designs and builds AI-native security software end to end: data-rich interfaces for SOC, Threat Intelligence, and Threat Hunting teams; backend platforms in Go and Node.js; and autonomous LLM agents for anomaly detection and proactive defence against malware and phishing.",
+      "He turns real-world problems into shipped AI products: agentic systems and RAG pipelines, the Go and Node.js backends behind them, and the React interfaces people use them through. At CPX he builds AI-powered security products used by SOC, Threat Intelligence, and Threat Hunting teams.",
     ],
     [
       "What technologies does Chanchal Verma work with?",
@@ -139,7 +140,7 @@ export function faqSchema() {
     ],
     [
       "How can I contact or hire Chanchal Verma?",
-      `Email ${profile.email} or reach out on LinkedIn at ${profile.linkedin}. He is open to senior engineering, AI security, and agentic AI product roles as well as consulting engagements.`,
+      `Email ${profile.email} or reach out on LinkedIn at ${profile.linkedin}. He is open to AI Engineer and Forward Deployed Engineer roles, senior full-stack AI positions, and consulting engagements.`,
     ],
   ];
 

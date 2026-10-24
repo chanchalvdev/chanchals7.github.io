@@ -10,30 +10,30 @@ export type Project = PortfolioProject;
 
 export const profile: PortfolioProfile = {
   name: "Chanchal Verma",
-  role: "AI Security Engineer • AI Product Engineering • Agentic AI • Golang • Node.js • React • UI/UX • Kubernetes • Cloud • Security",
+  role: "AI Engineer • Forward Deployed Engineer • Agentic AI • LLM Applications • Golang • Node.js • React • Kubernetes • Cloud • Secure by design",
   location: "Abu Dhabi, UAE",
   email: "chanchalverma.dev@gmail.com",
   github: "https://github.com/chanchalvdev",
   linkedin: "https://linkedin.com/in/chanchalvdev/",
   twitter: "https://x.com/chanchalvdev",
-  blog: "https://dev.to/chanchalvdev",
-  headline: "I build intelligent systems that scale.",
+  blog: "https://medium.com/@chanchalvdev",
+  headline: "I build AI agents that ship — and keep them safe.",
   summary:
-    "Senior Full Stack AI Engineer at CPX with 5+ years building cloud-native solutions — currently leading frontend for AI-powered security systems that detect and respond to cyber threats automatically, and building agentic AI systems that think and adapt on their own.",
+    "AI Engineer and Forward Deployed Engineer — Senior Full Stack AI Engineer at CPX with 5+ years building AI products end to end. I embed with teams, turn messy real-world problems into production agentic systems, and build security in from day one.",
   narrative:
-    "My best work happens at the intersection of AI and cloud systems: interfaces that stay calm under pressure, backend platforms that stay reliable, and agents that make intelligent decisions faster than we can. That's the future I'm building toward.",
+    "I do my best work close to the people who'll use it: sitting with a team, finding the real problem, prototyping an agent in days, then hardening it until it's safe to run in production. Security is my edge, not my title — the agents I build are designed to be trusted.",
 };
 
 export const heroRoles = [
-  "AI Security Engineer",
-  "Full Stack AI Engineer",
+  "AI Engineer",
+  "Forward Deployed Engineer",
   "Agentic AI Builder",
-  "UI/UX Designer",
+  "Full Stack AI Engineer",
 ];
 
 export const heroMetrics = [
   { value: "5+", label: "years experience" },
-  { value: "20+", label: "systems shipped" },
+  { value: "10+", label: "systems shipped" },
   { value: "4", label: "countries worked with" },
   { value: "200+", label: "developers mentored" },
 ];
@@ -49,18 +49,22 @@ export const proofPoints = [
   "UI/UX Design",
 ];
 
+/** The forward-deployed loop — rendered as the "How I work" steps. */
 export const capabilities = [
   {
-    title: "Secure by design",
-    text: "Identity, permissions, auditability, and safe defaults built into the architecture early — not bolted on as a final checklist.",
+    title: "Embed",
+    short: "Sit with the customer, find the real problem",
+    text: "Sit with the team or customer, learn their workflow, and find the problem actually worth solving.",
   },
   {
-    title: "AI-native engineering",
-    text: "From LLM-powered threat classification to autonomous agents — AI is the load-bearing engine, not decoration.",
+    title: "Build",
+    short: "Prototype agents in days, not quarters",
+    text: "Prototype agents, RAG pipelines, and the product around them in days, not quarters — AI as the engine, not decoration.",
   },
   {
-    title: "Product clarity",
-    text: "Complex systems earn their keep only when flows, states, and hierarchy make decisions easier for the person reading them.",
+    title: "Ship",
+    short: "Harden, secure & run in production",
+    text: "Harden it for production: evals, observability, identity, permissions, and audit trails designed in from day one.",
   },
 ];
 
@@ -134,6 +138,11 @@ export const experience = [
 
 export const education = [
   {
+    school: "University of Colorado Boulder",
+    degree: "M.S. — Artificial Intelligence",
+    period: "Oct 2026 — Present",
+  },
+  {
     school: "Shri G S Institute of Technology & Science",
     degree: "B.E. — Information Technology",
     period: "2016 — 2020",
@@ -155,6 +164,11 @@ export const languages = ["English (Professional)", "Hindi (Native)", "Arabic (B
 
 export const skillGroups = [
   {
+    title: "AI & Agentic Systems",
+    description: "LLM pipelines, autonomous agents, embeddings, and AI-native product features.",
+    items: ["Agentic AI", "LLM Integration", "Ollama", "Qdrant", "RAG", "Prompt Engineering", "Anomaly Detection"],
+  },
+  {
     title: "Frontend & UI/UX",
     description: "Interfaces, state, data loading, design systems, and product surfaces.",
     items: ["React", "Next.js", "TypeScript", "TanStack Query", "Redux", "Tailwind CSS", "Vite", "Figma"],
@@ -163,11 +177,6 @@ export const skillGroups = [
     title: "Backend Platforms",
     description: "APIs, service boundaries, auth, integrations, and data workflows.",
     items: ["Go", "Node.js", "NestJS", "Express", "Gin", "Fiber", "GraphQL", "gRPC"],
-  },
-  {
-    title: "AI & Agentic Systems",
-    description: "LLM pipelines, autonomous agents, embeddings, and AI-native product features.",
-    items: ["Agentic AI", "LLM Integration", "Ollama", "Qdrant", "RAG", "Prompt Engineering", "Anomaly Detection"],
   },
   {
     title: "Cloud & Security",
@@ -271,34 +280,36 @@ export const projectCategories = [
 
 export const projects: Project[] = [
   {
+    // Slug kept from the project's former name (Go SIEM Agent) so existing
+    // links and search results to the case study keep resolving.
     slug: "go-siem-agent-llm-classifier",
-    title: "Go SIEM Agent — LLM Classifier",
+    title: "Casewright — Local-first AI Security Analyst",
     category: "Security",
-    year: "2025",
+    year: "2026",
     featured: true,
     sortScore: 110,
     caseStudyReady: true,
     description:
-      "An AI-native SIEM agent written in Go that classifies any raw log line into a structured threat report — with MITRE ATT&CK mapping, IOC extraction, severity triage, and actionable remediation — in under 20 seconds, using a local-first LLM stack.",
+      "An open-source, local-first AI security analyst in Go that takes alerts from Wazuh, Elastic or Security Onion from alert to resolved case — grouping related alerts into one case per attack, investigating it with a local or hosted LLM, and proposing a response a person approves.",
     impact:
-      "Turns hours of manual SOC triage into a sub-20-second automated pipeline, reducing analyst time spent on alert noise by eliminating rule-writing and manual MITRE mapping.",
-    stack: ["Go", "React", "Qdrant", "Ollama", "PostgreSQL", "Docker", "Prometheus"],
+      "Cheap Sigma and threshold rules catch known attacks with no LLM call; confirmed cases become new rules, so the rules tier keeps growing and fewer events need the model.",
+    stack: ["Go", "React", "Sigma", "Gemini", "Ollama", "Qdrant", "PostgreSQL", "Docker"],
     links: {
-      github: "https://github.com/chanchalvdev/go-siem-agent-llm-classifier",
+      github: "https://github.com/chanchalvdev/casewright",
     },
     metrics: [
-      { value: "<20s", label: "per classification" },
-      { value: "40+", label: "MITRE techniques" },
-      { value: "~3k", label: "lines Go" },
+      { value: "P1–P5", label: "severity triage" },
+      { value: "MITRE", label: "ATT&CK mapping" },
+      { value: "1 cmd", label: "Docker demo" },
     ],
     challenge:
-      "SOC teams drown in alert volume — existing rule-based SIEMs require manual signature writing, miss novel attacks, and force analysts to manually cross-reference MITRE ATT&CK, look up IPs, and write remediation notes for every event.",
+      "SOC teams drown in alert volume — rule-based tools miss novel attacks, related alerts arrive as disconnected noise, and analysts still cross-reference MITRE ATT&CK, look up IOCs, and write remediation notes by hand for every event.",
     solution:
-      "I built an AI-native backend in Go where a carefully engineered LLM system prompt acts as the entire detection engine. The prompt encodes severity scales, IOC extraction rules, and MITRE mappings, returning a strict JSON schema on every call. A concurrent worker pool classifies logs in parallel; streaming SSE delivers token-by-token feedback so 15-second calls feel instant.",
+      "I built a Go backend that parses syslog, uploads and pasted logs, detects known attacks instantly with Sigma and threshold rules, and sends only the rest to an LLM (Gemini, Ollama, or any OpenAI-compatible API) for classification, MITRE mapping and IOC extraction. Related alerts are grouped into incidents, a tool-calling agent investigates P1/P2 cases with AbuseIPDB, OTX, MITRE and similar-event recall, and YAML playbooks propose responses that analysts approve.",
     results: [
-      "Full threat classification pipeline: attack type, MITRE tactic + technique ID, severity P1–P5, confidence score, IOCs, and remediation — all from a single raw log line.",
-      "Semantic search via Qdrant + Ollama embeddings lets analysts find similar past events using natural language, not exact-match rules.",
-      "Single Go binary embeds the React dashboard; three Docker containers complete the full stack — zero external dependencies beyond the LLM provider.",
+      "Incidents and case management: alerts grouped by IP, user or host, with assignee, comments, kill-chain view, full timeline, and a cited AI investigation report per high-severity case.",
+      "Human-approved response playbooks — block IP, disable user, isolate host, webhook — with dry-run mode and a full audit log, plus SOC metrics (MTTD, MTTA, MTTR, false-positive rate).",
+      "One-command Docker demo replays a prepared attack chain; semantic search over Qdrant embeddings, Prometheus metrics, RBAC users and a WCAG AA light/dark dashboard.",
     ],
     coverImage: "/siem-title.png",
     detailImage: "/siem-architecture.png",
@@ -338,7 +349,7 @@ export const projects: Project[] = [
   },
   {
     slug: "file-ingestion-parser",
-    title: "File Ingestion Platform — Archive Parsing & IOC Extraction",
+    title: "Enterprise File Ingestion Platform",
     category: "Security",
     year: "2026",
     featured: true,

@@ -9,6 +9,13 @@ on:
   # (via the trigger-deploy Supabase Edge Function)
   workflow_dispatch:
 
+# One deploy at a time, in order. Without this, two merges in a row raced and
+# the older build finished last, putting stale content live. Queued runs are
+# not cancelled mid-deploy; only the newest pending run is kept.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest

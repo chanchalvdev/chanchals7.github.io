@@ -11,16 +11,16 @@ export function HeroSection() {
       <div className="mx-auto w-full max-w-6xl">
         {/* Status badges */}
         <div className="fade-up mb-7 flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center gap-2 border border-signal/40 bg-signal/10 px-3 py-1.5 font-mono text-[0.7rem] font-semibold tracking-[0.04em] text-signal">
+          <span className="inline-flex items-center gap-2 border border-signal/40 bg-signal/10 px-3 py-1.5 font-mono text-xs font-semibold tracking-[0.04em] text-signal">
             <span className="pulse-dot size-1.5 rounded-full bg-signal" />
             Open For Work
           </span>
-          <span className="inline-flex items-center gap-2 border border-border px-3 py-1.5 font-mono text-[0.7rem] font-semibold tracking-[0.04em] text-ink/60">
-            <MapPin className="size-3.5 text-ink/40" aria-hidden="true" />
+          <span className="inline-flex items-center gap-2 border border-border px-3 py-1.5 font-mono text-xs font-semibold tracking-[0.04em] text-ink-faint">
+            <MapPin className="size-3.5 text-ink-faint" aria-hidden="true" />
             {profile.location}
           </span>
-          <span className="inline-flex items-center gap-2 border border-border px-3 py-1.5 font-mono text-[0.7rem] font-semibold tracking-[0.04em] text-ink/60">
-            <Globe className="size-3.5 text-ink/40" aria-hidden="true" />
+          <span className="inline-flex items-center gap-2 border border-border px-3 py-1.5 font-mono text-xs font-semibold tracking-[0.04em] text-ink-faint">
+            <Globe className="size-3.5 text-ink-faint" aria-hidden="true" />
             Relocation — Worldwide
           </span>
         </div>
@@ -33,14 +33,14 @@ export function HeroSection() {
         </h1>
 
         {/* Scale bar — rotating role */}
-        <p className="fade-up delay-2 mt-6 flex items-center gap-2.5 font-mono text-[0.85rem] text-ink/60">
-          <span aria-hidden="true" className="text-ink/40">◂</span>
+        <p className="fade-up delay-2 mt-6 flex items-center gap-2.5 font-mono text-[0.85rem] text-ink-faint">
+          <span aria-hidden="true" className="text-ink-faint">◂</span>
           <RoleRotator roles={heroRoles} />
-          <span aria-hidden="true" className="text-ink/40">▸</span>
+          <span aria-hidden="true" className="text-ink-faint">▸</span>
         </p>
 
         {/* Summary */}
-        <p className="fade-up delay-3 mt-5 max-w-xl text-[1.1rem] leading-[1.65] text-ink/80">
+        <p className="fade-up delay-3 mt-5 max-w-xl text-[1.1rem] leading-[1.65] text-ink-soft">
           {summaryBefore}
           <span className="font-bold text-cobalt">CPX</span>
           {summaryAfter}
@@ -64,7 +64,7 @@ export function HeroSection() {
             {heroMetrics.map((metric) => (
               <div key={metric.label} className="dim-cell px-4 pb-0 pt-[0.9rem] first:pl-0 sm:px-6">
                 <p className="text-display text-[1.9rem] font-bold text-ink">{metric.value}</p>
-                <p className="mt-0.5 font-mono text-[0.63rem] font-semibold uppercase tracking-[0.04em] text-ink/45">
+                <p className="mt-0.5 font-mono text-xs font-semibold uppercase tracking-[0.04em] text-ink-faint">
                   {metric.label}
                 </p>
               </div>

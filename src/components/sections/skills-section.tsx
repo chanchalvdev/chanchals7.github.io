@@ -15,16 +15,16 @@ export function SkillsSection() {
           <table className="w-full min-w-[40rem] border-collapse">
             <thead>
               <tr className="border-b-2 border-ink text-left">
-                <th className="w-12 pb-3 font-mono text-[0.64rem] font-semibold uppercase tracking-[0.08em] text-ink/40">
+                <th className="w-12 pb-3 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-ink-faint">
                   No.
                 </th>
-                <th className="w-44 pb-3 font-mono text-[0.64rem] font-semibold uppercase tracking-[0.08em] text-ink/40">
+                <th className="w-44 pb-3 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-ink-faint">
                   Description
                 </th>
-                <th className="w-72 pb-3 font-mono text-[0.64rem] font-semibold uppercase tracking-[0.08em] text-ink/40">
+                <th className="w-72 pb-3 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-ink-faint">
                   Spec
                 </th>
-                <th className="pb-3 font-mono text-[0.64rem] font-semibold uppercase tracking-[0.08em] text-ink/40">
+                <th className="pb-3 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-ink-faint">
                   Parts
                 </th>
               </tr>
@@ -32,12 +32,12 @@ export function SkillsSection() {
             <tbody>
               {skillGroups.map((group, gi) => (
                 <tr key={group.title} className="border-b border-border align-top">
-                  <td className="py-4 pr-3 font-mono text-[0.72rem] tabular-nums text-ink/40">
+                  <td className="py-4 pr-3 font-mono text-xs tabular-nums text-ink-faint">
                     {String(gi + 1).padStart(2, "0")}
                   </td>
                   <td className="py-4 pr-4 text-sm font-bold text-ink">{group.title}</td>
-                  <td className="py-4 pr-4 text-sm leading-6 text-ink/50">{group.description}</td>
-                  <td className="py-4 font-mono text-[0.78rem] text-ink/60">
+                  <td className="py-4 pr-4 text-sm leading-6 text-ink-faint">{group.description}</td>
+                  <td className="py-4 font-mono text-[0.78rem] text-ink-faint">
                     {group.items.join(" · ")}
                   </td>
                 </tr>

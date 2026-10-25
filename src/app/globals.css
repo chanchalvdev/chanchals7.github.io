@@ -14,9 +14,15 @@
   --muted: #264c7e;
   --border: rgba(62, 97, 147, 0.33);
 
-  /* Ink scale (light-on-blue) */
+  /* Ink scale (light-on-blue). Three text levels, each >= 4.5:1 on every
+     surface — use these instead of text-ink/NN opacity steps. */
   --ink: #eaf2fb;
   --ink-soft: #a9c2e0;
+  --ink-faint: #9ab4d4;
+
+  /* Boundary for form controls (>= 3:1, WCAG 1.4.11). --border stays a
+     hairline for decorative dividers. */
+  --border-control: rgba(169, 194, 224, 0.6);
 
   /* Accent colors — redline annotation palette */
   --signal: #7bdba4;
@@ -41,14 +47,16 @@
   --muted: #e7e9e4;
   --border: rgba(22, 32, 43, 0.15);
   --ink: #16202b;
-  --ink-soft: #566270;
-  --signal: #2e7d4f;
+  --ink-soft: #4f5b69;
+  --ink-faint: #5f6b78;
+  --border-control: rgba(22, 32, 43, 0.6);
+  --signal: #2a7149;
   --cobalt: #c1382a;
   --cobalt-light: rgba(193, 56, 42, 0.08);
-  --amber: #a9720e;
+  --amber: #8a5c08;
   --coral: #b33a5b;
   --coral-light: rgba(179, 58, 91, 0.08);
-  --lime: #4e7d3a;
+  --lime: #47703a;
   --lime-light: rgba(78, 125, 58, 0.08);
   --violet: #3e6193;
   --shadow-soft: 0 2px 12px rgba(22, 32, 43, 0.06);
@@ -76,6 +84,9 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-border-control: var(--border-control);
   --color-signal: var(--signal);
   --color-cobalt: var(--cobalt);
   --color-cobalt-light: var(--cobalt-light);
@@ -142,10 +153,6 @@ select {
   font: inherit;
 }
 
-.text-balance {
-  text-wrap: balance;
-}
-
 /* ── Layout shells ── */
 .section-shell {
   padding: 3.5rem 1.25rem;
@@ -167,42 +174,6 @@ select {
   margin-inline: auto;
   width: 100%;
   max-width: 72rem;
-}
-
-/* ── Background textures — grid paper ── */
-.fine-grid {
-  background-image:
-    linear-gradient(color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1px);
-  background-size: 44px 44px;
-}
-
-.dot-grid {
-  background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 8%, transparent) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-/* ── Card surfaces ── */
-.quiet-panel {
-  border: 1px solid var(--border);
-  background: var(--surface);
-  box-shadow: var(--shadow-soft);
-}
-
-.lift-panel {
-  border: 1px solid var(--border);
-  background: var(--surface);
-  box-shadow: var(--shadow-lift);
-}
-
-.float-panel {
-  border: 1px solid var(--border);
-  background: var(--surface);
-  box-shadow: var(--shadow-float);
-}
-
-.portrait-shadow {
-  box-shadow: var(--shadow-portrait);
 }
 
 .section-band {
@@ -231,16 +202,6 @@ h1, h2, h3 {
   letter-spacing: 0.01em;
 }
 
-/* ── Focus ring ── */
-.focus-ring {
-  outline: 2px solid transparent;
-  outline-offset: 4px;
-}
-
-.focus-ring:focus-visible {
-  outline-color: var(--cobalt);
-}
-
 /* ── Accent text (formerly gradient) — solid redline ink ── */
 .gradient-text {
   background: none;
@@ -248,15 +209,6 @@ h1, h2, h3 {
   background-clip: initial;
   -webkit-text-fill-color: currentColor;
   color: var(--cobalt);
-}
-
-/* ── Ring accents ── */
-.glow-cobalt {
-  box-shadow: 0 0 0 1px var(--border);
-}
-
-.glow-ring {
-  position: relative;
 }
 
 /* ── Blueprint drawing devices ── */
@@ -458,6 +410,60 @@ h1, h2, h3 {
 
 .pulse-dot {
   animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── Sheet loader ── */
+.sheet-loader {
+  opacity: 0;
+  animation: sheet-loader-in 1ms linear 200ms forwards;
+}
+
+@keyframes sheet-loader-in {
+  to { opacity: 1; }
+}
+
+.sheet-loader__rule {
+  position: relative;
+  height: 9px;
+  border-top: 1px solid var(--ink-faint);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--ink-faint) 0,
+    var(--ink-faint) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+  background-size: 100% 6px;
+  background-repeat: no-repeat;
+}
+
+.sheet-loader__bar {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--cobalt);
+  transform-origin: left center;
+  animation: sheet-loader-plot 1.4s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes sheet-loader-plot {
+  0% { transform: scaleX(0); transform-origin: left center; }
+  50% { transform: scaleX(1); transform-origin: left center; }
+  50.01% { transform: scaleX(1); transform-origin: right center; }
+  100% { transform: scaleX(0); transform-origin: right center; }
+}
+
+.sheet-loader__line {
+  background: var(--border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-loader__bar {
+    animation: none;
+    transform: scaleX(0.3);
+  }
 }
 
 /* ── Typing caret ── */

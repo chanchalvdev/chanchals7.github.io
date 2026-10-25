@@ -17,6 +17,7 @@ import {
   Eye,
   FileText,
   LogOut,
+  MessageCircle,
   PenLine,
   Plus,
   Save,
@@ -40,6 +41,8 @@ import { isAdminLoggedIn, adminLogout } from "@/lib/admin-auth";
 import { uploadBlogImage } from "@/lib/blog-images";
 import { triggerSiteDeploy } from "@/lib/deploy-trigger";
 import { RichEditor } from "@/components/blog/rich-editor";
+import { CommentModeration } from "@/components/blog/comment-moderation";
+import { writingTopics } from "@/content/portfolio";
 import { cn } from "@/lib/utils";
 
 type View = "list" | "new" | "edit";
@@ -114,9 +117,32 @@ function MetaPanel({
           type="text"
           value={data.category}
           onChange={(e) => onChange({ category: e.target.value })}
-          placeholder="Engineering, Product, Security…"
+          placeholder="Pick a topic or type your own"
+          list="writing-topics"
           className="h-10 w-full rounded-xl border border-ink/10 bg-page px-3 text-sm text-ink placeholder:text-ink/30 focus:border-cobalt/40 focus:bg-surface focus:outline-none"
         />
+        <datalist id="writing-topics">
+          {writingTopics.map((topic) => (
+            <option key={topic.label} value={topic.label} />
+          ))}
+        </datalist>
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {writingTopics.map((topic) => (
+            <button
+              key={topic.label}
+              type="button"
+              onClick={() => onChange({ category: topic.label })}
+              className={cn(
+                "rounded-full border px-2.5 py-1 text-xs font-semibold transition",
+                data.category === topic.label
+                  ? "border-ink bg-ink text-page"
+                  : "border-ink/10 text-ink/50 hover:border-ink/30 hover:text-ink",
+              )}
+            >
+              {topic.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Tags */}
@@ -542,6 +568,7 @@ export default function AdminPage() {
   const [view, setView] = useState<View>("list");
   const [editingPost, setEditingPost] = useState<StoredBlogPost | null>(null);
   const [blogs, setBlogs] = useState<StoredBlogPost[]>([]);
+  const [pendingComments, setPendingComments] = useState(0);
 
   useEffect(() => {
     setMounted(true);
@@ -669,11 +696,12 @@ export default function AdminPage() {
 
       <main className="mx-auto max-w-7xl px-5 py-8 sm:px-8">
         {/* Stats */}
-        <div className="mb-8 grid gap-4 sm:grid-cols-3">
+        <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { label: "Total posts", value: blogs.length, icon: <FileText className="size-5 text-cobalt" /> },
             { label: "Published", value: published, icon: <Check className="size-5 text-signal" /> },
             { label: "Drafts", value: drafts, icon: <Edit2 className="size-5 text-amber" /> },
+            { label: "Comments to review", value: pendingComments, icon: <MessageCircle className="size-5 text-cobalt" /> },
           ].map((stat) => (
             <div key={stat.label} className="flex items-center gap-4 rounded-xl border border-ink/10 bg-surface p-5 shadow-soft">
               <div className="grid size-11 place-items-center rounded-xl bg-page">{stat.icon}</div>
@@ -703,6 +731,8 @@ export default function AdminPage() {
           onDelete={handleDelete}
           onToggleStatus={handleToggleStatus}
         />
+
+        <CommentModeration onPendingChange={setPendingComments} />
       </main>
     </div>
   );

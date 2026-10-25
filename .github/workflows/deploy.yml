@@ -43,6 +43,9 @@ jobs:
           # Set the repo variable ASK_ME_ENABLED=true once the ask-me Edge
           # Function is deployed with its GEMINI_API_KEY secret.
           NEXT_PUBLIC_ASK_ME_ENABLED: ${{ vars.ASK_ME_ENABLED }}
+          # Set the repo variable COMMENTS_ENABLED=true once the blog-comments
+          # Edge Function and its migration are deployed.
+          NEXT_PUBLIC_COMMENTS_ENABLED: ${{ vars.COMMENTS_ENABLED }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Upload artifact

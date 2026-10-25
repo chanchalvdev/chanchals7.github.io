@@ -15,6 +15,7 @@ export type PortfolioProfile = {
   github: string;
   linkedin: string;
   twitter?: string;
+  youtube?: string;
   blog: string;
   headline: string;
   summary: string;

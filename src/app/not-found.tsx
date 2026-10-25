@@ -18,6 +18,8 @@ export default function NotFound() {
       window.location.replace(`/blog/post/?id=${encodeURIComponent(match[1])}`);
       return;
     }
+    // Client component, so no metadata export — set the tab title here.
+    document.title = "Page not found | Chanchal Verma";
     setRedirecting(false);
   }, []);
 

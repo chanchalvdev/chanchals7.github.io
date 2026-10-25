@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     "Cloud",
     "AI Security",
     "Abu Dhabi software engineer",
-    "Senior Full Stack AI Engineer",
+    "Agentic AI Engineer",
   ],
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,

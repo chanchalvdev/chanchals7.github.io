@@ -12,13 +12,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
 
   return (
     <article className={cn("tile tile-hover flex h-full flex-col", tone)}>
-      {project.coverImage ? (
-        <div className="aspect-[1816/954] overflow-hidden bg-[#0b1530]">
-          {/* eslint-disable-next-line @next/next/no-img-element -- static export, images unoptimized */}
-          <img src={project.coverImage} alt="" loading="lazy" className="size-full object-cover" />
-        </div>
-      ) : null}
-
+      {/* No cover here: the images are title cards that repeat the heading. They live on the case study page. */}
       <div className="flex flex-1 flex-col p-6 sm:p-7">
         <div className="flex items-center justify-between gap-3">
           <p className={cn("lbl", muted)}>

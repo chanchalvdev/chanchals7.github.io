@@ -78,6 +78,7 @@ export function personSchema() {
       profile.github,
       profile.linkedin,
       profile.twitter,
+      profile.youtube,
       profile.blog,
     ].filter(Boolean),
   };
@@ -124,23 +125,23 @@ export function faqSchema() {
   const qa: Array<[string, string]> = [
     [
       "Who is Chanchal Verma?",
-      "Chanchal Verma is an AI Engineer and Forward Deployed Engineer based in Abu Dhabi, UAE — a Senior Full Stack AI Engineer at CPX with over 5 years of experience. He builds production AI agents end to end, working closely with the teams who use them, and designs them to be secure from day one.",
+      "Chanchal Verma is an AI Engineer and Forward Deployed Engineer based in Abu Dhabi, UAE, with over 6 years of experience — currently building agentic AI at CPX. He builds production AI agents end to end, working closely with the teams who use them, and designs them to be secure from day one.",
     ],
     [
       "What does Chanchal Verma do?",
-      "He turns real-world problems into shipped AI products: agentic systems and RAG pipelines, the Go and Node.js backends behind them, and the React interfaces people use them through. At CPX he builds AI-powered security products used by SOC, Threat Intelligence, and Threat Hunting teams.",
+      "He turns real-world problems into shipped AI products: agentic systems and RAG pipelines, the Python and Go backends behind them, and the React interfaces people use them through. At CPX he builds a multi-tenant, multi-agent AI platform used by threat intelligence and incident response teams, secured with scoped tools, guardrails, and human-in-the-loop review.",
     ],
     [
       "What technologies does Chanchal Verma work with?",
-      "React, Next.js and TypeScript on the frontend; Go, Node.js, NestJS, GraphQL and gRPC on the backend; Agentic AI, LLM integration, RAG, Qdrant and Ollama for AI systems; and AWS, Azure, GCP, Kubernetes, Terraform and Keycloak across cloud and security.",
+      "Agno, LangGraph, LangChain, Pydantic AI, MCP, RAG, Qdrant and Langfuse for AI systems, with models like MiniMax-M3 and GPT-OSS-120B; Python (FastAPI, Django) and Go on the backend; React, Next.js and TypeScript on the frontend; and Azure (AKS), AWS, Kubernetes, Argo CD, Terraform, Keycloak and HashiCorp Vault across cloud and security.",
     ],
     [
       "Where is Chanchal Verma based?",
-      "Abu Dhabi, United Arab Emirates. He has worked with teams across the UAE, Germany, India, and the United States.",
+      "Abu Dhabi, United Arab Emirates, and open to relocating worldwide. He has worked with teams across the UAE, Germany, India, and the United States.",
     ],
     [
       "How can I contact or hire Chanchal Verma?",
-      `Email ${profile.email} or reach out on LinkedIn at ${profile.linkedin}. He is open to AI Engineer and Forward Deployed Engineer roles, senior full-stack AI positions, and consulting engagements.`,
+      `Email ${profile.email} or reach out on LinkedIn at ${profile.linkedin}. He is open to AI Engineer, Forward Deployed Engineer and AI Security roles, and consulting engagements.`,
     ],
   ];
 

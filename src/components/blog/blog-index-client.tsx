@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowUpRight, PenLine, Search, X } from "lucide-react";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { type StoredBlogPost, getPublishedBlogs, formatDate } from "@/lib/blog-storage";
+import { writingTopics } from "@/content/portfolio";
 import { cn } from "@/lib/utils";
 
 function BlogCard({ post }: { post: StoredBlogPost }) {
@@ -48,7 +49,32 @@ function BlogCard({ post }: { post: StoredBlogPost }) {
 const SORT_OPTIONS = [
   { value: "newest", label: "Newest first" },
   { value: "oldest", label: "Oldest first" },
+  { value: "quick", label: "Quick reads" },
+  { value: "deep", label: "Deep dives" },
 ];
+
+// Filters live in the URL so topic links from the homepage and shared links
+// land on the same view. Read once on mount; written back with replaceState.
+function readFiltersFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const sort = params.get("sort") ?? "newest";
+  return {
+    search: params.get("q") ?? "",
+    category: params.get("category") ?? "All",
+    tag: params.get("tag") ?? "",
+    sort: SORT_OPTIONS.some((o) => o.value === sort) ? sort : "newest",
+  };
+}
+
+function writeFiltersToUrl(filters: { search: string; category: string; tag: string; sort: string }) {
+  const params = new URLSearchParams();
+  if (filters.search.trim()) params.set("q", filters.search.trim());
+  if (filters.category !== "All") params.set("category", filters.category);
+  if (filters.tag) params.set("tag", filters.tag);
+  if (filters.sort !== "newest") params.set("sort", filters.sort);
+  const query = params.toString();
+  window.history.replaceState(null, "", `${window.location.pathname}${query ? `?${query}` : ""}`);
+}
 
 export function BlogIndexClient() {
   const [mounted, setMounted] = useState(false);
@@ -59,14 +85,44 @@ export function BlogIndexClient() {
   const [sortMode, setSortMode] = useState("newest");
 
   useEffect(() => {
+    const filters = readFiltersFromUrl();
+    setSearch(filters.search);
+    setActiveCategory(filters.category);
+    setActiveTag(filters.tag);
+    setSortMode(filters.sort);
     setMounted(true);
     getPublishedBlogs().then(setAllPosts);
   }, []);
 
-  const categories = useMemo(() => {
-    const cats = Array.from(new Set(allPosts.map((p) => p.category).filter(Boolean)));
-    return ["All", ...cats.sort()];
+  useEffect(() => {
+    if (!mounted) return;
+    writeFiltersToUrl({ search, category: activeCategory, tag: activeTag, sort: sortMode });
+  }, [mounted, search, activeCategory, activeTag, sortMode]);
+
+  const categoryCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    allPosts.forEach((p) => {
+      if (p.category) counts.set(p.category, (counts.get(p.category) ?? 0) + 1);
+    });
+    return counts;
   }, [allPosts]);
+
+  // Known topics first, in their listed order, then any other categories.
+  const categories = useMemo(() => {
+    const topicLabels = writingTopics.map((t) => t.label).filter((label) => categoryCounts.has(label));
+    const others = Array.from(categoryCounts.keys())
+      .filter((cat) => !topicLabels.includes(cat))
+      .sort();
+    return ["All", ...topicLabels, ...others];
+  }, [categoryCounts]);
+
+  const hasFilters = search.trim() !== "" || activeCategory !== "All" || activeTag !== "";
+
+  function clearFilters() {
+    setSearch("");
+    setActiveCategory("All");
+    setActiveTag("");
+  }
 
   const allTags = useMemo(() => {
     const tags = new Set<string>();
@@ -98,6 +154,8 @@ export function BlogIndexClient() {
     result.sort((a, b) => {
       const dateA = new Date(a.publishedAt ?? a.createdAt).getTime();
       const dateB = new Date(b.publishedAt ?? b.createdAt).getTime();
+      if (sortMode === "quick") return a.wordCount - b.wordCount || dateB - dateA;
+      if (sortMode === "deep") return b.wordCount - a.wordCount || dateB - dateA;
       return sortMode === "oldest" ? dateA - dateB : dateB - dateA;
     });
 
@@ -168,6 +226,7 @@ export function BlogIndexClient() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
+                  aria-pressed={activeCategory === cat}
                   className={cn(
                     "h-9 rounded-full px-4 text-sm font-medium transition",
                     activeCategory === cat
@@ -176,6 +235,9 @@ export function BlogIndexClient() {
                   )}
                 >
                   {cat}
+                  {cat !== "All" ? (
+                    <span className="ml-1.5 font-mono text-xs opacity-70">{categoryCounts.get(cat)}</span>
+                  ) : null}
                 </button>
               ))}
             </div>
@@ -188,6 +250,7 @@ export function BlogIndexClient() {
                 <button
                   key={tag}
                   onClick={() => setActiveTag(activeTag === tag ? "" : tag)}
+                  aria-pressed={activeTag === tag}
                   className={cn(
                     "h-8 rounded-full px-3 font-mono text-xs transition",
                     activeTag === tag
@@ -229,13 +292,33 @@ export function BlogIndexClient() {
                     ? "Engineering notes and product essays coming soon."
                     : "Try adjusting your search or filters."}
                 </p>
+                {hasFilters && allPosts.length > 0 ? (
+                  <button
+                    onClick={clearFilters}
+                    className="mt-4 inline-flex h-10 items-center gap-1.5 rounded-full bg-[var(--tile-ink-bg)] px-4 text-sm font-semibold text-[var(--tile-ink-fg)] transition hover:opacity-85"
+                  >
+                    Clear filters
+                  </button>
+                ) : null}
               </div>
             </div>
           ) : (
             <>
-              <p className="lbl px-2 pt-6 text-ink-faint">
-                {filtered.length} {filtered.length === 1 ? "post" : "posts"}
-              </p>
+              <div className="flex items-center justify-between gap-3 px-2 pt-6">
+                <p className="lbl text-ink-faint">
+                  {filtered.length} {filtered.length === 1 ? "post" : "posts"}
+                  {hasFilters ? ` of ${allPosts.length}` : ""}
+                </p>
+                {hasFilters ? (
+                  <button
+                    onClick={clearFilters}
+                    className="inline-flex items-center gap-1 text-sm font-semibold text-ink-soft transition hover:text-ink"
+                  >
+                    <X className="size-3.5" aria-hidden="true" />
+                    Clear filters
+                  </button>
+                ) : null}
+              </div>
               <div className="mt-3 grid gap-3.5 md:grid-cols-2">
                 {filtered.map((post) => (
                   <BlogCard key={post.id} post={post} />

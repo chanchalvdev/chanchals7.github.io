@@ -53,6 +53,11 @@
   --tile-ink-fg: #f4f3ef;
   --tile-ink-soft: #b0aeb8;
   --tile-ink-raised: #26252c;
+
+  --gh-1: #e6f7a6;
+  --gh-2: #c5e94a;
+  --gh-3: #86b015;
+  --gh-4: #4d7012;
 }
 
 [data-theme="dark"] {
@@ -84,10 +89,16 @@
   --tile-peach-fg: #ffdcc8;
   --tile-sky-bg: #142636;
   --tile-sky-fg: #d3ebff;
-  --tile-ink-bg: #000000;
+  /* Lifted off --page so ink tiles and buttons stay visible in dark mode. */
+  --tile-ink-bg: #1f1f24;
   --tile-ink-fg: #f4f4f5;
   --tile-ink-soft: #a3a1ab;
-  --tile-ink-raised: #1c1c20;
+  --tile-ink-raised: #2b2b31;
+
+  --gh-1: #3b4a14;
+  --gh-2: #66801c;
+  --gh-3: #a2c932;
+  --gh-4: #d8f36b;
 
   --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-lift: 0 10px 30px rgba(0, 0, 0, 0.45);

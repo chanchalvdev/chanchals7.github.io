@@ -1,8 +1,10 @@
 import type { GitHubContributionWeek } from "@/lib/github";
 import type { ShipEvent } from "@/lib/shipping";
+import { BrandIcon } from "@/components/ui/brand-icon";
 
-// Lime ramp for the calendar; the empty cell uses the theme's muted token.
-const LEVELS = ["var(--muted)", "#e6f7a6", "#c5e94a", "#86b015", "#4d7012"];
+// Lime ramp for the calendar (--gh-1…4 flip per theme so busier days always
+// read stronger); the empty cell uses the theme's muted token.
+const LEVELS = ["var(--muted)", "var(--gh-1)", "var(--gh-2)", "var(--gh-3)", "var(--gh-4)"];
 
 function level(count: number, max: number) {
   if (count === 0) return 0;
@@ -36,7 +38,10 @@ export function GitHubTile({
       className="tile tile-hover flex h-full flex-col justify-between gap-4 p-6 sm:flex-row sm:items-center sm:gap-6"
     >
       <div className="shrink-0">
-        <p className="lbl text-ink-faint">GitHub</p>
+        <p className="lbl flex items-center gap-1.5 text-ink-faint">
+          <BrandIcon brand="github" className="size-3.5" />
+          GitHub
+        </p>
         {total !== null ? (
           <p className="mt-1 text-3xl font-extrabold tracking-tight text-ink">
             {total.toLocaleString("en-US")}

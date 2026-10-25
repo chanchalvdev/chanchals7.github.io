@@ -1,15 +1,23 @@
 import Link from "next/link";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { profile } from "@/content/portfolio";
+import { type Brand, BrandIcon } from "@/components/ui/brand-icon";
 
 export function Footer() {
   const year = new Date().getFullYear();
   const handle = (url: string) => url.split("/").filter(Boolean).pop();
 
-  const socials = [
-    { label: "GitHub", value: handle(profile.github), href: profile.github },
-    { label: "LinkedIn", value: `in/${handle(profile.linkedin)}`, href: profile.linkedin },
-    ...(profile.twitter ? [{ label: "X", value: `@${handle(profile.twitter)}`, href: profile.twitter }] : []),
+  const socials: { brand: Brand; label: string; value?: string; href: string; soon?: boolean }[] = [
+    { brand: "github", label: "GitHub", value: handle(profile.github), href: profile.github },
+    { brand: "linkedin", label: "LinkedIn", value: `in/${handle(profile.linkedin)}`, href: profile.linkedin },
+    ...(profile.twitter
+      ? [{ brand: "x" as const, label: "X", value: `@${handle(profile.twitter)}`, href: profile.twitter }]
+      : []),
+    { brand: "medium", label: "Medium", value: handle(profile.blog), href: profile.blog },
+    // The channel is new: flagged "Soon" until videos are up — drop `soon` then.
+    ...(profile.youtube
+      ? [{ brand: "youtube" as const, label: "YouTube", value: handle(profile.youtube), href: profile.youtube, soon: true }]
+      : []),
   ];
 
   return (
@@ -33,23 +41,33 @@ export function Footer() {
           </a>
         </div>
 
-        <div className="grid gap-3.5 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1">
+        <div className="grid content-start gap-3 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1">
           {socials.map((social) => (
             <a
               key={social.label}
               href={social.href}
               target="_blank"
               rel="noreferrer"
-              className="tile tile-hover flex items-center justify-between p-6"
+              className="tile tile-hover group flex items-center gap-3.5 px-5 py-4"
             >
-              <span>
-                <span className="lbl block text-ink-faint">{social.label}</span>
-                <span className="mt-1 block text-lg font-bold text-ink">{social.value}</span>
+              <span className="grid size-11 shrink-0 place-items-center rounded-full border border-border bg-surface-warm text-ink transition group-hover:bg-[var(--tile-ink-bg)] group-hover:text-[var(--tile-ink-fg)]">
+                <BrandIcon brand={social.brand} className="size-5" />
               </span>
-              <ArrowUpRight className="size-5 text-ink-soft" aria-hidden="true" />
+              <span className="min-w-0">
+                <span className="lbl flex flex-wrap items-center gap-x-2 gap-y-1 text-ink-faint">
+                  {social.label}
+                  {social.soon ? (
+                    <span className="rounded-full bg-[var(--tile-peach-bg)] px-2 py-0.5 text-[var(--tile-peach-fg)]">
+                      Soon
+                    </span>
+                  ) : null}
+                </span>
+                <span className="mt-0.5 block truncate font-bold text-ink">{social.value}</span>
+              </span>
+              <span className="sr-only">(opens in a new tab)</span>
             </a>
           ))}
-          <Link href="/blog" className="tile tile-hover tile-ink flex items-center justify-between p-6">
+          <Link href="/blog" className="tile tile-hover tile-ink flex items-center justify-between px-5 py-4 sm:col-span-2 lg:col-span-1">
             <span>
               <span className="lbl on-tile-soft block">Writing</span>
               <span className="mt-1 block text-lg font-bold">Notes on building agents</span>

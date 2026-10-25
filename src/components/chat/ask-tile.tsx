@@ -1,7 +1,8 @@
 "use client";
 
-import { ArrowUp, ArrowUpRight, Mail, Sparkles } from "lucide-react";
+import { ArrowUp, Mail, Sparkles } from "lucide-react";
 import { profile } from "@/content/portfolio";
+import { BrandIcon } from "@/components/ui/brand-icon";
 import { ASK_ME_ENDPOINT, openAskMe } from "@/lib/ask-me";
 
 const QUESTIONS = [
@@ -76,8 +77,9 @@ function TalkTile() {
           rel="noreferrer"
           className="inline-flex h-11 items-center gap-1.5 rounded-full bg-white/60 px-5 text-sm font-semibold transition hover:bg-white/80 dark:bg-white/10 dark:hover:bg-white/15"
         >
+          <BrandIcon brand="linkedin" className="size-4" />
           LinkedIn
-          <ArrowUpRight className="size-4" aria-hidden="true" />
+          <span className="sr-only">(opens in a new tab)</span>
         </a>
       </div>
     </div>

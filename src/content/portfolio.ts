@@ -10,85 +10,95 @@ export type Project = PortfolioProject;
 
 export const profile: PortfolioProfile = {
   name: "Chanchal Verma",
-  role: "AI Security Engineer • AI Product Engineering • Agentic AI • Golang • Node.js • React • UI/UX • Kubernetes • Cloud • Security",
+  role: "AI Engineer • Forward Deployed Engineer • AI Security • Agentic AI • LLMOps • Python • Go • TypeScript • Kubernetes • Cloud-native security",
   location: "Abu Dhabi, UAE",
   email: "chanchalverma.dev@gmail.com",
   github: "https://github.com/chanchalvdev",
   linkedin: "https://linkedin.com/in/chanchalvdev/",
   twitter: "https://x.com/chanchalvdev",
-  blog: "https://dev.to/chanchalvdev",
-  headline: "I build intelligent systems that scale.",
+  youtube: "https://www.youtube.com/@chanchalvdev",
+  blog: "https://medium.com/@chanchalvdev",
+  headline: "I build AI agents that ship — and keep them safe.",
   summary:
-    "Senior Full Stack AI Engineer at CPX with 5+ years building cloud-native solutions — currently leading frontend for AI-powered security systems that detect and respond to cyber threats automatically, and building agentic AI systems that think and adapt on their own.",
+    "AI Engineer with 6+ years turning unclear problems into production software. I work on-site at client locations with analysts, operators, and decision-makers to find the problem actually worth solving, then build the AI agents, backends, and interfaces that solve it. At CPX that means a multi-agent AI platform used daily by threat intelligence and incident response teams.",
   narrative:
-    "My best work happens at the intersection of AI and cloud systems: interfaces that stay calm under pressure, backend platforms that stay reliable, and agents that make intelligent decisions faster than we can. That's the future I'm building toward.",
+    "The best requirements are never in the spec. I sit with the people doing the work, watch where their day breaks down, and turn vague asks into a working prototype in days. Then I stay through rollout, iterating with every stakeholder and hardening the system with guardrails, human review, and audit trails, until it's something they trust and use every day.",
 };
 
 export const heroRoles = [
-  "AI Security Engineer",
-  "Full Stack AI Engineer",
+  "AI Engineer",
+  "Forward Deployed Engineer",
   "Agentic AI Builder",
-  "UI/UX Designer",
+  "AI Security Engineer",
 ];
 
 export const heroMetrics = [
-  { value: "5+", label: "years experience" },
-  { value: "20+", label: "systems shipped" },
-  { value: "4", label: "countries worked with" },
+  { value: "6+", label: "years experience" },
+  { value: "UAE · Germany · India · US", label: "worked across" },
   { value: "200+", label: "developers mentored" },
 ];
 
 export const proofPoints = [
+  "Agentic AI / MCP",
+  "RAG / LLM Evals",
+  "Python / FastAPI",
+  "Go / TypeScript",
   "React / Next.js",
-  "Go / Node.js",
-  "Agentic AI / LLMs",
-  "AWS / Azure / GCP",
-  "Kubernetes",
-  "PostgreSQL / Redis",
-  "Security / IAM",
-  "UI/UX Design",
+  "Kubernetes / Azure",
+  "AI Security",
+  "Langfuse / OTel",
 ];
 
+/** The forward-deployed loop — rendered as the "How I work" steps. */
 export const capabilities = [
   {
-    title: "Secure by design",
-    text: "Identity, permissions, auditability, and safe defaults built into the architecture early — not bolted on as a final checklist.",
+    title: "Embed",
+    short: "Sit with the customer, find the real problem",
+    text: "Sit with the team or customer, learn their workflow, and find the problem actually worth solving.",
   },
   {
-    title: "AI-native engineering",
-    text: "From LLM-powered threat classification to autonomous agents — AI is the load-bearing engine, not decoration.",
+    title: "Build",
+    short: "Prototype agents in days, not quarters",
+    text: "Prototype agents, RAG pipelines, and the product around them in days, not quarters — AI as the engine, not decoration.",
   },
   {
-    title: "Product clarity",
-    text: "Complex systems earn their keep only when flows, states, and hierarchy make decisions easier for the person reading them.",
+    title: "Ship",
+    short: "Harden, secure & run in production",
+    text: "Harden it for production: evals, observability, identity, permissions, and audit trails designed in from day one.",
   },
 ];
 
 export const experience = [
   {
     company: "CPX",
-    role: "Senior Full Stack AI Engineer",
+    role: "Senior Full Stack Engineer (AI Engineering)",
     location: "Abu Dhabi, UAE",
     period: "Aug 2025 — Present",
     summary:
-      "Building AI-driven cybersecurity solutions — intelligent agents across frontend and backend that detect and respond to threats in real time.",
+      "Building a multi-tenant, multi-agent AI platform for threat intelligence and incident response teams, working directly with senior analysts and securing every agent with scoped tools, guardrails, and human review.",
     highlights: [
-      "Leading frontend development for intuitive, data-rich interfaces that simplify complex security insights for SOC, Threat Intel, and Threat Hunt teams.",
-      "Building intelligent agents focused on automation, anomaly detection, and proactive defense against malware, phishing, and emerging cyberattacks.",
-      "Designed frontend architecture with TypeScript, TanStack Query, and a NestJS BFF with Keycloak SSO, multi-tenant RBAC, and PostgreSQL audit trails.",
+      "Built multiple AI agents in Python with Agno and LangGraph for CTI and IR teams, covering threat actor profiling, MITRE ATT&CK TTP mapping, malware and vulnerability intelligence, and incident analysis. They cut senior analysts' analysis time and their dependency on L1 analysts.",
+      "Designed a composable agent framework: agents built from reusable skills and scripts, connected to multiple MCP servers, each running with its own scoped tools and credentials to limit the damage of a prompt injection.",
+      "Built the agent supervision layer in Python and Go with run monitoring, guardrails, output validation, human-in-the-loop approval, and an audit log of every agent action.",
+      "Exposed agents through FastAPI services with Pydantic and async Python; built RAG pipelines over threat intelligence with Qdrant; run self-hosted models on on-prem NVIDIA H100 servers and air-gapped environments to meet UAE data residency rules.",
+      "Designed the Go backend-for-frontend that orchestrates agent execution with Kafka and Temporal, so long-running AI workflows stay fault-tolerant and resumable.",
+      "Instrumented agents and services with Langfuse and OpenTelemetry so a single agent run can be traced across every service it touches.",
+      "Implemented enterprise SSO with Keycloak and SAML plus multi-tenant RBAC, so onboarding a new customer is configuration, not code.",
+      "Deploy to AKS through Azure DevOps and Argo CD with blue-green rollouts; applied zero-trust networking, Azure Key Vault secrets, and SAST, dependency, and container scanning in CI/CD. Own the React and TypeScript frontend for analyst dashboards.",
     ],
   },
   {
-    company: "HCL Technologies",
-    role: "Technical Lead(Golang) ",
+    company: "HCL Technologies (client: HP Inc.)",
+    role: "Technical Lead",
     location: "Bengaluru, India",
     period: "Apr 2025 — Aug 2025",
     summary:
-      "Golang technical lead for the PCRE and PRD modules — owning Go service design, API contracts, and delivery through to production release.",
+      "Client-facing technical lead for HP Inc., leading a distributed team building Go microservices on Kubernetes across time zones.",
     highlights: [
-      "Led Go backend development across the PCRE and PRD modules, owning service structure, REST API contracts, and code review standards for the team.",
-      "Set Go engineering practices for the team — package layout, error handling, and concurrency patterns — and mentored engineers onto the stack.",
-      "Translated enterprise requirements into service contracts and delivery milestones, coordinating with frontend and QA through release.",
+      "Led a distributed team building scalable Go microservices on Kubernetes with event-driven messaging on RabbitMQ and Kafka.",
+      "Added OpenTelemetry distributed tracing and Grafana service health dashboards; used pprof and Go benchmarks to find and fix performance bottlenecks.",
+      "Handled production monitoring, incident diagnosis, and root-cause analysis in Splunk, and ran cross-team code reviews.",
+      "Moved releases to blue-green and progressive rollouts on Kubernetes with autoscaling, so the team could ship more often with less risk.",
     ],
   },
   {
@@ -97,42 +107,64 @@ export const experience = [
     location: "Germany — Remote",
     period: "Jul 2024 — Mar 2025",
     summary:
-      "One of the first engineers building an infrastructure governance platform from absolute scratch.",
+      "Founding engineer on a multi-tenant cloud security and governance platform, built from zero alongside the CTO without a formal product spec.",
     highlights: [
-      "Contributed to SG-SDK using Go and Node.js with Fern for SDK generation.",
-      "Developed Kubernetes-backed infrastructure APIs for deployment automation and orchestration.",
-      "Shaped frontend modules for compliance, cost, and security insights with product and engineering leads.",
+      "Built policy-as-code guardrails and no-code policy builders that let customers enforce Terraform and IaC security rules before anything reaches their cloud accounts.",
+      "Added compliance insights and security and cost alerts mapping cloud resources to SOC 2 and ISO 27001 controls for EU customers working under GDPR.",
+      "Worked on SG-SDK in Go and Node.js, generating client SDKs with Fern to cut customer integration time; wrote Python for platform automation and policy tooling.",
+      "Wrote Terraform for the platform's own infrastructure, kept secrets in HashiCorp Vault, deployed through Argo CD, and built the self-service product in Next.js, React, and TypeScript.",
     ],
   },
   {
     company: "Thor Solutions",
-    role: "Senior Full Stack AI Engineer",
+    role: "Full Stack Developer & DevOps Engineer",
     location: "Remote, India",
-    period: "Jun 2023 — Jun 2024",
+    period: "Jan 2023 — Jun 2024",
     summary:
-      "Led backend and cloud delivery for production applications across two client engagements using Go, MERN, AWS, and CI/CD automation.",
+      "Led backend and cloud delivery for client products in Go and PostgreSQL, including one for a US-based client.",
     highlights: [
-      "Built MERN apps integrating Shopify, WooCommerce, and Etsy — writing the entire backend REST API layer from scratch.",
-      "Spearheaded a Golang project with Gin and PostgreSQL for a USA-based client; built the Go backend for a Flutter Android app.",
-      "Integrated Stripe, Twilio OTP/calling, and Auth0; deployed on AWS EC2/RDS with Jenkins and GitHub Actions CI/CD pipelines.",
+      "Led backend development in Go (Gin) and PostgreSQL across several production applications.",
+      "Built the Go backend for iWTNS, a Flutter Android app, with Auth0 authentication, Stripe payments, and Twilio OTP and voice calls.",
+      "Deployed on AWS (EC2, S3, RDS, DynamoDB) with Docker and Kubernetes behind load balancers with autoscaling, and set up GitHub Actions CI/CD, cutting deployment time by 30%.",
+      "Guided a small developer team through code reviews and architecture decisions.",
     ],
   },
   {
     company: "Masai School",
-    role: "Software Engineer",
-    location: "Bengaluru / Remote",
-    period: "Oct 2021 — Jun 2023",
+    role: "Associate Software Engineer (Instructional)",
+    location: "Remote, India",
+    period: "Oct 2021 — Jan 2023",
     summary:
-      "Built internal learning platforms in React and Node.js while mentoring 200+ students into MERN developers.",
+      "Mentored around 200 developers in full stack MERN and Python, and built backend modules for the assessment and coding-evaluation platforms.",
     highlights: [
-      "Mentored 200+ students on React, Node, and DSA through daily stand-ups, pair programming, and weekly evaluations.",
-      "Developed internal products for learning and job-readiness as a React.js and Node.js product developer.",
-      "Guided student project builds on the MERN stack, with structured code review and assessment.",
+      "Mentored around 200 students across cohort batches in the MERN stack and Python, many from non-technical backgrounds.",
+      "Ran live coding, pair programming, design reviews, and mock technical interviews to prepare students for engineering roles.",
+      "Reviewed student projects and gave feedback on code quality, REST API design, and database modelling.",
+      "Built backend modules in Node.js and Python for the job-suitability assessment and automated coding-evaluation platforms, and prototyped Go microservices for internal tools.",
+    ],
+  },
+  {
+    company: "Smashing Infolabs",
+    role: "Full Stack Developer",
+    location: "Indore, India",
+    period: "Jul 2020 — Oct 2021",
+    summary:
+      "Built SaaS products, admin dashboards, and internal business tools on the MERN stack with SQL databases.",
+    highlights: [
+      "Wrote REST APIs in Node.js and Express backed by MongoDB and SQL, and built React frontends focused on usability and performance.",
+      "Designed database schemas and queries in MongoDB and SQL to power reporting dashboards.",
+      "Added web and Android features to the Liter platform and packaged the web app as an Android APK with Cordova, so the product reached mobile without a second codebase.",
+      "Maintained internal applications used across teams, took part in code reviews, and wrote technical documentation.",
     ],
   },
 ];
 
 export const education = [
+  {
+    school: "University of Colorado Boulder",
+    degree: "M.S. — Artificial Intelligence",
+    period: "Oct 2026 — Present",
+  },
   {
     school: "Shri G S Institute of Technology & Science",
     degree: "B.E. — Information Technology",
@@ -151,9 +183,28 @@ export const honors = [
   "Meritorious Students Award",
 ];
 
-export const languages = ["English (Professional)", "Hindi (Native)", "Arabic (Beginner)"];
+export const languages = ["English (Professional)", "Hindi (Native)", "Arabic (Basic, learning)"];
 
 export const skillGroups = [
+  {
+    title: "AI & Agentic Systems",
+    description: "Agent frameworks, RAG, evaluation, observability, and open-weight model serving.",
+    items: [
+      "Agno",
+      "Pydantic AI",
+      "LangChain",
+      "LangGraph",
+      "Langfuse",
+      "RAG",
+      "AI Evals",
+      "Observability",
+      "Inferencing",
+      "MCP",
+      "Qdrant",
+      "MiniMax-M3",
+      "GPT-OSS-120B",
+    ],
+  },
   {
     title: "Frontend & UI/UX",
     description: "Interfaces, state, data loading, design systems, and product surfaces.",
@@ -162,22 +213,56 @@ export const skillGroups = [
   {
     title: "Backend Platforms",
     description: "APIs, service boundaries, auth, integrations, and data workflows.",
-    items: ["Go", "Node.js", "NestJS", "Express", "Gin", "Fiber", "GraphQL", "gRPC"],
+    items: ["Python", "FastAPI", "Django", "Go", "Gin", "Node.js", "NestJS", "gRPC"],
   },
   {
-    title: "AI & Agentic Systems",
-    description: "LLM pipelines, autonomous agents, embeddings, and AI-native product features.",
-    items: ["Agentic AI", "LLM Integration", "Ollama", "Qdrant", "RAG", "Prompt Engineering", "Anomaly Detection"],
+    title: "AI Security",
+    description: "Securing agents and LLM apps against the OWASP Top 10 for LLMs.",
+    items: [
+      "Prompt Injection",
+      "OWASP LLM Top 10",
+      "Guardrails",
+      "Output Validation",
+      "Tool & Credential Scoping",
+      "Human-in-the-Loop",
+      "Data Leakage",
+      "Threat Modeling",
+    ],
   },
   {
     title: "Cloud & Security",
-    description: "Deployment, governance, identity, secure access, and operational reliability.",
-    items: ["AWS", "Azure", "GCP", "Docker", "Kubernetes", "Terraform", "Keycloak", "CI/CD"],
+    description: "Deployment, identity, secrets, zero trust, and air-gapped infrastructure.",
+    items: [
+      "Azure (AKS)",
+      "AWS",
+      "GCP",
+      "Kubernetes",
+      "Docker",
+      "Terraform",
+      "Argo CD",
+      "Keycloak / SAML",
+      "HashiCorp Vault",
+      "Zero Trust",
+      "Air-gapped / H100",
+      "SAST & Scanning",
+    ],
   },
   {
     title: "Data & Operations",
-    description: "Persistence, caching, queues, audits, and system observability.",
-    items: ["PostgreSQL", "MongoDB", "Redis", "DynamoDB", "Kafka", "Prisma", "Prometheus", "Temporal"],
+    description: "Persistence, messaging, durable workflows, and system observability.",
+    items: [
+      "PostgreSQL",
+      "DuckDB",
+      "Redis",
+      "MongoDB",
+      "Kafka",
+      "RabbitMQ",
+      "Temporal",
+      "OpenTelemetry",
+      "Grafana",
+      "Prometheus",
+      "Splunk",
+    ],
   },
 ];
 
@@ -271,34 +356,36 @@ export const projectCategories = [
 
 export const projects: Project[] = [
   {
+    // Slug kept from the project's former name (Go SIEM Agent) so existing
+    // links and search results to the case study keep resolving.
     slug: "go-siem-agent-llm-classifier",
-    title: "Go SIEM Agent — LLM Classifier",
+    title: "Casewright — Local-first AI Security Analyst",
     category: "Security",
-    year: "2025",
+    year: "2026",
     featured: true,
     sortScore: 110,
     caseStudyReady: true,
     description:
-      "An AI-native SIEM agent written in Go that classifies any raw log line into a structured threat report — with MITRE ATT&CK mapping, IOC extraction, severity triage, and actionable remediation — in under 20 seconds, using a local-first LLM stack.",
+      "An open-source, local-first AI security analyst in Go that takes alerts from Wazuh, Elastic or Security Onion from alert to resolved case — grouping related alerts into one case per attack, investigating it with a local or hosted LLM, and proposing a response a person approves.",
     impact:
-      "Turns hours of manual SOC triage into a sub-20-second automated pipeline, reducing analyst time spent on alert noise by eliminating rule-writing and manual MITRE mapping.",
-    stack: ["Go", "React", "Qdrant", "Ollama", "PostgreSQL", "Docker", "Prometheus"],
+      "Cheap Sigma and threshold rules catch known attacks with no LLM call; confirmed cases become new rules, so the rules tier keeps growing and fewer events need the model.",
+    stack: ["Go", "React", "Sigma", "Gemini", "Ollama", "Qdrant", "PostgreSQL", "Docker"],
     links: {
-      github: "https://github.com/chanchalvdev/go-siem-agent-llm-classifier",
+      github: "https://github.com/chanchalvdev/casewright",
     },
     metrics: [
-      { value: "<20s", label: "per classification" },
-      { value: "40+", label: "MITRE techniques" },
-      { value: "~3k", label: "lines Go" },
+      { value: "P1–P5", label: "severity triage" },
+      { value: "MITRE", label: "ATT&CK mapping" },
+      { value: "1 cmd", label: "Docker demo" },
     ],
     challenge:
-      "SOC teams drown in alert volume — existing rule-based SIEMs require manual signature writing, miss novel attacks, and force analysts to manually cross-reference MITRE ATT&CK, look up IPs, and write remediation notes for every event.",
+      "SOC teams drown in alert volume — rule-based tools miss novel attacks, related alerts arrive as disconnected noise, and analysts still cross-reference MITRE ATT&CK, look up IOCs, and write remediation notes by hand for every event.",
     solution:
-      "I built an AI-native backend in Go where a carefully engineered LLM system prompt acts as the entire detection engine. The prompt encodes severity scales, IOC extraction rules, and MITRE mappings, returning a strict JSON schema on every call. A concurrent worker pool classifies logs in parallel; streaming SSE delivers token-by-token feedback so 15-second calls feel instant.",
+      "I built a Go backend that parses syslog, uploads and pasted logs, detects known attacks instantly with Sigma and threshold rules, and sends only the rest to an LLM (Gemini, Ollama, or any OpenAI-compatible API) for classification, MITRE mapping and IOC extraction. Related alerts are grouped into incidents, a tool-calling agent investigates P1/P2 cases with AbuseIPDB, OTX, MITRE and similar-event recall, and YAML playbooks propose responses that analysts approve.",
     results: [
-      "Full threat classification pipeline: attack type, MITRE tactic + technique ID, severity P1–P5, confidence score, IOCs, and remediation — all from a single raw log line.",
-      "Semantic search via Qdrant + Ollama embeddings lets analysts find similar past events using natural language, not exact-match rules.",
-      "Single Go binary embeds the React dashboard; three Docker containers complete the full stack — zero external dependencies beyond the LLM provider.",
+      "Incidents and case management: alerts grouped by IP, user or host, with assignee, comments, kill-chain view, full timeline, and a cited AI investigation report per high-severity case.",
+      "Human-approved response playbooks — block IP, disable user, isolate host, webhook — with dry-run mode and a full audit log, plus SOC metrics (MTTD, MTTA, MTTR, false-positive rate).",
+      "One-command Docker demo replays a prepared attack chain; semantic search over Qdrant embeddings, Prometheus metrics, RBAC users and a WCAG AA light/dark dashboard.",
     ],
     coverImage: "/siem-title.png",
     detailImage: "/siem-architecture.png",
@@ -338,7 +425,7 @@ export const projects: Project[] = [
   },
   {
     slug: "file-ingestion-parser",
-    title: "File Ingestion Platform — Archive Parsing & IOC Extraction",
+    title: "Enterprise File Ingestion Platform",
     category: "Security",
     year: "2026",
     featured: true,
@@ -439,3 +526,14 @@ export const githubActivity = {
   username: "chanchalvdev",
   summary: "Connect a GitHub token to display real contribution data.",
 };
+
+// What the writing covers. Used as suggested categories in the admin editor
+// and as topic links on the homepage and blog index — set a post's category to
+// one of these labels for it to show up under that topic.
+export const writingTopics = [
+  { label: "AI Engineering", blurb: "Agents, RAG, evals and LLMOps in production" },
+  { label: "Forward Deployed", blurb: "Embedding with teams and shipping on-site" },
+  { label: "AI Security", blurb: "Securing agents, LLM apps and their data" },
+  { label: "Case Studies", blurb: "Real systems, the decisions behind them" },
+  { label: "Research", blurb: "Papers, experiments and MS in AI notes" },
+];

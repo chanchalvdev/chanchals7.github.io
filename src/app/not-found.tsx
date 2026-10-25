@@ -18,6 +18,8 @@ export default function NotFound() {
       window.location.replace(`/blog/post/?id=${encodeURIComponent(match[1])}`);
       return;
     }
+    // Client component, so no metadata export — set the tab title here.
+    document.title = "Page not found | Chanchal Verma";
     setRedirecting(false);
   }, []);
 
@@ -32,19 +34,19 @@ export default function NotFound() {
   return (
     <>
       <Navbar />
-      <main className="flex min-h-[60vh] flex-col items-center justify-center px-5 py-20 text-center">
-        <p className="font-mono text-xs font-bold uppercase tracking-[0.12em] text-cobalt">
-          404 — Not filed
-        </p>
-        <h1 className="text-display mt-3 text-3xl font-bold text-ink">Page not found</h1>
-        <p className="mt-3 text-ink-faint">The page you are looking for may have been moved or removed.</p>
-        <Link
-          href="/"
-          className="mt-8 inline-flex items-center gap-2 border-[1.5px] border-ink bg-ink px-5 py-2.5 font-mono text-[0.78rem] font-bold uppercase tracking-[0.05em] text-page transition hover:border-cobalt hover:bg-cobalt"
-        >
-          <ArrowLeft className="size-4" />
-          Back home
-        </Link>
+      <main className="px-3 pt-6 sm:px-6">
+        <div className="tile mx-auto flex min-h-[55vh] max-w-[82rem] flex-col items-center justify-center px-6 py-16 text-center">
+          <p className="lbl rounded-full bg-[var(--tile-lime-bg)] px-3 py-1 text-[var(--tile-lime-fg)]">404</p>
+          <h1 className="text-display mt-5 text-4xl font-extrabold text-ink sm:text-6xl">Page not found</h1>
+          <p className="mt-4 max-w-md text-ink-soft">The page you are looking for may have been moved or removed.</p>
+          <Link
+            href="/"
+            className="mt-8 inline-flex h-11 items-center gap-2 rounded-full bg-[var(--tile-ink-bg)] px-5 text-sm font-semibold text-[var(--tile-ink-fg)] transition hover:opacity-85"
+          >
+            <ArrowLeft className="size-4" aria-hidden="true" />
+            Back home
+          </Link>
+        </div>
       </main>
       <Footer />
     </>

@@ -8,10 +8,10 @@ export const SITE_URL = "https://chanchalverma.dev";
 export const SITE_NAME = "Chanchal Verma";
 
 export const SITE_TAGLINE =
-  "AI Security Engineer | AI Product Engineering";
+  "AI Engineer | Forward Deployed Engineer";
 
 export const SITE_DESCRIPTION =
-  "Chanchal Verma is an AI Security Engineer in Abu Dhabi building AI-powered security systems and agentic AI platforms. Senior Full Stack AI Engineer with 5+ years across Go, Node.js, React, Next.js, Kubernetes, and cloud security.";
+  "Chanchal Verma is an AI Engineer and Forward Deployed Engineer in Abu Dhabi who builds production AI agents end to end — and keeps them secure. 6+ years across agentic AI, AI security, LLMOps, Python, Go, TypeScript, Kubernetes, and cloud.";
 
 /** Resolve a site-relative path to an absolute URL. */
 export function absoluteUrl(path = "/"): string {

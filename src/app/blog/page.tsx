@@ -11,7 +11,7 @@ import {
 } from "@/lib/structured-data";
 
 const DESCRIPTION =
-  "Writing by Chanchal Verma on AI security, agentic AI systems, LLM engineering, Go and Node.js backends, Kubernetes, and cloud architecture.";
+  "Writing by Chanchal Verma on AI engineering, agentic AI systems, LLM apps, AI security, Go and Node.js backends, Kubernetes, and cloud architecture.";
 
 export const metadata: Metadata = {
   title: "Writing",

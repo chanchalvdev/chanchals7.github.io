@@ -1,98 +1,74 @@
 import Link from "next/link";
 import { ArrowUpRight, Code2, Lock } from "lucide-react";
 import type { Project } from "@/content/portfolio";
+import { cn } from "@/lib/utils";
+
+const TONES = ["tile-sky", "", "tile-lav", "tile-peach"] as const;
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   const isRestricted = Boolean(project.confidential);
+  const tone = TONES[index % TONES.length];
+  const muted = tone ? "on-tile-soft" : "text-ink-soft";
 
   return (
-    <article className="grid gap-5 border-t border-border py-9 first:border-t-0 lg:grid-cols-[3.25rem_1fr]">
-      {/* Part callout badge */}
-      <div>
-        <span className="part-badge">{String(index + 1).padStart(2, "0")}</span>
-      </div>
-
-      <div className="leader-block">
-        <div>
-          {/* Spec head */}
-          <div className="flex flex-wrap items-center gap-3">
-            <h3 className="text-display text-xl font-bold text-ink sm:text-2xl">{project.title}</h3>
-            {isRestricted ? (
-              <span className="inline-flex items-center gap-1.5 border border-cobalt bg-cobalt-light px-2 py-0.5 font-mono text-xs font-bold uppercase tracking-[0.08em] text-cobalt">
-                <Lock className="size-3" aria-hidden="true" />
-                Restricted
-              </span>
-            ) : (
-              <span className="border border-signal bg-signal/10 px-2 py-0.5 font-mono text-xs font-bold uppercase tracking-[0.08em] text-signal">
-                In service
-              </span>
-            )}
-            <span className="font-mono text-xs uppercase tracking-[0.06em] text-ink-faint">
-              {project.category} · {project.year}
+    <article className={cn("tile tile-hover flex h-full flex-col", tone)}>
+      {/* No cover here: the images are title cards that repeat the heading. They live on the case study page. */}
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
+        <div className="flex items-center justify-between gap-3">
+          <p className={cn("lbl", muted)}>
+            {project.category} · {project.year}
+          </p>
+          {isRestricted ? (
+            <span className="inline-flex items-center gap-1 rounded-full bg-[var(--tile-ink-bg)] px-2.5 py-1 font-mono text-[0.7rem] text-[var(--tile-ink-fg)]">
+              <Lock className="size-3" aria-hidden="true" />
+              NDA
             </span>
-          </div>
+          ) : null}
+        </div>
 
-          <p className="mt-3 max-w-2xl text-base leading-7 text-ink-faint">{project.description}</p>
+        <h3 className="mt-3 text-2xl font-extrabold leading-tight tracking-tight sm:text-[1.75rem]">
+          {project.title.split(" — ")[0]}
+        </h3>
+        <p className={cn("mt-2.5 text-[0.95rem] leading-relaxed", muted)}>{project.description}</p>
 
-          {/* Spec table */}
-          <div className="mt-5 max-w-2xl">
-            <div className="grid grid-cols-[7rem_1fr] gap-x-4 border-t border-border py-2.5 text-sm">
-              <p className="font-mono text-xs font-semibold uppercase tracking-[0.08em] leading-6 text-ink-faint">
-                Materials
-              </p>
-              <p className="font-mono text-[0.78rem] leading-6 text-ink-soft">
-                {project.stack.slice(0, 7).join(" · ")}
-              </p>
+        <dl className="mt-5 flex flex-wrap gap-2">
+          {project.metrics.map((metric) => (
+            <div key={metric.label} className="rounded-2xl bg-black/[0.05] px-3.5 py-2 dark:bg-white/[0.07]">
+              <dt className="sr-only">{metric.label}</dt>
+              <dd className="text-base font-bold leading-tight">{metric.value}</dd>
+              <dd className={cn("text-xs", muted)}>{metric.label}</dd>
             </div>
-            <div className="grid grid-cols-[7rem_1fr] gap-x-4 border-t border-border py-2.5 text-sm">
-              <p className="font-mono text-xs font-semibold uppercase tracking-[0.08em] leading-6 text-ink-faint">
-                Performance
-              </p>
-              <div className="flex flex-wrap gap-x-6 gap-y-1">
-                {project.metrics.map((metric) => (
-                  <p key={metric.label} className="leading-6 text-ink-faint">
-                    <span className="font-mono font-semibold text-ink">{metric.value}</span>{" "}
-                    <span className="text-xs">{metric.label}</span>
-                  </p>
-                ))}
-              </div>
-            </div>
-            <div className="grid grid-cols-[7rem_1fr] gap-x-4 border-t border-border py-2.5 text-sm">
-              <p className="font-mono text-xs font-semibold uppercase tracking-[0.08em] leading-6 text-ink-faint">
-                Notes
-              </p>
-              <p className="leading-6 text-ink-faint">{project.impact}</p>
-            </div>
-          </div>
+          ))}
+        </dl>
 
-          {/* Actions */}
-          <div className="mt-5 flex flex-wrap items-center gap-5">
-            {project.caseStudyReady ? (
-              <Link
-                href={`/projects/${project.slug}`}
-                className="inline-flex items-center gap-1.5 border-b-[1.5px] border-cobalt pb-0.5 font-mono text-xs font-bold uppercase tracking-[0.05em] text-ink transition hover:text-cobalt"
-              >
-                Open case file
-                <ArrowUpRight className="size-3.5" aria-hidden="true" />
-              </Link>
-            ) : null}
-            {!isRestricted && project.links.github ? (
-              <a
-                href={project.links.github}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 border-b-[1.5px] border-border pb-0.5 font-mono text-xs font-bold uppercase tracking-[0.05em] text-ink-soft transition hover:border-cobalt hover:text-cobalt"
-              >
-                <Code2 className="size-3.5" aria-hidden="true" />
-                View source
-              </a>
-            ) : null}
-            {isRestricted ? (
-              <span className="inline-flex cursor-not-allowed items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-[0.05em] text-ink-faint">
-                Drawing sealed — NDA
-              </span>
-            ) : null}
-          </div>
+        <p className={cn("mt-4 font-mono text-xs leading-relaxed", muted)}>
+          {project.stack.slice(0, 7).join(" · ")}
+        </p>
+
+        <div className="mt-auto flex flex-wrap items-center gap-2 pt-6">
+          {project.caseStudyReady ? (
+            <Link
+              href={`/projects/${project.slug}`}
+              className="inline-flex h-10 items-center gap-1.5 rounded-full bg-[var(--tile-ink-bg)] px-4 text-sm font-semibold text-[var(--tile-ink-fg)] transition hover:opacity-85"
+            >
+              Read case study
+              <ArrowUpRight className="size-4" aria-hidden="true" />
+            </Link>
+          ) : null}
+          {!isRestricted && project.links.github ? (
+            <a
+              href={project.links.github}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex h-10 items-center gap-1.5 rounded-full bg-black/[0.06] px-4 text-sm font-semibold transition hover:bg-black/10 dark:bg-white/10 dark:hover:bg-white/15"
+            >
+              <Code2 className="size-4" aria-hidden="true" />
+              Source
+            </a>
+          ) : null}
+          {isRestricted ? (
+            <span className={cn("text-sm", muted)}>Client work — details on request</span>
+          ) : null}
         </div>
       </div>
     </article>

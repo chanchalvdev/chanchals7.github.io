@@ -5,14 +5,14 @@ export const dynamic = "force-static";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${SITE_NAME} — AI Security Engineer`,
+    name: `${SITE_NAME} — AI Engineer`,
     short_name: SITE_NAME,
     description: SITE_DESCRIPTION,
     start_url: "/",
     scope: "/",
     display: "standalone",
-    background_color: "#f5f6f4",
-    theme_color: "#f5f6f4",
+    background_color: "#ecebe6",
+    theme_color: "#ecebe6",
     categories: ["portfolio", "technology", "productivity"],
     icons: [
       { src: "/icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },

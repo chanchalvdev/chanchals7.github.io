@@ -1,42 +1,37 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Moon, Sun } from "lucide-react";
 
 export function ThemeToggle() {
   const [theme, setTheme] = useState<"dark" | "light">("light");
 
+  // The inline script in the root layout already applied the theme; mirror it.
   useEffect(() => {
-    const saved = localStorage.getItem("theme") as "dark" | "light" | null;
-    const initial = saved ?? "light";
-    setTheme(initial);
-    document.documentElement.setAttribute("data-theme", initial);
+    setTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light");
   }, []);
 
   function toggle() {
     const next = theme === "dark" ? "light" : "dark";
     setTheme(next);
     document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("theme", next);
+    try {
+      localStorage.setItem("theme", next);
+    } catch {
+      // Storage blocked — the choice just won't persist.
+    }
   }
 
   const isNight = theme === "dark";
 
   return (
-    <div className="flex items-center gap-2.5 font-mono text-xs font-semibold uppercase tracking-[0.08em] text-ink-faint">
-      <span>{isNight ? "Night" : "Day"}</span>
-      <button
-        type="button"
-        onClick={toggle}
-        role="switch"
-        aria-checked={isNight}
-        aria-label={`Switch to ${isNight ? "day" : "night"} mode`}
-        className="relative h-[1.55rem] w-[3.1rem] shrink-0 cursor-pointer border-[1.5px] border-ink bg-muted p-0 before:absolute before:-inset-x-1 before:-inset-y-[0.6rem] before:content-[''] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
-      >
-        <span
-          className="absolute top-px bottom-px left-px block w-[1.2rem] bg-ink transition-transform duration-200 ease-out"
-          style={{ transform: isNight ? "translateX(1.45rem)" : "translateX(0)" }}
-        />
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label={`Switch to ${isNight ? "light" : "dark"} mode`}
+      className="grid size-10 place-items-center rounded-full text-ink-soft transition hover:bg-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cobalt"
+    >
+      {isNight ? <Sun className="size-[1.1rem]" aria-hidden="true" /> : <Moon className="size-[1.1rem]" aria-hidden="true" />}
+    </button>
   );
 }

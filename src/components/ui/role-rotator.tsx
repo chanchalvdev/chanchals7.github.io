@@ -45,7 +45,7 @@ export function RoleRotator({ roles }: { roles: string[] }) {
   return (
     <>
       <span className="sr-only">{roles.join(", ")}</span>
-      <span aria-hidden="true" className={`font-mono text-cobalt ${reduceMotion ? "" : "type-caret"}`}>
+      <span aria-hidden="true" className={`font-medium text-ink ${reduceMotion ? "" : "type-caret"}`}>
         {reduceMotion ? roles[0] : text || " "}
       </span>
     </>

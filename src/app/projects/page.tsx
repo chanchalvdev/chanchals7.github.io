@@ -12,12 +12,12 @@ import { PERSON_ID, breadcrumbSchema, graph } from "@/lib/structured-data";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Case studies from Chanchal Verma across AI security products, agentic AI systems, cloud platforms, backend systems, and frontend architecture.",
+    "Case studies from Chanchal Verma across agentic AI systems, LLM and RAG products, secure AI platforms, backend systems, and frontend architecture.",
   alternates: { canonical: "/projects/" },
   openGraph: {
     title: "Projects | Chanchal Verma",
     description:
-      "Case studies across AI security products, agentic AI systems, cloud platforms, and frontend architecture.",
+      "Case studies across agentic AI systems, LLM products, secure AI platforms, and frontend architecture.",
     url: absoluteUrl("/projects/"),
     type: "website",
   },
@@ -54,30 +54,26 @@ export default function ProjectsPage() {
       />
       <Navbar />
       <main>
-        <section className="section-band px-5 py-12 sm:px-8 lg:py-16">
-          <div className="mx-auto max-w-7xl">
+        <section className="px-3 pt-6 sm:px-6">
+          <div className="tile mx-auto max-w-[82rem] p-7 sm:p-10">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 font-mono text-[0.78rem] font-bold text-ink-faint transition hover:text-cobalt"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-ink-soft transition hover:text-ink"
             >
               <ArrowLeft className="size-4" aria-hidden="true" />
               Back home
             </Link>
-            <div className="mt-10 max-w-4xl">
-              <p className="bp-divider font-mono text-xs font-semibold uppercase tracking-[0.12em] text-ink-faint">
-                Work Archive
-              </p>
-              <h1 className="text-display mt-5 text-5xl font-bold leading-none text-ink sm:text-6xl">
-                Case studies for technical products and systems.
-              </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-ink-soft">
-                A focused archive of shipped product work across security,
-                cloud governance, backend delivery, and frontend systems.
-              </p>
-            </div>
+            <p className="bp-divider lbl mt-8 text-ink-faint">Work archive</p>
+            <h1 className="text-display mt-4 max-w-4xl text-4xl font-extrabold text-ink sm:text-6xl">
+              Agents and platforms, <span className="serif-accent">shipped</span>.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+              Case studies of AI agents, RAG pipelines, and the backends and interfaces around them —
+              built end to end and run in production.
+            </p>
           </div>
         </section>
-        <ProjectList projects={projects} />
+        <ProjectList projects={projects} title="All projects" />
       </main>
       <Footer />
     </>

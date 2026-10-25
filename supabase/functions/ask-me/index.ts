@@ -22,7 +22,12 @@
 //   GEMINI_API_KEY — free key from https://aistudio.google.com/apikey
 //   GEMINI_MODEL   — optional, defaults to "gemini-flash-latest" (Google's
 //                    alias for the newest Flash model, so retirements don't break chat)
-//   SITE_URL       — optional, defaults to "https://chanchalverma.dev"
+//   GEMINI_FALLBACK_MODEL — optional, defaults to "gemini-2.5-flash-lite"; tried
+//                    when the main model is overloaded or slow
+//   OPENROUTER_API_KEY — optional, last-resort provider when Gemini is down
+//   OPENROUTER_MODEL — optional, defaults to "openrouter/free" (routes to
+//                    whichever free model is available)
+//   SITE_URL      — optional, defaults to "https://chanchalverma.dev"
 //   ASK_ME_SALT    — optional, salt for hashing visitor IPs
 //   ASK_ME_GLOBAL_DAILY_MAX — optional, defaults to 300 questions/day overall
 
@@ -30,6 +35,10 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 
 const SITE_URL = Deno.env.get("SITE_URL") ?? "https://chanchalverma.dev";
 const MODEL = Deno.env.get("GEMINI_MODEL") ?? "gemini-flash-latest";
+const FALLBACK_MODEL = Deno.env.get("GEMINI_FALLBACK_MODEL") ?? "gemini-2.5-flash-lite";
+const OPENROUTER_MODEL = Deno.env.get("OPENROUTER_MODEL") ?? "openrouter/free";
+// How long a provider gets to start answering before the next one is tried.
+const ATTEMPT_TIMEOUT_MS = 15_000;
 
 const ALLOWED_ORIGINS = new Set([
   SITE_URL,
@@ -197,7 +206,8 @@ Deno.serve(async (req) => {
   if (!originAllowed) return json(403, { error: "Not allowed" });
 
   const apiKey = Deno.env.get("GEMINI_API_KEY");
-  if (!apiKey) return json(500, { error: "The chat isn't configured yet" });
+  const openRouterKey = Deno.env.get("OPENROUTER_API_KEY");
+  if (!apiKey && !openRouterKey) return json(500, { error: "The chat isn't configured yet" });
 
   const messages = parseMessages(await req.json().catch(() => null));
   if (!messages) return json(400, { error: "Send a question to ask" });
@@ -206,36 +216,106 @@ Deno.serve(async (req) => {
   const limited = await checkRate(await hashIp(ip));
   if (limited) return json(429, { error: RATE_MESSAGES[limited] ?? RATE_MESSAGES.burst });
 
-  const upstream = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:streamGenerateContent?alt=sse`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: systemPrompt(await loadContext()) }] },
-        contents: messages.map((m) => ({ role: m.role, parts: [{ text: m.text }] })),
-        safetySettings: SAFETY_SETTINGS,
-        generationConfig: {
-          temperature: 0.3,
-          // Headroom for models that reason before answering; the prompt and
-          // the output guard keep replies short.
-          maxOutputTokens: 1024,
-          // 2.5 models spend output tokens on hidden reasoning by default;
-          // short factual answers don't need it.
-          ...(MODEL.includes("2.5") ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
-        },
-      }),
-    },
-  );
+  const prompt = systemPrompt(await loadContext());
 
-  if (!upstream.ok || !upstream.body) {
-    console.error("Gemini error", upstream.status, await upstream.text().catch(() => ""));
-    return upstream.status === 429
+  // Providers in order of preference; each pulls answer text out of its own SSE frames.
+  type Frame = {
+    candidates?: { content?: { parts?: { text?: string }[] } }[];
+    choices?: { delta?: { content?: string } }[];
+  };
+  type Attempt = {
+    name: string;
+    url: string;
+    headers: Record<string, string>;
+    body: object;
+    extract: (data: Frame) => string;
+  };
+  const geminiAttempt = (model: string): Attempt => ({
+    name: `Gemini ${model}`,
+    url: `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse`,
+    headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey! },
+    body: {
+      systemInstruction: { parts: [{ text: prompt }] },
+      contents: messages.map((m) => ({ role: m.role, parts: [{ text: m.text }] })),
+      safetySettings: SAFETY_SETTINGS,
+      generationConfig: {
+        temperature: 0.3,
+        // Headroom for models that reason before answering; the prompt and
+        // the output guard keep replies short.
+        maxOutputTokens: 1024,
+        // 2.5 models spend output tokens on hidden reasoning by default;
+        // short factual answers don't need it.
+        ...(model.includes("2.5") ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
+      },
+    },
+    extract: (data) =>
+      (data?.candidates?.[0]?.content?.parts ?? []).map((p) => p.text ?? "").join(""),
+  });
+
+  const attempts: Attempt[] = [];
+  if (apiKey) {
+    attempts.push(geminiAttempt(MODEL));
+    if (FALLBACK_MODEL !== MODEL) attempts.push(geminiAttempt(FALLBACK_MODEL));
+  }
+  if (openRouterKey) {
+    attempts.push({
+      name: `OpenRouter ${OPENROUTER_MODEL}`,
+      url: "https://openrouter.ai/api/v1/chat/completions",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${openRouterKey}`,
+        "HTTP-Referer": SITE_URL,
+        "X-Title": "Ask about Chanchal",
+      },
+      body: {
+        model: OPENROUTER_MODEL,
+        stream: true,
+        temperature: 0.3,
+        max_tokens: 1024,
+        messages: [
+          { role: "system", content: prompt },
+          ...messages.map((m) => ({ role: m.role === "model" ? "assistant" : "user", content: m.text })),
+        ],
+      },
+      extract: (data) => data?.choices?.[0]?.delta?.content ?? "",
+    });
+  }
+
+  // First provider to start streaming wins; overloads, errors and stalls fall through to the next.
+  let upstream: Response | null = null;
+  let extract: Attempt["extract"] = () => "";
+  let lastStatus = 0;
+  for (const attempt of attempts) {
+    const abort = new AbortController();
+    const timer = setTimeout(() => abort.abort(), ATTEMPT_TIMEOUT_MS);
+    try {
+      const res = await fetch(attempt.url, {
+        method: "POST",
+        headers: attempt.headers,
+        body: JSON.stringify(attempt.body),
+        signal: abort.signal,
+      });
+      if (res.ok && res.body) {
+        upstream = res;
+        extract = attempt.extract;
+        break;
+      }
+      lastStatus = res.status;
+      console.error(`${attempt.name} error`, res.status, await res.text().catch(() => ""));
+    } catch (err) {
+      console.error(`${attempt.name} failed`, abort.signal.aborted ? "timed out" : String(err));
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  if (!upstream?.body) {
+    return lastStatus === 429
       ? json(429, { error: "The assistant is busy right now — try again in a minute" })
       : json(502, { error: "The assistant couldn't answer right now" });
   }
 
-  // Re-emit Gemini's SSE frames as a plain text stream of answer tokens,
+  // Re-emit the provider's SSE frames as a plain text stream of answer tokens,
   // stopping early if the reply drifts out of scope.
   const decoder = new TextDecoder();
   const encoder = new TextEncoder();
@@ -254,9 +334,7 @@ Deno.serve(async (req) => {
           if (!line.startsWith("data:")) continue;
           let text = "";
           try {
-            const data = JSON.parse(line.slice(5));
-            const parts = data?.candidates?.[0]?.content?.parts ?? [];
-            text = parts.map((p: { text?: string }) => p.text ?? "").join("");
+            text = extract(JSON.parse(line.slice(5)));
           } catch {
             continue; // Partial or keep-alive frame.
           }

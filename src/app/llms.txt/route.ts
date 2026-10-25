@@ -30,7 +30,7 @@ export async function GET() {
     `- **Current role**: Building agentic AI at ${experience[0].company} (${experience[0].location}; title: ${experience[0].role})`,
     `- **Specialisation**: AI Engineering, Forward Deployed Engineering, Agentic AI, LLM applications, secure-by-design AI`,
     `- **Looking for**: AI Engineer and Forward Deployed Engineer roles`,
-    `- **Location**: ${profile.location}`,
+    `- **Location**: ${profile.location}; open to relocating worldwide`,
     `- **Website**: ${SITE_URL}`,
     `- **Email**: ${profile.email}`,
     `- **GitHub**: ${profile.github}`,

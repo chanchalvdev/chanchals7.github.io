@@ -17,13 +17,15 @@
 // Deploy:
 //   supabase functions deploy ask-me
 //   (or Dashboard → Edge Functions → ask-me → paste this file → Deploy)
-// Database: run supabase/migrations/20261024_ask_me_rate_limit.sql once.
+// Database: run the ask_me_* migrations in supabase/migrations once
+// (`supabase db push`).
 // Secrets (Dashboard → Edge Functions → Secrets, or `supabase secrets set`):
 //   GEMINI_API_KEY — free key from https://aistudio.google.com/apikey
-//   GEMINI_MODEL   — optional, defaults to "gemini-flash-latest" (Google's
-//                    alias for the newest Flash model, so retirements don't break chat)
-//   GEMINI_FALLBACK_MODEL — optional, defaults to "gemini-2.5-flash-lite"; tried
-//                    when the main model is overloaded or slow
+//   GEMINI_MODEL   — optional, defaults to "gemini-2.5-flash-lite" (fast, and
+//                    plenty for short answers grounded in the profile)
+//   GEMINI_FALLBACK_MODEL — optional, defaults to "gemini-flash-latest" (Google's
+//                    alias for the newest Flash model); tried when the main
+//                    model is overloaded or slow
 //   OPENROUTER_API_KEY — optional, last-resort provider when Gemini is down
 //   OPENROUTER_MODEL — optional, defaults to "openrouter/free" (routes to
 //                    whichever free model is available)
@@ -34,11 +36,15 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 
 const SITE_URL = Deno.env.get("SITE_URL") ?? "https://chanchalverma.dev";
-const MODEL = Deno.env.get("GEMINI_MODEL") ?? "gemini-flash-latest";
-const FALLBACK_MODEL = Deno.env.get("GEMINI_FALLBACK_MODEL") ?? "gemini-2.5-flash-lite";
+const MODEL = Deno.env.get("GEMINI_MODEL") ?? "gemini-2.5-flash-lite";
+const FALLBACK_MODEL = Deno.env.get("GEMINI_FALLBACK_MODEL") ?? "gemini-flash-latest";
 const OPENROUTER_MODEL = Deno.env.get("OPENROUTER_MODEL") ?? "openrouter/free";
 // How long a provider gets to start answering before the next one is tried.
-const ATTEMPT_TIMEOUT_MS = 15_000;
+const ATTEMPT_TIMEOUT_MS = 8_000;
+
+// Answer cache for opening questions (the suggested ones especially). Keys
+// include the full prompt, so a profile or rules change starts a fresh cache.
+const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
 
 const ALLOWED_ORIGINS = new Set([
   SITE_URL,
@@ -68,10 +74,33 @@ const supabase = createClient(
   { auth: { persistSession: false } },
 );
 
-async function hashIp(ip: string): Promise<string> {
-  const salt = Deno.env.get("ASK_ME_SALT") ?? "ask-me:chanchalverma.dev";
-  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`${salt}:${ip}`));
+async function sha256(text: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
   return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function hashIp(ip: string): Promise<string> {
+  const salt = Deno.env.get("ASK_ME_SALT") ?? "ask-me:chanchalverma.dev";
+  return sha256(`${salt}:${ip}`);
+}
+
+// Cache failures (e.g. migration not run yet) only cost speed, never answers.
+async function cachedAnswer(key: string): Promise<string | null> {
+  const { data, error } = await supabase
+    .from("ask_me_answers")
+    .select("answer")
+    .eq("key", key)
+    .gt("created_at", new Date(Date.now() - CACHE_TTL_MS).toISOString())
+    .maybeSingle();
+  if (error) console.error("Answer cache read failed:", error.message);
+  return data?.answer ?? null;
+}
+
+async function cacheAnswer(key: string, answer: string): Promise<void> {
+  const { error } = await supabase
+    .from("ask_me_answers")
+    .upsert({ key, answer, created_at: new Date().toISOString() });
+  if (error) console.error("Answer cache write failed:", error.message);
 }
 
 // Fallback only: per-isolate memory, used if the rate-limit table is missing.
@@ -217,6 +246,21 @@ Deno.serve(async (req) => {
   if (limited) return json(429, { error: RATE_MESSAGES[limited] ?? RATE_MESSAGES.burst });
 
   const prompt = systemPrompt(await loadContext());
+  const textHeaders = {
+    ...corsHeaders,
+    "Content-Type": "text/plain; charset=utf-8",
+    "Cache-Control": "no-store",
+  };
+
+  // Only opening questions are cached; follow-ups depend on the conversation.
+  const cacheKey =
+    messages.length === 1
+      ? await sha256(`${prompt}\n${messages[0].text.toLowerCase().replace(/\s+/g, " ").replace(/[?!.\s]+$/, "").trim()}`)
+      : null;
+  if (cacheKey) {
+    const hit = await cachedAnswer(cacheKey);
+    if (hit) return new Response(hit, { headers: textHeaders });
+  }
 
   // Providers in order of preference; each pulls answer text out of its own SSE frames.
   type Frame = {
@@ -349,18 +393,14 @@ Deno.serve(async (req) => {
           controller.enqueue(encoder.encode(text));
         }
       },
-      flush(controller) {
+      async flush(controller) {
         // Safety filters can end a reply with no text at all.
         if (!cut && !sent) controller.enqueue(encoder.encode(REFUSAL));
+        // Only complete replies that passed the output guard are reused.
+        else if (!cut && cacheKey) await cacheAnswer(cacheKey, sent);
       },
     }),
   );
 
-  return new Response(stream, {
-    headers: {
-      ...corsHeaders,
-      "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "no-store",
-    },
-  });
+  return new Response(stream, { headers: textHeaders });
 });

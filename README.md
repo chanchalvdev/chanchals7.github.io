@@ -1,6 +1,6 @@
 # chanchalverma.dev
 
-Source for [chanchalverma.dev](https://chanchalverma.dev), the portfolio of **Chanchal Verma**, an AI Engineer and Forward Deployed Engineer based in Abu Dhabi.
+Source for [chanchalverma.dev](https://chanchalverma.dev), the portfolio of **Chanchal Verma**, an AI Engineer, Forward Deployed Engineer and AI Security Engineer based in Abu Dhabi.
 
 > I build AI agents that ship — and keep them safe.
 
@@ -9,7 +9,7 @@ The site is a statically exported Next.js app hosted on GitHub Pages. The dynami
 ## What's on the site
 
 - **Home**: a bento layout with roles, experience, skills, a live GitHub contributions graph and the featured project.
-- **Projects** (`/projects`): case studies for [Casewright](https://chanchalverma.dev/projects/go-siem-agent-llm-classifier/), [ThreatRAG](https://chanchalverma.dev/projects/threat-rag/) and the Enterprise File Ingestion Platform.
+- **Projects** (`/projects`): case studies for [Casewright](https://chanchalverma.dev/projects/go-siem-agent-llm-classifier/), [ThreatRAG](https://chanchalverma.dev/projects/threat-rag/), the Enterprise File Ingestion Platform and [AgentOps AI](https://chanchalverma.dev/projects/agentops-ai/).
 - **Blog** (`/blog`): posts written in a built-in rich-text editor, with moderated reader comments.
 - **Ask about me**: a chat that answers visitors' questions about Chanchal, using only the site's own [`llms.txt`](src/app/llms.txt).
 - **Admin** (`/admin`): a signed-in area for writing posts and approving comments.

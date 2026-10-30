@@ -35,7 +35,7 @@ export function HeroBento({
         <div className="tile fade-up flex flex-col p-7 sm:p-10 lg:col-span-7 lg:row-span-2">
           <h1>
             <span className="lbl block text-ink-faint">
-              {profile.name} · AI Engineer · Forward Deployed Engineer
+              {profile.name} · AI Engineer · Forward Deployed Engineer · AI Security Engineer
             </span>{" "}
             <span className="text-display mt-6 block text-[2.6rem] font-extrabold text-ink sm:text-6xl xl:text-[4.25rem]">
               I build AI agents that <span className="serif-accent mark-lime">ship</span> — and keep them

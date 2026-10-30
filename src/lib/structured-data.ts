@@ -63,7 +63,7 @@ export function personSchema() {
     },
     hasOccupation: {
       "@type": "Occupation",
-      name: "AI Engineer / Forward Deployed Engineer",
+      name: "AI Engineer / Forward Deployed Engineer / AI Security Engineer",
       occupationLocation: {
         "@type": "City",
         name: "Abu Dhabi",
@@ -106,7 +106,7 @@ export function profilePageSchema() {
     "@type": "ProfilePage",
     "@id": `${SITE_URL}/#profilepage`,
     url: SITE_URL,
-    name: `${SITE_NAME} — AI Engineer & Forward Deployed Engineer`,
+    name: `${SITE_NAME} — AI Engineer, Forward Deployed Engineer & AI Security Engineer`,
     description: SITE_DESCRIPTION,
     inLanguage: "en",
     isPartOf: { "@id": WEBSITE_ID },
@@ -125,7 +125,7 @@ export function faqSchema() {
   const qa: Array<[string, string]> = [
     [
       "Who is Chanchal Verma?",
-      "Chanchal Verma is an AI Engineer and Forward Deployed Engineer based in Abu Dhabi, UAE, with over 6 years of experience — currently building agentic AI at CPX. He builds production AI agents end to end, working closely with the teams who use them, and designs them to be secure from day one.",
+      "Chanchal Verma is an AI Engineer, Forward Deployed Engineer and AI Security Engineer based in Abu Dhabi, UAE, with over 6 years of experience — currently building agentic AI at CPX. He builds production AI agents end to end, working closely with the teams who use them, and designs them to be secure from day one.",
     ],
     [
       "What does Chanchal Verma do?",

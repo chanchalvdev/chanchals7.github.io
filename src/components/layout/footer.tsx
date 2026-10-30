@@ -29,8 +29,8 @@ export function Footer() {
             Have a problem worth an agent? Let&apos;s <span className="serif-accent">ship</span> it.
           </h2>
           <p className="on-tile-soft mt-5 max-w-lg text-[1.05rem] leading-relaxed">
-            Open to AI Engineer and Forward Deployed Engineer roles — based in {profile.location},
-            happy to relocate.
+            Open to AI Engineer, Forward Deployed Engineer and AI Security Engineer roles — based in{" "}
+            {profile.location}, happy to relocate.
           </p>
           <a
             href={`mailto:${profile.email}`}

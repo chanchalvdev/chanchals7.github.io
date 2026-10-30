@@ -64,6 +64,7 @@ export const metadata: Metadata = {
     "DevOps",
     "Cloud",
     "AI Security",
+    "AI Security Engineer",
     "Abu Dhabi software engineer",
     "Agentic AI Engineer",
   ],

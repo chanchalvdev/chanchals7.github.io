@@ -457,6 +457,40 @@ export const projects: Project[] = [
     detailImage: "/parser-architecture.png",
   },
   {
+    slug: "agentops-ai",
+    title: "AgentOps AI — Local-first RAG & Agent Platform",
+    category: "AI",
+    year: "2026",
+    featured: true,
+    sortScore: 90,
+    caseStudyReady: true,
+    description:
+      "A production-minded RAG platform that runs entirely on local models: multi-tenant document ingestion, hybrid retrieval, and grounded answers with validated citations. The foundation is built; the agent harness on top of it is in progress.",
+    impact:
+      "Agents are only as trustworthy as the retrieval and isolation beneath them. Building those first means every tool added later inherits tenant scoping, cited evidence, and an honest answer when the documents don't contain one.",
+    stack: ["Python", "FastAPI", "PostgreSQL", "pgvector", "Ollama", "Docker", "GitHub Actions"],
+    links: {
+      demo: `mailto:${profile.email}`,
+    },
+    metrics: [
+      { value: "107", label: "tests passing" },
+      { value: "Hybrid", label: "vector + keyword search" },
+      { value: "$0", label: "local model cost" },
+    ],
+    challenge:
+      "RAG demos tend to fall apart on real documents: versions contradict each other, vector search misses exact terms, one tenant's data can reach another's results, and a model can cite sources it never saw. Those problems have to be solved before an agent is handed tools.",
+    solution:
+      "I built a FastAPI service on PostgreSQL and pgvector that validates uploads, chunks by document structure, and indexes in one transaction so a document is never half-searchable. Search fuses vector and full-text results with reciprocal rank fusion, and every retriever builds on a single tenant-scoped query. Local Ollama models answer with JSON-schema output, retrieved text is fenced as untrusted, and citations are checked against the retrieved evidence.",
+    results: [
+      "Ingestion for PDF, Markdown and text with magic-byte checks, content-hash idempotency and filename versioning, verified on a sample corpus with deliberately conflicting documents.",
+      "Live end-to-end runs answered a v1-vs-v2 question citing both documents, returned insufficient_evidence for an out-of-scope question, and showed a second tenant 0 results.",
+      "107 unit and integration tests against real Postgres and pgvector, plus 3 live model tests, with Ruff and strict Mypy clean and CI on GitHub Actions.",
+      "In progress: a policy-gated agent harness, a LangGraph workflow with human approval, evaluation, and drift monitoring.",
+    ],
+    coverImage: "/agentops-title.png",
+    detailImage: "/agentops-architecture.png",
+  },
+  {
     slug: "production-api-delivery-stack",
     title: "Production API Delivery System",
     category: "Backend",

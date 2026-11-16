@@ -1,7 +1,10 @@
 /**
- * "Shipping" feed: recently merged public PRs, turned into short readable
- * lines for the strip under the navbar. Uses GitHub's public search API, so
- * it needs no token and never sees private or client repositories.
+ * "Shipping" feed: recent public work, turned into short readable lines for
+ * the strip under the navbar. It merges three GitHub searches — merged PRs,
+ * open PRs (work in progress) and commits pushed straight to a default
+ * branch — so the strip follows the latest activity, not only merges. Uses
+ * GitHub's public search API, so it needs no token and never sees private or
+ * client repositories.
  */
 
 export type ShipEvent = {
@@ -9,7 +12,8 @@ export type ShipEvent = {
   subject: string;
   repo: string;
   url: string;
-  mergedAt: string;
+  /** When it happened: merge time, last update of an open PR, or commit time. */
+  at: string;
 };
 
 /** Branch-style prefixes → the verb a reader sees. `null` hides the PR. */
@@ -72,7 +76,10 @@ function humanize(slug: string): string {
  * "Add retries to the worker"      → { verb: "Merged",  subject: "Add retries to the worker" }
  * Housekeeping (chore/ci/deps…) returns null so it never reaches the strip.
  */
-export function describePullRequest(title: string): { verb: string; subject: string } | null {
+export function describePullRequest(
+  title: string,
+  fallbackVerb = "Merged",
+): { verb: string; subject: string } | null {
   const match = title.trim().match(/^([a-z]+)(?:\([^)]*\))?\s*[/:]\s*(.+)$/i);
   if (match) {
     const prefix = match[1].toLowerCase();
@@ -85,7 +92,7 @@ export function describePullRequest(title: string): { verb: string; subject: str
     }
   }
   const subject = title.trim();
-  return subject ? { verb: "Merged", subject } : null;
+  return subject ? { verb: fallbackVerb, subject } : null;
 }
 
 /** "3h", "2d", "3w" — or null once it's old enough that an age would read as stale. */
@@ -104,7 +111,7 @@ export const SHIPPING_STALE_DAYS = 30;
 
 export function isStale(events: ShipEvent[], now = Date.now()): boolean {
   if (!events.length) return true;
-  const newest = Math.max(...events.map((event) => new Date(event.mergedAt).getTime()));
+  const newest = Math.max(...events.map((event) => new Date(event.at).getTime()));
   return now - newest > SHIPPING_STALE_DAYS * 86_400_000;
 }
 
@@ -113,34 +120,100 @@ type SearchItem = {
   html_url: string;
   repository_url: string;
   closed_at: string | null;
+  updated_at?: string;
+  state?: string;
   pull_request?: { merged_at?: string | null };
 };
 
+type CommitItem = {
+  sha: string;
+  html_url: string;
+  parents?: unknown[];
+  commit: { message: string; committer?: { date?: string } | null; author?: { date?: string } | null };
+  repository: { name: string; full_name: string; private?: boolean };
+};
+
+/** A commit this close before a merge in the same repo most likely came in through that PR. */
+const PR_COMMIT_WINDOW_MS = 24 * 60 * 60 * 1000;
+
+const sortNewest = (events: ShipEvent[]) => events.sort((a, b) => Date.parse(b.at) - Date.parse(a.at));
+
+/** Pull-request search results (merged or open) → events. */
 export function toShipEvents(items: SearchItem[], limit = 8): ShipEvent[] {
-  return items
-    .map((item) => {
-      const described = describePullRequest(item.title);
-      const mergedAt = item.pull_request?.merged_at ?? item.closed_at;
-      if (!described || !mergedAt) return null;
+  const events = items
+    .map((item): ShipEvent | null => {
+      const mergedAt = item.pull_request?.merged_at ?? null;
+      const open = item.state === "open";
+      // Open PRs are work in progress; closed-unmerged PRs never shipped.
+      const at = open ? (item.updated_at ?? null) : (mergedAt ?? (item.state ? null : item.closed_at));
+      const described = describePullRequest(item.title, open ? "Building" : "Merged");
+      if (!described || !at) return null;
       return {
-        ...described,
+        verb: open ? "Building" : described.verb,
+        subject: described.subject,
         repo: item.repository_url.split("/").pop() ?? "",
         url: item.html_url,
-        mergedAt,
+        at,
       };
     })
-    .filter((event): event is ShipEvent => event !== null)
-    .sort((a, b) => b.mergedAt.localeCompare(a.mergedAt))
-    .slice(0, limit);
+    .filter((event): event is ShipEvent => event !== null);
+  return sortNewest(events).slice(0, limit);
 }
 
-export async function fetchShipEvents(username: string, init?: RequestInit): Promise<ShipEvent[]> {
-  const query = encodeURIComponent(`author:${username} is:pr is:merged is:public`);
-  const res = await fetch(
-    `https://api.github.com/search/issues?q=${query}&sort=updated&order=desc&per_page=30`,
-    { headers: { Accept: "application/vnd.github+json" }, ...init },
-  );
+/**
+ * Commit search results → events for work pushed straight to a default
+ * branch. Merge commits and commits that sit just before a merged PR in the
+ * same repo are dropped (the PR already covers them), and a burst of commits
+ * to one repo on one day collapses to its newest commit.
+ */
+export function commitsToShipEvents(items: CommitItem[], mergedPrs: ShipEvent[]): ShipEvent[] {
+  const candidates: ShipEvent[] = [];
+  for (const item of items) {
+    if (item.repository.private) continue;
+    if ((item.parents?.length ?? 1) > 1) continue;
+    const date = item.commit.committer?.date ?? item.commit.author?.date;
+    if (!date) continue;
+    const time = Date.parse(date);
+    const repo = item.repository.name;
+    const viaPr = mergedPrs.some((pr) => {
+      if (pr.repo !== repo) return false;
+      const merged = Date.parse(pr.at);
+      return merged >= time && merged - time <= PR_COMMIT_WINDOW_MS;
+    });
+    if (viaPr) continue;
+    const described = describePullRequest(item.commit.message.split("\n")[0] ?? "", "Committed");
+    if (!described) continue;
+    candidates.push({ ...described, repo, url: item.html_url, at: new Date(time).toISOString() });
+  }
+  const seen = new Set<string>();
+  return sortNewest(candidates).filter((event) => {
+    const key = `${event.repo}:${event.at.slice(0, 10)}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+const API = "https://api.github.com";
+
+async function search<T>(path: string, init?: RequestInit): Promise<T[]> {
+  const res = await fetch(`${API}${path}`, { headers: { Accept: "application/vnd.github+json" }, ...init });
   if (!res.ok) throw new Error(`GitHub search failed (${res.status})`);
-  const body = (await res.json()) as { items?: SearchItem[] };
-  return toShipEvents(body.items ?? []);
+  const body = (await res.json()) as { items?: T[] };
+  return body.items ?? [];
+}
+
+export async function fetchShipEvents(username: string, init?: RequestInit, limit = 8): Promise<ShipEvent[]> {
+  const q = (query: string) => encodeURIComponent(query);
+  const [merged, open, commits] = await Promise.allSettled([
+    search<SearchItem>(`/search/issues?q=${q(`author:${username} is:pr is:merged is:public`)}&sort=updated&order=desc&per_page=30`, init),
+    search<SearchItem>(`/search/issues?q=${q(`author:${username} is:pr is:open is:public`)}&sort=updated&order=desc&per_page=10`, init),
+    search<CommitItem>(`/search/commits?q=${q(`author:${username} is:public`)}&sort=committer-date&order=desc&per_page=50`, init),
+  ]);
+  // Merged PRs are the core of the feed; the other two are best-effort extras.
+  if (merged.status === "rejected") throw merged.reason;
+  const mergedEvents = toShipEvents(merged.value, 30);
+  const openEvents = open.status === "fulfilled" ? toShipEvents(open.value, 10) : [];
+  const commitEvents = commits.status === "fulfilled" ? commitsToShipEvents(commits.value, mergedEvents) : [];
+  return sortNewest([...openEvents, ...mergedEvents, ...commitEvents]).slice(0, limit);
 }

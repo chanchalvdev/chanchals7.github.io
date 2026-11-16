@@ -4,12 +4,14 @@ import { capabilities, education, experience, heroMetrics, heroRoles, projects, 
 import type { StoredBlogPost } from "@/lib/blog-storage";
 import type { GitHubContributionWeek } from "@/lib/github";
 import type { ShipEvent } from "@/lib/shipping";
-import { AskTile } from "@/components/chat/ask-tile";
 import { LocalClock } from "@/components/ui/local-clock";
 import { RoleRotator } from "@/components/ui/role-rotator";
 import { GitHubTile } from "@/components/sections/github-tile";
 
-const MAX_HERO_POSTS = 4;
+const MAX_HERO_POSTS = 5;
+
+const postDate = (iso: string) =>
+  new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
 
 export function HeroBento({
   flagshipSlug,
@@ -61,14 +63,10 @@ export function HeroBento({
           </div>
         </div>
 
-        {/* Ask my AI */}
-        <div className="fade-up delay-1 lg:col-span-5">
-          <AskTile />
-        </div>
-
-        {/* Writing — a plain list of post titles; falls back to the local clock until there's a post */}
+        {/* Writing — sits beside the intro (the chat panel already covers "ask me");
+            if no posts came through at build, it still reads as a Writing tile */}
         {posts.length > 0 ? (
-          <div className="tile tile-sky fade-up delay-2 flex flex-col p-6 lg:col-span-5">
+          <div className="tile tile-sky fade-up delay-1 flex flex-col p-6 sm:p-7 lg:col-span-5 lg:row-span-2">
             <Link
               href="/blog/"
               className="lbl inline-flex w-fit items-center gap-2 underline-offset-4 hover:underline"
@@ -78,22 +76,39 @@ export function HeroBento({
                 {posts.length} {posts.length === 1 ? "post" : "posts"}
               </span>
             </Link>
-            <ul className="mt-3 flex-1">
-              {posts.slice(0, MAX_HERO_POSTS).map((post) => (
-                <li key={post.id} className="border-t border-current/15 first:border-t-0">
-                  <a
-                    href={`/blog/post/${post.slug}/`}
-                    target="_blank"
-                    rel="noopener"
-                    title={post.title}
-                    className="group flex items-center justify-between gap-3 py-2.5 font-semibold leading-snug"
-                  >
-                    <span className="line-clamp-1 underline-offset-4 group-hover:underline">{post.title}</span>
-                    <ArrowUpRight className="size-4 shrink-0 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
-                    <span className="sr-only">(opens in a new tab)</span>
-                  </a>
-                </li>
-              ))}
+            <ul className="mt-4 flex-1">
+              {posts.slice(0, MAX_HERO_POSTS).map((post, index) => {
+                const date = post.publishedAt ?? post.createdAt;
+                return (
+                  <li key={post.id} className="border-t border-current/15 first:border-t-0">
+                    <a
+                      href={`/blog/post/${post.slug}/`}
+                      target="_blank"
+                      rel="noopener"
+                      title={post.title}
+                      className="group flex items-start justify-between gap-3 py-3"
+                    >
+                      <span className="min-w-0">
+                        <span className="line-clamp-2 font-semibold leading-snug underline-offset-4 group-hover:underline">
+                          {post.title}
+                        </span>
+                        {index === 0 && post.excerpt ? (
+                          <span className="on-tile-soft mt-1 line-clamp-2 block text-sm leading-relaxed">
+                            {post.excerpt}
+                          </span>
+                        ) : null}
+                        <span className="on-tile-soft mt-1 block font-mono text-xs">
+                          {date ? postDate(date) : null}
+                          {date && post.readTime ? " · " : null}
+                          {post.readTime}
+                        </span>
+                      </span>
+                      <ArrowUpRight className="mt-0.5 size-4 shrink-0 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+                      <span className="sr-only">(opens in a new tab)</span>
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
             <Link
               href="/blog/"
@@ -104,13 +119,29 @@ export function HeroBento({
             </Link>
           </div>
         ) : (
-          <div className="tile tile-ink fade-up delay-2 p-6 lg:col-span-5">
-            <span
-              aria-hidden="true"
-              className="absolute -right-6 -top-6 size-24 rounded-full bg-[radial-gradient(circle,#ffd36b,#ff8a3d)]"
-            />
-            <p className="lbl on-tile-soft relative">Abu Dhabi · GST</p>
-            <LocalClock className="relative mt-2 block text-4xl font-extrabold tracking-tight sm:text-5xl" />
+          <div className="tile tile-sky fade-up delay-1 flex flex-col p-6 sm:p-7 lg:col-span-5 lg:row-span-2">
+            <Link
+              href="/blog/"
+              className="lbl inline-flex w-fit items-center gap-2 underline-offset-4 hover:underline"
+            >
+              Writing
+            </Link>
+            <p className="mt-4 text-2xl font-semibold leading-tight tracking-tight">
+              Notes on building and securing AI agents.
+            </p>
+            <p className="on-tile-soft mt-2 text-sm leading-relaxed">
+              New posts land on the blog first.
+            </p>
+            <Link
+              href="/blog/"
+              className="mt-4 inline-flex w-fit items-center gap-1.5 text-sm font-semibold underline-offset-4 hover:underline"
+            >
+              Read the blog
+              <ArrowUpRight className="size-4" aria-hidden="true" />
+            </Link>
+            <p className="on-tile-soft mt-auto pt-8 font-mono text-xs">
+              Abu Dhabi · GST · <LocalClock className="font-semibold" />
+            </p>
           </div>
         )}
 

@@ -60,7 +60,7 @@ export function ShippingStrip({ initial }: { initial: ShipEvent[] }) {
   if (isStale(events, now ?? Date.now())) return null;
 
   const items = events.map((event) => {
-    const age = now ? shortAge(event.mergedAt, now) : null;
+    const age = now ? shortAge(event.at, now) : null;
     return (
       <a
         key={event.url}

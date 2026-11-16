@@ -87,7 +87,12 @@ export async function getPublishedBlogs(): Promise<StoredBlogPost[]> {
     .select(LISTING_COLUMNS)
     .eq("status", "published")
     .order("published_at", { ascending: false });
-  if (error || !data) return [];
+  if (error || !data) {
+    // Surfaces in build logs: an unreachable or paused Supabase project would
+    // otherwise ship a homepage with no posts and no hint why.
+    console.warn("Blog posts unavailable:", error?.message ?? "no data");
+    return [];
+  }
   return data.map(fromDB);
 }
 

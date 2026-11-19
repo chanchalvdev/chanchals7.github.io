@@ -17,6 +17,8 @@ export type PortfolioProfile = {
   twitter?: string;
   youtube?: string;
   blog: string;
+  /** Public scheduling page (Cal.com / Calendly). Booking CTAs stay hidden until set. */
+  booking?: string;
   headline: string;
   summary: string;
   narrative: string;

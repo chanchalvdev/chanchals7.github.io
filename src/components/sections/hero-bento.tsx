@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, GraduationCap } from "lucide-react";
+import { ArrowUpRight, CalendarDays, GraduationCap } from "lucide-react";
 import { capabilities, education, experience, heroMetrics, heroRoles, projects, profile } from "@/content/portfolio";
 import type { StoredBlogPost } from "@/lib/blog-storage";
 import type { GitHubContributionWeek } from "@/lib/github";
@@ -57,6 +57,18 @@ export function HeroBento({
               <span className="live-dot pulse-dot text-[#1d7a3a]" aria-hidden="true" />
               Open to work · relocation worldwide
             </a>
+            {profile.booking ? (
+              <a
+                href={profile.booking}
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center gap-1.5 font-semibold text-ink underline-offset-4 hover:underline"
+              >
+                <CalendarDays className="size-4" aria-hidden="true" />
+                Book a call
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            ) : null}
             <span>
               Roles: <RoleRotator roles={heroRoles} />
             </span>

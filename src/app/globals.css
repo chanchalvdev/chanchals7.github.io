@@ -560,3 +560,156 @@ h1, h2, h3 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ── Glass navbar ──
+   Frosted capsule in the Apple vein: translucent surface, saturate+blur on
+   what scrolls beneath, a hairline highlight along the top edge, and a soft
+   shadow that deepens once the page has scrolled. */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-bg-dense: rgba(255, 255, 255, 0.88);
+  --glass-edge: rgba(255, 255, 255, 0.7);
+  --glass-rim: rgba(22, 21, 26, 0.07);
+  --glass-shadow: 0 1px 1px rgba(22, 21, 26, 0.03), 0 8px 28px rgba(22, 21, 26, 0.07);
+  --glass-shadow-raised: 0 1px 1px rgba(22, 21, 26, 0.04), 0 14px 40px rgba(22, 21, 26, 0.13);
+}
+
+[data-theme="dark"] {
+  --glass-bg: rgba(28, 28, 32, 0.66);
+  --glass-bg-dense: rgba(28, 28, 32, 0.86);
+  --glass-edge: rgba(255, 255, 255, 0.12);
+  --glass-rim: rgba(255, 255, 255, 0.07);
+  --glass-shadow: 0 1px 1px rgba(0, 0, 0, 0.3), 0 8px 28px rgba(0, 0, 0, 0.35);
+  --glass-shadow-raised: 0 1px 1px rgba(0, 0, 0, 0.35), 0 14px 40px rgba(0, 0, 0, 0.55);
+}
+
+.glass {
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: saturate(180%) blur(30px);
+  backdrop-filter: saturate(180%) blur(30px);
+  border: 1px solid var(--glass-rim);
+  box-shadow: inset 0 1px 0 var(--glass-edge), var(--glass-shadow);
+  transition: box-shadow 300ms ease, background-color 300ms ease;
+}
+
+.glass-dense { background: var(--glass-bg-dense); }
+
+.glass-raised {
+  box-shadow: inset 0 1px 0 var(--glass-edge), var(--glass-shadow-raised);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background: var(--surface); }
+}
+
+/* ── Book a call ── lime pill with a tear-off calendar page */
+.book-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  height: 2.5rem;
+  padding: 0 0.85rem 0 0.3rem;
+  border-radius: 999px;
+  background: var(--tile-lime-bg);
+  color: var(--tile-lime-fg);
+  font-size: 0.875rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 2px 10px color-mix(in srgb, var(--tile-lime-bg) 45%, transparent);
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 250ms ease;
+}
+
+.book-call:hover {
+  transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 6px 18px color-mix(in srgb, var(--tile-lime-bg) 60%, transparent);
+}
+
+.book-call:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 3px;
+}
+
+.book-call-block {
+  display: flex;
+  width: 100%;
+  height: 3.25rem;
+  padding-right: 1rem;
+  border-radius: 1rem;
+}
+
+.cal-page {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 1.85rem;
+  height: 2rem;
+  overflow: visible;
+  border-radius: 0.45rem;
+  background: #fff;
+  color: #16151a;
+  box-shadow: 0 1px 0 rgba(22, 21, 26, 0.18), 0 2px 4px rgba(22, 21, 26, 0.12);
+  transform-origin: 50% 0;
+  transition: transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* A second page peeking underneath, so the glyph reads as a pad */
+.cal-page::after {
+  content: "";
+  position: absolute;
+  inset: 3px 2px -3px;
+  z-index: -1;
+  border-radius: 0.45rem;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.cal-page-head {
+  display: block;
+  border-radius: 0.45rem 0.45rem 0 0;
+  background: #16151a;
+  color: var(--tile-lime-bg);
+  font-family: var(--font-ibm-mono);
+  font-size: 0.5rem;
+  font-weight: 700;
+  line-height: 0.7rem;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.cal-page-day {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* "Slots open" */
+.cal-page-dot {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: #22a74a;
+  box-shadow: 0 0 0 2px var(--tile-lime-bg);
+}
+
+.book-call-arrow {
+  transition: transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.book-call:hover .book-call-arrow {
+  transform: translate(2px, -2px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .book-call:hover .cal-page {
+    transform: rotate(-8deg) translateY(-1px);
+  }
+
+  .cal-page-dot {
+    animation: pulse-dot 2.4s ease-in-out infinite;
+  }
+}

@@ -4,6 +4,7 @@ import type {
   PortfolioProject,
   ProjectCategory,
 } from "@/lib/portfolio-contracts";
+import { BOOKING_URL } from "@/lib/site";
 
 export type { ConsoleScene, ProjectCategory };
 export type Project = PortfolioProject;
@@ -18,9 +19,8 @@ export const profile: PortfolioProfile = {
   twitter: "https://x.com/chanchalvdev",
   youtube: "https://www.youtube.com/@chanchalvdev",
   blog: "https://medium.com/@chanchalvdev",
-  // Cal.com event (synced to Google Calendar, Google Meet link on each booking).
-  // Drives the "Book a call" buttons in the hero and contact section.
-  booking: "https://cal.com/chanchalvdev/15min",
+  // Drives the "Book a call" buttons in the navbar, hero and contact section.
+  booking: BOOKING_URL,
   headline: "I build AI agents that ship — and keep them safe.",
   summary:
     "AI Engineer with 6+ years turning unclear problems into production software. I work on-site at client locations with analysts, operators, and decision-makers to find the problem actually worth solving, then build the AI agents, backends, and interfaces that solve it. At CPX that means a multi-agent AI platform used daily by threat intelligence and incident response teams.",

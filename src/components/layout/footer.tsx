@@ -14,9 +14,9 @@ export function Footer() {
       ? [{ brand: "x" as const, label: "X", value: `@${handle(profile.twitter)}`, href: profile.twitter }]
       : []),
     { brand: "medium", label: "Medium", value: handle(profile.blog), href: profile.blog },
-    // The channel is new: flagged "Soon" until videos are up — drop `soon` then.
+    // Set `soon: true` on any entry to badge a channel that isn't live yet.
     ...(profile.youtube
-      ? [{ brand: "youtube" as const, label: "YouTube", value: handle(profile.youtube), href: profile.youtube, soon: true }]
+      ? [{ brand: "youtube" as const, label: "YouTube", value: handle(profile.youtube), href: profile.youtube }]
       : []),
   ];
 

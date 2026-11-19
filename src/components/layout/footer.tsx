@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Mail } from "lucide-react";
 import { profile } from "@/content/portfolio";
 import { type Brand, BrandIcon } from "@/components/ui/brand-icon";
 
@@ -32,13 +32,36 @@ export function Footer() {
             Open to AI Engineer, Forward Deployed Engineer and AI Security Engineer roles — based in{" "}
             {profile.location}, happy to relocate.
           </p>
-          <a
-            href={`mailto:${profile.email}`}
-            className="mt-8 inline-flex h-12 max-w-full items-center gap-2 rounded-full bg-[var(--tile-lime-fg)] px-6 text-sm font-semibold text-[var(--tile-lime-bg)] transition hover:opacity-90"
-          >
-            <Mail className="size-4 shrink-0" aria-hidden="true" />
-            <span className="truncate">{profile.email}</span>
-          </a>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            {profile.booking ? (
+              <a
+                href={profile.booking}
+                target="_blank"
+                rel="noopener"
+                className="inline-flex h-12 max-w-full items-center gap-2 rounded-full bg-[var(--tile-lime-fg)] px-6 text-sm font-semibold text-[var(--tile-lime-bg)] transition hover:opacity-90"
+              >
+                <CalendarDays className="size-4 shrink-0" aria-hidden="true" />
+                Book a 15-min call
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            ) : null}
+            <a
+              href={`mailto:${profile.email}`}
+              className={
+                profile.booking
+                  ? "inline-flex h-12 max-w-full items-center gap-2 rounded-full border border-current/30 px-6 text-sm font-semibold transition hover:bg-[var(--tile-lime-fg)]/10"
+                  : "inline-flex h-12 max-w-full items-center gap-2 rounded-full bg-[var(--tile-lime-fg)] px-6 text-sm font-semibold text-[var(--tile-lime-bg)] transition hover:opacity-90"
+              }
+            >
+              <Mail className="size-4 shrink-0" aria-hidden="true" />
+              <span className="truncate">{profile.email}</span>
+            </a>
+          </div>
+          {profile.booking ? (
+            <p className="on-tile-soft mt-3 text-sm">
+              Pick any open slot — it&apos;s a video call, and the invite lands in your calendar.
+            </p>
+          ) : null}
         </div>
 
         <div className="grid content-start gap-3 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1">

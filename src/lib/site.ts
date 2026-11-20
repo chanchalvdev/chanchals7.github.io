@@ -13,6 +13,9 @@ export const SITE_TAGLINE =
 export const SITE_DESCRIPTION =
   "Chanchal Verma is an AI Engineer, Forward Deployed Engineer (FDE) and AI Security Engineer in Abu Dhabi who builds production AI agents end to end — and keeps them secure. 6+ years across agentic AI, AI security, LLMOps, Python, Go, TypeScript, Kubernetes, and cloud.";
 
+/** Cal.com event (Google Calendar sync, Google Meet link per booking). */
+export const BOOKING_URL = "https://cal.com/chanchalvdev/15min";
+
 /** Resolve a site-relative path to an absolute URL. */
 export function absoluteUrl(path = "/"): string {
   return new URL(path, SITE_URL).toString();

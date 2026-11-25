@@ -40,6 +40,11 @@ describe("parseContributionsHtml", () => {
     ]);
   });
 
+  it("keeps GitHub's own data-level shade per day", () => {
+    const html = [cell(0, 0, "2026-10-04"), tip(0, 0, "2 contributions on October 4th.")].join("");
+    expect(parseContributionsHtml(html)?.weeks[0].contributionDays[0].level).toBe(1);
+  });
+
   it("sums the days when the yearly heading is missing", () => {
     const html = [cell(0, 0, "2026-10-04"), tip(0, 0, "2 contributions on October 4th.")].join("");
     expect(parseContributionsHtml(html)?.total).toBe(2);

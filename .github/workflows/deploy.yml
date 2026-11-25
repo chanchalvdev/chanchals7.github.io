@@ -8,6 +8,10 @@ on:
   # Triggered remotely when a post is published from the admin panel
   # (via the trigger-deploy Supabase Edge Function)
   workflow_dispatch:
+  # The GitHub calendar and shipping feed are build-time snapshots; rebuild
+  # daily so they never drift more than a day behind the profile.
+  schedule:
+    - cron: "17 3 * * *"
 
 # One deploy at a time, in order. Without this, two merges in a row raced and
 # the older build finished last, putting stale content live. Queued runs are

@@ -21,9 +21,7 @@ async function loadContributions() {
   const token = process.env.GITHUB_TOKEN;
   if (token) {
     try {
-      const { data } = await fetchGitHubContributions({ username: githubActivity.username, token });
-      const calendar = data.user.contributionsCollection.contributionCalendar;
-      return { weeks: calendar.weeks, total: calendar.totalContributions };
+      return await fetchGitHubContributions({ username: githubActivity.username, token });
     } catch (err) {
       console.warn("GitHub GraphQL contributions unavailable, trying the public page:", err);
     }

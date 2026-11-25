@@ -2,6 +2,16 @@ export type GitHubContributionDay = {
   date: string;
   contributionCount: number;
   color: string;
+  /** GitHub's own 0–4 shade for the day (quartiles over the whole year). */
+  level?: number;
+};
+
+const LEVEL_BY_NAME: Record<string, number> = {
+  NONE: 0,
+  FIRST_QUARTILE: 1,
+  SECOND_QUARTILE: 2,
+  THIRD_QUARTILE: 3,
+  FOURTH_QUARTILE: 4,
 };
 
 export type GitHubContributionWeek = {
@@ -19,6 +29,7 @@ const CONTRIBUTIONS_QUERY = `
               date
               contributionCount
               color
+              contributionLevel
             }
           }
         }
@@ -47,22 +58,39 @@ export async function fetchGitHubContributions({
     next: { revalidate: 60 * 60 * 12 },
   });
 
+  // 401 here almost always means the GH_PAT secret expired; say so in the
+  // build log instead of a generic failure.
   if (!response.ok) {
-    throw new Error("Failed to fetch GitHub contributions");
+    throw new Error(`GitHub GraphQL ${response.status} ${response.statusText}`);
   }
 
-  return response.json() as Promise<{
-    data: {
+  const body = (await response.json()) as {
+    errors?: { message: string }[];
+    data?: {
       user: {
         contributionsCollection: {
           contributionCalendar: {
             totalContributions: number;
-            weeks: GitHubContributionWeek[];
+            weeks: { contributionDays: (GitHubContributionDay & { contributionLevel?: string })[] }[];
           };
         };
-      };
+      } | null;
     };
-  }>;
+  };
+  const calendar = body.data?.user?.contributionsCollection.contributionCalendar;
+  if (!calendar) {
+    throw new Error(`GitHub GraphQL returned no calendar: ${body.errors?.map((e) => e.message).join("; ") ?? "unknown"}`);
+  }
+
+  return {
+    total: calendar.totalContributions,
+    weeks: calendar.weeks.map((week) => ({
+      contributionDays: week.contributionDays.map(({ contributionLevel, ...day }) => ({
+        ...day,
+        level: contributionLevel ? LEVEL_BY_NAME[contributionLevel] : undefined,
+      })),
+    })),
+  } satisfies ContributionCalendar;
 }
 
 export type ContributionCalendar = { weeks: GitHubContributionWeek[]; total: number };
@@ -85,10 +113,16 @@ export function parseContributionsHtml(html: string): ContributionCalendar | nul
   for (const [cell] of html.matchAll(/<td\b[^>]*\bdata-date="[^"]+"[^>]*>/g)) {
     const id = cell.match(/\bid="(contribution-day-component-(\d+)-(\d+))"/);
     const date = cell.match(/\bdata-date="([^"]+)"/);
+    const shade = cell.match(/\bdata-level="(\d)"/);
     if (!id || !date) continue;
     const column = Number(id[3]);
     const days = columns.get(column) ?? [];
-    days.push({ date: date[1], contributionCount: counts.get(id[1]) ?? 0, color: "" });
+    days.push({
+      date: date[1],
+      contributionCount: counts.get(id[1]) ?? 0,
+      color: "",
+      level: shade ? Number(shade[1]) : undefined,
+    });
     columns.set(column, days);
   }
   if (columns.size === 0) return null;

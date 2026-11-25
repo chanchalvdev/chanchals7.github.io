@@ -1,4 +1,4 @@
-import type { GitHubContributionWeek } from "@/lib/github";
+import type { GitHubContributionDay, GitHubContributionWeek } from "@/lib/github";
 import type { ShipEvent } from "@/lib/shipping";
 import { BrandIcon } from "@/components/ui/brand-icon";
 
@@ -6,7 +6,11 @@ import { BrandIcon } from "@/components/ui/brand-icon";
 // read stronger); the empty cell uses the theme's muted token.
 const LEVELS = ["var(--muted)", "var(--gh-1)", "var(--gh-2)", "var(--gh-3)", "var(--gh-4)"];
 
-function level(count: number, max: number) {
+// Prefer GitHub's own shade (quartiles over the full year) so the tile matches
+// the profile; scale against the visible window only when it is missing.
+function level(day: GitHubContributionDay, max: number) {
+  if (day.level !== undefined) return day.level;
+  const count = day.contributionCount;
   if (count === 0) return 0;
   return Math.min(4, Math.ceil((count / Math.max(max, 1)) * 4));
 }
@@ -65,7 +69,7 @@ export function GitHubTile({
               <span
                 key={day.date}
                 className="aspect-square rounded-[3px]"
-                style={{ background: LEVELS[level(day.contributionCount, max)] }}
+                style={{ background: LEVELS[level(day, max)] }}
               />
             )),
           )}

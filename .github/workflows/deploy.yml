@@ -57,9 +57,9 @@ jobs:
           # Set the repo variable COMMENTS_ENABLED=true once the blog-comments
           # Edge Function and its migration are deployed.
           NEXT_PUBLIC_COMMENTS_ENABLED: ${{ vars.COMMENTS_ENABLED }}
-          # Set the repo variable GITHUB_LIVE_ENABLED=true once the
+          # Set the repo variable LIVE_GITHUB_GRAPH=true once the
           # github-contributions Edge Function is deployed with its token.
-          NEXT_PUBLIC_GITHUB_LIVE_ENABLED: ${{ vars.GITHUB_LIVE_ENABLED }}
+          NEXT_PUBLIC_GITHUB_LIVE_ENABLED: ${{ vars.LIVE_GITHUB_GRAPH }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
 
       - name: Upload artifact

@@ -11,7 +11,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.108.2",
+    "@supabase/supabase-js": "^2.119.2",
     "@tiptap/extension-image": "^3.27.3",
     "@tiptap/extension-table": "^3.27.3",
     "@tiptap/extension-task-item": "^3.27.3",

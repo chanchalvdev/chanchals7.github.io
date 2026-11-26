@@ -1,6 +1,10 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import type { GitHubContributionDay, GitHubContributionWeek } from "@/lib/github";
 import type { ShipEvent } from "@/lib/shipping";
 import { BrandIcon } from "@/components/ui/brand-icon";
+import { fetchLiveContributions } from "@/lib/github-live";
 
 // Lime ramp for the calendar (--gh-1…4 flip per theme so busier days always
 // read stronger); the empty cell uses the theme's muted token.
@@ -16,13 +20,14 @@ function level(day: GitHubContributionDay, max: number) {
 }
 
 /**
- * Build-time GitHub activity. Shows the last 26 weeks of the contribution
- * calendar when a token was available at build; otherwise falls back to the
- * latest merged PR so the tile never renders empty.
+ * GitHub activity: renders the build-time snapshot immediately, then swaps in
+ * the live calendar from the github-contributions Edge Function so the tile
+ * matches the profile between deploys. With no data at all it falls back to
+ * the latest merged PR so the tile never renders empty.
  */
 export function GitHubTile({
-  weeks,
-  total,
+  weeks: initialWeeks,
+  total: initialTotal,
   latest,
   href,
 }: {
@@ -31,6 +36,21 @@ export function GitHubTile({
   latest?: ShipEvent;
   href: string;
 }) {
+  const [calendar, setCalendar] = useState({ weeks: initialWeeks, total: initialTotal });
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetchLiveContributions(controller.signal)
+      .then((live) => {
+        if (live) setCalendar({ weeks: live.weeks, total: live.total });
+      })
+      .catch(() => {
+        // Function not deployed, offline or rate-limited — keep the snapshot.
+      });
+    return () => controller.abort();
+  }, []);
+
+  const { weeks, total } = calendar;
   const recent = weeks?.slice(-26) ?? [];
   const max = Math.max(0, ...recent.flatMap((week) => week.contributionDays.map((day) => day.contributionCount)));
 
